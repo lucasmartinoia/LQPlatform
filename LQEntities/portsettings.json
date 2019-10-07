@@ -1,0 +1,90 @@
+{
+  "ConnectionStrings": {
+    "ConnectionString": "Server=DCAOMSIIS51\\DESA1SQLEXPRESS;User Id={0};Password={1};Initial Catalog=INOM_InversionesF3;"
+  },
+  "ENVIRONMENT": "DESA",
+  "HOST": "http://locahost:",
+  "SERVER": "127.0.0.1",
+  "INOMCORE": "5000/api/",
+  "INOMMARKETFUNDS": "5030/api/",
+  "INOMSMARTROUTING": "5020/api/",
+  "INOMBACKOFFICE": "5010/api/",
+  "INOMMONITOR": "5040/api/",
+  "INOMRECEIPT": "5050/api/",
+  "INOMFEEMGT": "5060/api/",
+  "MONITORTIMMING": "2",
+  "HOURSDELAY": "4",
+  "MINUTESDELAY": "4",
+
+  "RABBITSERVICE": "RABBITMQ",
+
+  "RQ_INOM_ORD_SR_REQ": "RQ_INOM_ORD_SR_REQ",
+  "RQ_INOM_ORD_BO_REQ": "RQ_INOM_ORD_BO_REQ",
+  "RQ_INOM_ORD_MF_REQ": "RQ_INOM_ORD_MF_REQ",
+
+  "RQ_INOM_ORD_MF_RES": "RQ_INOM_ORD_MF_RES",
+  "RQ_INOM_ORD_SR_RES": "RQ_INOM_ORD_SR_RES",
+  "RQ_INOM_ORD_CO_RES": "RQ_INOM_ORD_CO_RES",
+
+  "RQ_INOM_INS_SR_REQ": "RQ_INOM_INS_SR_REQ",
+  "RQ_INOM_INS_MF_REQ": "RQ_INOM_INS_MF_REQ",
+  "RQ_INOM_INS_BO_REQ": "RQ_INOM_INS_BO_REQ",
+
+  "RQ_INOM_INS_MF_RES": "RQ_INOM_INS_MF_RES",
+  "RQ_INOM_INS_SR_RES": "RQ_INOM_INS_SR_RES",
+  "RQ_INOM_INS_CO_RES": "RQ_INOM_INS_CO_RES",
+
+  "RQ_INOM_FEESETL_BO_REQ": "RQ_INOM_FEESETL_BO_REQ",
+
+  "SCHEDULER_TIMER_SCHEDULED_ORDERS": 60, // Segundos
+  "SCHEDULER_TIMER_GET_FUNDS": 30, // Minutos
+  "SCHEDULER_TIMER_GENERATE_RECEIPTS": 60, // Segundos
+  "POLICYSYSTEMWCF": "http://10.0.56.19:80/CalypsoPolicySystemWeb/sca/policySystemExport1",
+  "POLICYSYSTEMCANCELORDERWCF": "http://10.0.56.19:80/CalypsoPolicySystemWeb/sca/AnulacionOrdenFIMAExport1",
+  "POLICYSYSTEMBUSWCF": "http://10.0.58.174:8003/administracionfondosinversion/anonimo",
+  "SAP_PRENOTE": "http://10.0.58.174:8003/managebankaccountprenote/anonimo",
+  "URL_ITEX_GEN_COMPROBANTE": "http://desaosb:8003/accionesformulario/anonimo?wsdl",
+  "FEED_BT_UPDATE": "http://desaosb2:8001/accionescanalesalternativos/v2/anonimo",
+
+
+  // *****  INOMCore ******
+  "CALYPSOINSTRUMENTBOND": "http://icaretapp01:5555/consultas-especies/productos/recuperar-productos-bonos-detallado",
+  "CALYPSOINSTRUMENTEQUITY": "http://icaretapp01:5555/consultas-especies/productos/recuperar-productos-equity-detallado",
+  "CALYPSOCATALOGINSTRUMENTS": "http://dcaretapp01:5555/consultas-fondos/consultas/fondos",
+
+
+  "CALYPSOCONSULTCLAUSES": "http://dcaretapp01:5555/consultas-clausulas/consultas/clausulas",
+  "CALYPSOCONSULTSIMPLETRANSFERS": "http://dcaretapp01:5555/consultas-simple-transfers/simple-transfers/consulta/operacion",
+  "CALYPSO_CALENDAR": "http://dcaretapp01:5555/consultas-calendarios/calendarios",
+  "CALYPSO_CALENDAR_HOLIDAY": "http://dcaretapp01:5555/consultas-calendarios/feriados-por-calendario",
+
+  "BALANCETENANCYBUSWCF": "http://10.0.58.174:8003/consultafondosinversion/anonimo",
+  "SaveFile": "1",
+  "LogFile": "/Logs/log-{Date}.txt",
+  "LogFileMonitor": "/Logs/log-{Date}.txt",
+
+  "AMQP_TRADES_ADDRESS": "amqp://DWMQ02:5672",
+  "AMQP_TRADES_CONTAINER_ID": "amqpClientOMSDESA",
+  "AMQP_TRADES_TOPIC_SEND": "OMS/SEND",
+  "AMQP_TRADES_TARGET_SEND": "OMS/SEND",
+  "AMQP_TRADES_TOPIC_RECEIVE": "OMS/RECEIVE",
+  "AMQP_TRADES_TARGET_RECEIVE": "OMS/RECEIVE",
+
+  "INOMCORE_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMCore\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomCore.bat",
+  "INOMMARKETFUNDS_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMMarketFunds\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomMarketFunds.bat",
+  "INOMSMARTROUTING_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMSmartRouting\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomSmartRouting.bat",
+  "INOMBACKOFFICE_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMBackOffice\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomBackOffice.bat",
+  "INOMRECEIPT_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMReceipt\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomReceipt.bat",
+  "INOMFEEMGT_BAT": "C:\\svn\\INOM\\source\\trunk\\INOMFeeMgt\\bin\\Debug\\netcoreapp2.0\\publish\\Startup_InomFeeMgt.bat",
+
+  "AVAILABLE_SERVERS": "SERVER1,dcaomsiis51,dcaomsiis52",
+
+  "LOCAL_MONITOR": "true",
+  "REMOTE_MONITOR": "true",
+  "VERIFY_PENDING": "true",
+  "URL_MONITOR_GETSTATUS": "http://{0}:5040/api/monitor/getstatus",
+  "TIME_SHIFT_GET_FUNDS": "0", // Minutos
+  "TIME_SHIFT_SCHEDULED_ORDERS": "40", // Segundos
+  "TIME_SHIFT_GENERATE_RECEIPTS": "40", // Segundos
+  "TIME_MAX_DELAY_PROCESS_CALYPSO_RESPONSE": "40"
+}

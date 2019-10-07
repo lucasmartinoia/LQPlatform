@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.0</RuntimeFrameworkVersion>
+
+    <RootNamespace>INOM.Entities</RootNamespace>
+
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="CalendarVerifyDate.cs" />
+    <Compile Remove="CalendarVerifyDateSearch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Http.Extensions" Version="1.0.1" />
+    <PackageReference Include="EntityFrameworkCore.RawSQLExtensions" Version="1.0.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="Z.EntityFramework.Plus.Audit.EFCore" Version="1.8.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\INOMSupport\INOMSupport.csproj" />
+  </ItemGroup>
+</Project>

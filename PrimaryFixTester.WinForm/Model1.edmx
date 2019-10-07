@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="INOM_InversionesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BymaTradeCaptureReport">
+          <Key>
+            <PropertyRef Name="BymaTradeCaptureReportID" />
+          </Key>
+          <Property Name="BymaTradeCaptureReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MsgType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="5" />
+          <Property Name="IDSource" Type="char" MaxLength="1" />
+          <Property Name="LastPx" Type="float" />
+          <Property Name="LastShares" Type="int" />
+          <Property Name="SecurityID" Type="nchar" MaxLength="10" />
+          <Property Name="Symbol" Type="nvarchar(max)" />
+          <Property Name="TransactTime" Type="datetime2" Precision="7" />
+          <Property Name="SettlmntTyp" Type="char" MaxLength="1" />
+          <Property Name="FutSettDate" Type="nchar" MaxLength="10" />
+          <Property Name="ExecType" Type="char" MaxLength="1" />
+          <Property Name="SecurityType" Type="char" MaxLength="1" />
+          <Property Name="GrossTradeAmt" Type="nchar" MaxLength="10" />
+          <Property Name="PriceType" Type="char" MaxLength="1" />
+          <Property Name="MultiLegReportingType" Type="char" MaxLength="1" />
+          <Property Name="TradeReportTransType" Type="char" MaxLength="1" />
+          <Property Name="TradeReportID" Type="nchar" MaxLength="10" />
+          <Property Name="MatchStatus" Type="char" MaxLength="1" />
+          <Property Name="MatchType" Type="char" MaxLength="1" />
+          <Property Name="TradeLinkID" Type="nchar" MaxLength="10" />
+          <Property Name="TrdType" Type="char" MaxLength="1" />
+          <Property Name="TradeReportType" Type="char" MaxLength="1" />
+          <Property Name="TradeID" Type="nchar" MaxLength="10" />
+          <Property Name="SecondaryTradeID" Type="nchar" MaxLength="10" />
+          <Property Name="LotType" Type="char" MaxLength="1" />
+          <Property Name="TradeHandlingInstr" Type="char" MaxLength="1" />
+          <Property Name="ApplID" Type="nchar" MaxLength="10" />
+          <Property Name="ApplSeqNum" Type="nchar" MaxLength="10" />
+          <Property Name="ProductComplex" Type="nchar" MaxLength="10" />
+          <Property Name="ApplLastSeqNum" Type="nchar" MaxLength="10" />
+          <Property Name="ApplResendFlag" Type="nchar" MaxLength="10" />
+          <Property Name="NumericOrderID" Type="nchar" MaxLength="10" />
+          <Property Name="PriceSetter" Type="nchar" MaxLength="10" />
+          <Property Name="NoSides" Type="char" MaxLength="1" />
+          <Property Name="Side" Type="char" MaxLength="1" />
+          <Property Name="OrderID" Type="nchar" MaxLength="10" />
+          <Property Name="ClOrdID" Type="nchar" MaxLength="10" />
+          <Property Name="Account" Type="nchar" MaxLength="10" />
+          <Property Name="AccountType" Type="char" MaxLength="1" />
+          <Property Name="OrderCapacity" Type="char" MaxLength="1" />
+          <Property Name="NetMoney" Type="nchar" MaxLength="10" />
+          <Property Name="OrderCategory" Type="char" MaxLength="1" />
+          <Property Name="SideExecID" Type="nchar" MaxLength="10" />
+          <Property Name="SideLiquidityInd" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityContainer Name="INOM_InversionesModelStoreContainer">
+          <EntitySet Name="BymaTradeCaptureReport" EntityType="Self.BymaTradeCaptureReport" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="INOM_InversionesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="INOM_Inversiones" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BymaTrades" EntityType="INOM_InversionesModel.BymaTrades" />
+          <EntitySet Name="BymaTradeCaptureReport" EntityType="INOM_InversionesModel.BymaTradeCaptureReport" />
+        </EntityContainer>
+        <EntityType Name="BymaTrades">
+          <Key>
+            <PropertyRef Name="MarketTradeID" />
+          </Key>
+          <Property Name="MarketTradeID" Type="Int32" Nullable="false" />
+          <Property Name="MarketOrderID" Type="Int32" Nullable="false" />
+          <Property Name="BymaOrderID" Type="Int32" Nullable="false" />
+          <Property Name="MsgType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ApplID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClOrdID" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="true" />
+          <Property Name="MDEntryID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrigClOrdID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MultiLegReportingType" Type="Int32" />
+          <Property Name="SecondaryOrderID" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ExecType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TrdMatchID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecRefID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecRestatementReason" Type="Int32" />
+          <Property Name="OrdStatus" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingIndicator" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="OrdRejReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastQty" Type="Int32" />
+          <Property Name="LastPx" Type="Double" />
+          <Property Name="LastParPx" Type="Double" />
+          <Property Name="Yield" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccruedInterestAmt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LeavesQty" Type="Int32" Nullable="false" />
+          <Property Name="CumQty" Type="Int32" Nullable="false" />
+          <Property Name="AvgPx" Type="Double" />
+          <Property Name="Symbol" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityType" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Currency" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ParPx" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConvertedYield" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderBook" Type="Int32" Nullable="false" />
+          <Property Name="NoPartyIDs" Type="Int32" />
+          <Property Name="PartyID" Type="Int32" />
+          <Property Name="PartyIDSource" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="PartyRole" Type="Int32" />
+          <Property Name="Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountType" Type="Int32" />
+          <Property Name="OrdType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TimeForce" Type="Int32" />
+          <Property Name="ExpireTime" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="7" />
+          <Property Name="NoTradingSessions" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TradingSessionID" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ExecInst" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Side" Type="Int32" Nullable="false" />
+          <Property Name="OrderQty" Type="Int32" Nullable="false" />
+          <Property Name="DisplayQty" Type="Int32" />
+          <Property Name="DisplayMethod" Type="Int32" />
+          <Property Name="MinQty" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="StopPx" Type="Double" />
+          <Property Name="PegOffsetValue" Type="Int32" />
+          <Property Name="PreTradeAnonymity" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="OrderCapacity" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ClOrdLinkID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TransactTime" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="SettlType" Type="Int32" />
+          <Property Name="SettlDate" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="PriceSetter" Type="Boolean" Nullable="false" />
+          <Property Name="NumericOrderID" Type="Int32" Nullable="false" />
+          <Property Name="RFQID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="SecondaryTradeID" Type="Int32" Nullable="false" />
+          <Property Name="SecurityID" Type="Int32" Nullable="false" />
+          <Property Name="SecurityIDSource" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TradeFlag" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="TimeInForce" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BymaTradeCaptureReport">
+          <Key>
+            <PropertyRef Name="BymaTradeCaptureReportID" />
+          </Key>
+          <Property Name="BymaTradeCaptureReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MsgType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="IDSource" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="LastPx" Type="Double" />
+          <Property Name="LastShares" Type="Int32" />
+          <Property Name="SecurityID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Symbol" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TransactTime" Type="DateTime" Precision="7" />
+          <Property Name="SettlmntTyp" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FutSettDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ExecType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SecurityType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="GrossTradeAmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PriceType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="MultiLegReportingType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeReportTransType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeReportID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MatchStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="MatchType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeLinkID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TrdType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeReportType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SecondaryTradeID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LotType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TradeHandlingInstr" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ApplID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApplSeqNum" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ProductComplex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApplLastSeqNum" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApplResendFlag" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NumericOrderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PriceSetter" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NoSides" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Side" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClOrdID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Account" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AccountType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OrderCapacity" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NetMoney" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OrderCategory" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SideExecID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SideLiquidityInd" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="INOM_InversionesModelStoreContainer" CdmEntityContainer="INOM_Inversiones">
+        <EntitySetMapping Name="BymaTradeCaptureReport">
+            <EntityTypeMapping TypeName="INOM_InversionesModel.BymaTradeCaptureReport">
+              <MappingFragment StoreEntitySet="BymaTradeCaptureReport">
+                <ScalarProperty Name="SideLiquidityInd" ColumnName="SideLiquidityInd" />
+                <ScalarProperty Name="SideExecID" ColumnName="SideExecID" />
+                <ScalarProperty Name="OrderCategory" ColumnName="OrderCategory" />
+                <ScalarProperty Name="NetMoney" ColumnName="NetMoney" />
+                <ScalarProperty Name="OrderCapacity" ColumnName="OrderCapacity" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ClOrdID" ColumnName="ClOrdID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Side" ColumnName="Side" />
+                <ScalarProperty Name="NoSides" ColumnName="NoSides" />
+                <ScalarProperty Name="PriceSetter" ColumnName="PriceSetter" />
+                <ScalarProperty Name="NumericOrderID" ColumnName="NumericOrderID" />
+                <ScalarProperty Name="ApplResendFlag" ColumnName="ApplResendFlag" />
+                <ScalarProperty Name="ApplLastSeqNum" ColumnName="ApplLastSeqNum" />
+                <ScalarProperty Name="ProductComplex" ColumnName="ProductComplex" />
+                <ScalarProperty Name="ApplSeqNum" ColumnName="ApplSeqNum" />
+                <ScalarProperty Name="ApplID" ColumnName="ApplID" />
+                <ScalarProperty Name="TradeHandlingInstr" ColumnName="TradeHandlingInstr" />
+                <ScalarProperty Name="LotType" ColumnName="LotType" />
+                <ScalarProperty Name="SecondaryTradeID" ColumnName="SecondaryTradeID" />
+                <ScalarProperty Name="TradeID" ColumnName="TradeID" />
+                <ScalarProperty Name="TradeReportType" ColumnName="TradeReportType" />
+                <ScalarProperty Name="TrdType" ColumnName="TrdType" />
+                <ScalarProperty Name="TradeLinkID" ColumnName="TradeLinkID" />
+                <ScalarProperty Name="MatchType" ColumnName="MatchType" />
+                <ScalarProperty Name="MatchStatus" ColumnName="MatchStatus" />
+                <ScalarProperty Name="TradeReportID" ColumnName="TradeReportID" />
+                <ScalarProperty Name="TradeReportTransType" ColumnName="TradeReportTransType" />
+                <ScalarProperty Name="MultiLegReportingType" ColumnName="MultiLegReportingType" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="GrossTradeAmt" ColumnName="GrossTradeAmt" />
+                <ScalarProperty Name="SecurityType" ColumnName="SecurityType" />
+                <ScalarProperty Name="ExecType" ColumnName="ExecType" />
+                <ScalarProperty Name="FutSettDate" ColumnName="FutSettDate" />
+                <ScalarProperty Name="SettlmntTyp" ColumnName="SettlmntTyp" />
+                <ScalarProperty Name="TransactTime" ColumnName="TransactTime" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="SecurityID" ColumnName="SecurityID" />
+                <ScalarProperty Name="LastShares" ColumnName="LastShares" />
+                <ScalarProperty Name="LastPx" ColumnName="LastPx" />
+                <ScalarProperty Name="IDSource" ColumnName="IDSource" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+                <ScalarProperty Name="BymaTradeCaptureReportID" ColumnName="BymaTradeCaptureReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

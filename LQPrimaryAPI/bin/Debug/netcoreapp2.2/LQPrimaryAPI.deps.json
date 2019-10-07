@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {
+      "LQPrimaryAPI/1.0.0": {
+        "dependencies": {
+          "QuickFix": "1.8.0",
+          "QuickFix.FIX50SP2": "1.8.0"
+        },
+        "runtime": {
+          "LQPrimaryAPI.dll": {}
+        }
+      },
+      "QuickFix/1.8.0": {
+        "runtime": {
+          "QuickFix.dll": {}
+        }
+      },
+      "QuickFix.FIX50SP2/1.8.0": {
+        "dependencies": {
+          "QuickFix": "1.8.0"
+        },
+        "runtime": {
+          "QuickFix.FIX50SP2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LQPrimaryAPI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuickFix/1.8.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuickFix.FIX50SP2/1.8.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

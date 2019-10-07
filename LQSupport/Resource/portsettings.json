@@ -1,0 +1,10 @@
+{
+  "ConnectionStrings": {
+    "ConnectionString": "Server=AD_INOM_OMSInversiones,4000;User Id=usr_inom;Password=inom_desa;Initial Catalog=INOM_Inversiones;"
+  },
+  "PORT": "http://localhost:",
+  "INOMCORE": "5000/api/",
+  "INOMMARKETFIRMA": "",
+  "INOMSMARTROUTING": "5020/api/",
+  "INOMBACKOFFICE": "5010/api/"
+}

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="INOM_InversionesModelStoreContainer" CdmEntityContainer="INOM_Inversiones">
+    <EntitySetMapping Name="BymaTradeCaptureReport">
+      <EntityTypeMapping TypeName="INOM_InversionesModel.BymaTradeCaptureReport">
+        <MappingFragment StoreEntitySet="BymaTradeCaptureReport">
+          <ScalarProperty Name="SideLiquidityInd" ColumnName="SideLiquidityInd" />
+          <ScalarProperty Name="SideExecID" ColumnName="SideExecID" />
+          <ScalarProperty Name="OrderCategory" ColumnName="OrderCategory" />
+          <ScalarProperty Name="NetMoney" ColumnName="NetMoney" />
+          <ScalarProperty Name="OrderCapacity" ColumnName="OrderCapacity" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="ClOrdID" ColumnName="ClOrdID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Side" ColumnName="Side" />
+          <ScalarProperty Name="NoSides" ColumnName="NoSides" />
+          <ScalarProperty Name="PriceSetter" ColumnName="PriceSetter" />
+          <ScalarProperty Name="NumericOrderID" ColumnName="NumericOrderID" />
+          <ScalarProperty Name="ApplResendFlag" ColumnName="ApplResendFlag" />
+          <ScalarProperty Name="ApplLastSeqNum" ColumnName="ApplLastSeqNum" />
+          <ScalarProperty Name="ProductComplex" ColumnName="ProductComplex" />
+          <ScalarProperty Name="ApplSeqNum" ColumnName="ApplSeqNum" />
+          <ScalarProperty Name="ApplID" ColumnName="ApplID" />
+          <ScalarProperty Name="TradeHandlingInstr" ColumnName="TradeHandlingInstr" />
+          <ScalarProperty Name="LotType" ColumnName="LotType" />
+          <ScalarProperty Name="SecondaryTradeID" ColumnName="SecondaryTradeID" />
+          <ScalarProperty Name="TradeID" ColumnName="TradeID" />
+          <ScalarProperty Name="TradeReportType" ColumnName="TradeReportType" />
+          <ScalarProperty Name="TrdType" ColumnName="TrdType" />
+          <ScalarProperty Name="TradeLinkID" ColumnName="TradeLinkID" />
+          <ScalarProperty Name="MatchType" ColumnName="MatchType" />
+          <ScalarProperty Name="MatchStatus" ColumnName="MatchStatus" />
+          <ScalarProperty Name="TradeReportID" ColumnName="TradeReportID" />
+          <ScalarProperty Name="TradeReportTransType" ColumnName="TradeReportTransType" />
+          <ScalarProperty Name="MultiLegReportingType" ColumnName="MultiLegReportingType" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="GrossTradeAmt" ColumnName="GrossTradeAmt" />
+          <ScalarProperty Name="SecurityType" ColumnName="SecurityType" />
+          <ScalarProperty Name="ExecType" ColumnName="ExecType" />
+          <ScalarProperty Name="FutSettDate" ColumnName="FutSettDate" />
+          <ScalarProperty Name="SettlmntTyp" ColumnName="SettlmntTyp" />
+          <ScalarProperty Name="TransactTime" ColumnName="TransactTime" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+          <ScalarProperty Name="SecurityID" ColumnName="SecurityID" />
+          <ScalarProperty Name="LastShares" ColumnName="LastShares" />
+          <ScalarProperty Name="LastPx" ColumnName="LastPx" />
+          <ScalarProperty Name="IDSource" ColumnName="IDSource" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+          <ScalarProperty Name="BymaTradeCaptureReportID" ColumnName="BymaTradeCaptureReportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

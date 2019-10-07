@@ -1,0 +1,4 @@
+E:\devs\LatamQuants\PrimaryAPIFixTester\Testing\obj\Debug\netcoreapp2.2\Testing.csprojAssemblyReference.cache
+E:\devs\LatamQuants\PrimaryAPIFixTester\Testing\obj\Debug\netcoreapp2.2\Testing.csproj.CoreCompileInputs.cache
+E:\devs\LatamQuants\PrimaryAPIFixTester\Testing\obj\Debug\netcoreapp2.2\Testing.AssemblyInfoInputs.cache
+E:\devs\LatamQuants\PrimaryAPIFixTester\Testing\obj\Debug\netcoreapp2.2\Testing.AssemblyInfo.cs
