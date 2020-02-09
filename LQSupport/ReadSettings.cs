@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace LQ.Support.Config
+namespace LatamQuants.Support.Config
 {
 
     //public static class EmbeddedResource

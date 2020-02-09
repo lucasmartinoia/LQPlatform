@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 
-namespace LQ.Support.Config
+namespace LatamQuants.Support
 {
 
     public static class CommWebApi

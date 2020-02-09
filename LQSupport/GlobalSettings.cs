@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace LQ.Support
+namespace LatamQuants.Support
 {
     public static class GlobalSettings
     {

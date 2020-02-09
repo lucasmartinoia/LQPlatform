@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace LQ.Support.Config
+namespace LatamQuants.Support.Config
 {
     public static class HttpContentExtensions
     {

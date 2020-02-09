@@ -4,7 +4,7 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 
-namespace LQ.Support.Config
+namespace LatamQuants.Support.Config
 {
     public class MessageReceivedArgs : EventArgs
     {

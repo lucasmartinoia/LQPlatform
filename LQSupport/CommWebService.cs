@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace LQ.Support
+namespace LatamQuants.Support
 {
     public static class CommWebService
     {

@@ -1,7 +1,7 @@
 ﻿using INOMSupport.Resources;
 using System.Resources;
 
-namespace LQ.Support
+namespace LatamQuants.Support
 {
     public enum EnumLogType
     {

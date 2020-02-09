@@ -2,7 +2,7 @@
 
 using System;
 
-namespace LQ.Support
+namespace LatamQuants.Support
 {
     public static class LoggingService
     {
