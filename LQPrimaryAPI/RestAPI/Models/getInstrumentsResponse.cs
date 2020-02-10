@@ -6,12 +6,6 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public static class getInstrumentsResponse
     {
-        public class InstrumentId
-        {
-            public string marketId { get; set; }
-            public string symbol { get; set; }
-        }
-
         public class Instrument
         {
             public InstrumentId instrumentId { get; set; }
@@ -21,6 +15,8 @@ namespace LatamQuants.PrimaryAPI.Models
         public class RootObject
         {
             public string status { get; set; }
+            public string message { get; set; }
+            public string description { get; set; }
             public List<Instrument> instruments { get; set; }
         }
     }

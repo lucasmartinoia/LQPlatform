@@ -163,5 +163,72 @@ namespace LatamQuants.PrimaryAPI
 
             return oReturn;
         }
+
+        public static Models.getInstrumentsByCFICodeResponse.RootObject getInstrumentsByCFICode(string pCFICode)
+        {
+            Models.getInstrumentsByCFICodeResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstrumentsByCFICode);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+            request.AddParameter("CFICode", pCFICode);
+
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsByCFICodeResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getInstrumentsBySegmentResponse.RootObject getInstrumentsBySegment(string pMarketSegmentID, string pMarketID)
+        {
+            Models.getInstrumentsBySegmentResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstrumentsBySegment);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+            request.AddParameter("MarketSegmentID", pMarketSegmentID);
+            request.AddParameter("MarketID", pMarketID);
+
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsBySegmentResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
     }
 }

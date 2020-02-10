@@ -18,6 +18,8 @@ namespace LatamQuants.PrimaryAPI.Models
         public class RootObject
         {
             public string status { get; set; }
+            public string message { get; set; }
+            public string description { get; set; }
             public string symbol { get; set; }
             public string market { get; set; }
             public List<Trade> trades { get; set; }

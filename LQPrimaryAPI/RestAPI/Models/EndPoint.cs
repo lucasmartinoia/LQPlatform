@@ -7,15 +7,15 @@ namespace LatamQuants.PrimaryAPI.Models
     class EndPoint
     {
         public const string baseURL = "http://api.remarkets.primary.com.ar";
-        public const string getToken = "/auth/getToken";
-        public const string removeToken = "/auth/removeToken";
-        public const string getSegments = "/rest/segment/all";
-        public const string getInstruments = "/rest/instruments/all";
-        public const string getInstrumentsDetails = "/rest/instruments/details";
-        public const string getOneInstrumentDetails = "/rest/instruments/detail?";
+        public const string getToken = "/auth/getToken"; //OK
+        public const string removeToken = "/auth/removeToken"; //OK
+        public const string getSegments = "/rest/segment/all"; //OK
+        public const string getInstruments = "/rest/instruments/all"; //OK
+        public const string getInstrumentsDetails = "/rest/instruments/details"; //OK
+        public const string getOneInstrumentDetails = "/rest/instruments/detail?"; //OK
         
         // TODO: TO IMPLEMENT
-        public const string getInstrumentsByCFICode = "/rest/instruments/byCFICode?";
+        public const string getInstrumentsByCFICode = "/rest/instruments/byCFICode?"; //OK
         public const string getInstrumentsBySegment = "/rest/instruments/bySegment?";
         public const string getOrdersActive = "/rest/order/actives?";
         public const string getOrdersFilled = "/rest/order/filleds?";
