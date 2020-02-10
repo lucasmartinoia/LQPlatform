@@ -4,7 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.ServiceProcess;
+using System.Text;
 using System.Threading.Tasks;
+
 
 namespace LatamQuants.Support
 {
@@ -28,21 +30,21 @@ namespace LatamQuants.Support
             return value;
         }
 
-        public static R Send<T, R>(string url, T param, ref string output)
+        public static R Send<T, R>(string url, T param, ref object output)
         {
             HttpClient client = new HttpClient();
             R value = default(R);
-          //  client.Timeout = TimeSpan.FromMilliseconds(10);
+            // client.Timeout = TimeSpan.FromMilliseconds(10);
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
-            output = response.Content.ReadAsStringAsync().Result.ToString();
+            output = response; //.Content.ReadAsStringAsync().Result.ToString();
             value = response.Content.ReadAsJsonAsync<R>().Result;
             return value;
         }
 
-        public static R SendGet<T, R>(string url, T param, ref string output)
+        public static R Send<T, R>(string url, T param, Authentication oAuth, ref object output)
         {
             HttpClient client = new HttpClient();
             R value = default(R);
@@ -51,12 +53,20 @@ namespace LatamQuants.Support
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
-            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (oAuth.Mode == Authentication.AuthenticationMode.Basic)
+            {
+                string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(oAuth.User + ":" + oAuth.Password));
+                client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+            }
+            else if (oAuth.Mode == Authentication.AuthenticationMode.Token)
+            {
+                client.DefaultRequestHeaders.Add(oAuth.TokenKey, oAuth.TokenValue);
+            }
 
-            output = response.Content.ReadAsStringAsync().Result.ToString();
+            HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
+
+            output = response; //.Content.ReadAsStringAsync().Result.ToString();
             value = response.Content.ReadAsJsonAsync<R>().Result;
-
             return value;
         }
 
@@ -69,10 +79,66 @@ namespace LatamQuants.Support
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             output = response.Content.ReadAsStringAsync().Result.ToString();
+            value = response.Content.ReadAsJsonAsync<R>().Result;
+
+            return value;
+        }
+
+        public static R SendGet<R>(string url, Authentication oAuth, ref object output)
+        {
+            HttpClient client = new HttpClient();
+            R value = default(R);
+
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            if (oAuth.Mode == Authentication.AuthenticationMode.Basic)
+            {
+                string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(oAuth.User + ":" + oAuth.Password));
+                client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+            }
+            else if(oAuth.Mode == Authentication.AuthenticationMode.Token)
+            {
+                client.DefaultRequestHeaders.Add(oAuth.TokenKey, oAuth.TokenValue);
+            }
+
+            //HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            output = response;
+            value = response.Content.ReadAsJsonAsync<R>().Result;
+
+            return value;
+        }
+
+        public static R SendPut<R>(string url, Authentication oAuth, ref object output)
+        {
+            HttpClient client = new HttpClient();
+            R value = default(R);
+
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            if (oAuth.Mode == Authentication.AuthenticationMode.Basic)
+            {
+                string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(oAuth.User + ":" + oAuth.Password));
+                client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+            }
+            else if (oAuth.Mode == Authentication.AuthenticationMode.Token)
+            {
+                client.DefaultRequestHeaders.Add(oAuth.TokenKey, oAuth.TokenValue);
+            }
+
+            var httpContent = new StringContent("", Encoding.UTF8, "application/json");
+            //HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
+            HttpResponseMessage response = client.PutAsync(url, httpContent).Result;
+
+            output = response; //.Content.ReadAsStringAsync().Result.ToString();
             value = response.Content.ReadAsJsonAsync<R>().Result;
 
             return value;
@@ -101,7 +167,7 @@ namespace LatamQuants.Support
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-             HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
+            HttpResponseMessage response = client.PostAsJsonAsync(url, param).Result;
         }
         public static void SendAsync(string url, int ObjectID)
         {
@@ -113,22 +179,22 @@ namespace LatamQuants.Support
             HttpResponseMessage response = client.PostAsJsonAsync(url, ObjectID).Result;
         }
 
-        public static bool PortOpen(int port)
+        public static bool? PortOpen(int port)
         {
-           
+
             bool open = false;
+            if (port == 0)
+                return null;
             try
             {
-
-
                 //tc.Connect(< server ipaddress >, < port number >);
                 string hostname = GlobalSettings.Server;//   "127.0.0.1";
                 IPAddress ipa = (IPAddress)Dns.GetHostAddresses(hostname)[0];
-                    System.Net.Sockets.Socket sock = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
-                    sock.Connect(ipa, port);
-                    if (sock.Connected == true)  // Port is in use and connection is successful
-                        open = true;
-                    sock.Close();
+                System.Net.Sockets.Socket sock = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
+                sock.Connect(ipa, port);
+                if (sock.Connected == true)  // Port is in use and connection is successful
+                    open = true;
+                sock.Close();
 
                 return open;
             }
@@ -163,7 +229,7 @@ namespace LatamQuants.Support
         public class ResponseObject
         {
             public int ObjectID { get; set; }
-            public string Status { get; set; }
+            //   public int ObjectID2 { get; set; }
             public string ErrorCode { get; set; }
             public string ErrorDescription { get; set; }
             public string Action { get; set; }
