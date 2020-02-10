@@ -13,6 +13,8 @@ namespace LatamQuants.PrimaryAPI.Models
         public const string getInstruments = "/rest/instruments/all";
         public const string getInstrumentsDetails = "/rest/instruments/details";
         public const string getOneInstrumentDetails = "/rest/instruments/detail?";
+        
+        // TODO: TO IMPLEMENT
         public const string getInstrumentsByCFICode = "/rest/instruments/byCFICode?";
         public const string getInstrumentsBySegment = "/rest/instruments/bySegment?";
         public const string getOrdersActive = "/rest/order/actives?";
