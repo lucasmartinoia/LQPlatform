@@ -88,7 +88,31 @@ namespace Testing
 
             Assert.IsTrue(bResult);
 
-            LatamQuants.PrimaryAPI.Models.getInstrumentsBySegmentResponse.RootObject oResponse = RestAPI.getInstrumentsBySegment("DDA", "ROFX");
+            LatamQuants.PrimaryAPI.Models.getInstrumentsBySegmentResponse.RootObject oResponse = RestAPI.GetInstrumentsBySegment("DDA", "ROFX");
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void getCurrencies()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getCurrenciesResponse.RootObject oResponse = RestAPI.GetCurrencies();
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void getAccountReport()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.RootObject oResponse = RestAPI.GetAccountReport("REM1545");
 
             Assert.IsTrue(true);
         }

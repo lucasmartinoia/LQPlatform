@@ -6,33 +6,15 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public static class getMarketDataInstrumentRealTimeResponse
     {
-        public class LA
-        {
-            public double price { get; set; }
-            public int size { get; set; }
-        }
-
-        public class BI
-        {
-            public double price { get; set; }
-            public int size { get; set; }
-        }
-
-        public class OF
-        {
-            public double price { get; set; }
-            public int size { get; set; }
-        }
-
         public class MarketData
         {
-            public LA LA { get; set; }
-            public object SE { get; set; }
-            public List<BI> BI { get; set; }
-            public object OI { get; set; }
-            public List<OF> OF { get; set; }
-            public double OP { get; set; }
-            public object CL { get; set; }
+            public Trade LA { get; set; }
+            public Trade SE { get; set; }
+            public List<Trade> BI { get; set; }
+            public Trade OI { get; set; }
+            public List<Trade> OF { get; set; }
+            public Trade OP { get; set; }
+            public Trade CL { get; set; }
         }
 
         public class RootObject

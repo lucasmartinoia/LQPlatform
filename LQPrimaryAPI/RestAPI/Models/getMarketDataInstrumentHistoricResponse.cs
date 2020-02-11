@@ -6,15 +6,6 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public static class getMarketDataInstrumentHistoricResponse
     {
-        public class Trade
-        {
-            public double price { get; set; }
-            public int size { get; set; }
-            public string datetime { get; set; }
-            public object servertime { get; set; }
-            public string symbol { get; set; }
-        }
-
         public class RootObject
         {
             public string status { get; set; }

@@ -9,36 +9,36 @@ namespace LatamQuants.PrimaryAPI.Models
     {
         public class DetailedCash
         {
-            public decimal EUR { get; set; }
-            public decimal ARS { get; set; }
+            public double EUR { get; set; }
+            public double ARS { get; set; }
             [JsonProperty("ARS BCRA")]
-            public decimal ARS_BCRA { get; set; }
+            public double ARS_BCRA { get; set; }
             [JsonProperty("USD G")]
-            public decimal USD_G { get; set; }
+            public double USD_G { get; set; }
             [JsonProperty("U$S")]
-            public decimal USS { get; set; }
+            public double USS { get; set; }
             [JsonProperty("USD D")]
-            public decimal USD_D { get; set; }
+            public double USD_D { get; set; }
             [JsonProperty("USD R")]
-            public decimal USD_R { get; set; }
+            public double USD_R { get; set; }
             [JsonProperty("USD C")]
-            public decimal USD_C { get; set; }
+            public double USD_C { get; set; }
         }
 
         public class Cash
         {
-            public decimal totalCash { get; set; }
+            public double totalCash { get; set; }
             public DetailedCash detailedCash { get; set; }
         }
 
         public class AccountValue
         {
             public Cash cash { get; set; }
-            public decimal dailyDiff { get; set; }
-            public decimal movements { get; set; }
-            public decimal portfolio { get; set; }
-            public decimal credit { get; set; }
-            public decimal total { get; set; }
+            public double dailyDiff { get; set; }
+            public double movements { get; set; }
+            public double portfolio { get; set; }
+            public double credit { get; set; }
+            public double total { get; set; }
         }
 
         public class DetailedCurrencyBalance
@@ -62,8 +62,8 @@ namespace LatamQuants.PrimaryAPI.Models
 
         public class CurrencyDetailedBalance
         {
-            public decimal consumed { get; set; }
-            public decimal available { get; set; }
+            public double consumed { get; set; }
+            public double available { get; set; }
         }
 
         public class CurrencyBalance
@@ -92,12 +92,12 @@ namespace LatamQuants.PrimaryAPI.Models
             public string accountName { get; set; }
             public string marketMember { get; set; }
             public string marketMemberIdentity { get; set; }
-            public int collateral { get; set; }
-            public int margin { get; set; }
-            public int availableToCollateral { get; set; }
+            public double collateral { get; set; }
+            public double margin { get; set; }
+            public double availableToCollateral { get; set; }
             public DetailedAccountReports detailedAccountReports { get; set; }
             public bool hasError { get; set; }
-            public object errorDetail { get; set; }
+            public string errorDetail { get; set; }
         }
 
         public class RootObject

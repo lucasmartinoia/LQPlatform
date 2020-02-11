@@ -16,12 +16,13 @@ namespace LatamQuants.PrimaryAPI.Models
         
         // TODO: TO IMPLEMENT
         public const string getInstrumentsByCFICode = "/rest/instruments/byCFICode?"; //OK
-        public const string getInstrumentsBySegment = "/rest/instruments/bySegment?";
+        public const string getInstrumentsBySegment = "/rest/instruments/bySegment?"; //OK
+        public const string getCurrencies = "/rest/risk/currency/getAll"; //OK
+        public const string getMarketDataInstrumentRealTime = "/rest/marketdata/get?";
+        public const string getMarketDataInstrumentHistoric = "/rest/data/getTrades?";
         public const string getOrdersActive = "/rest/order/actives?";
         public const string getOrdersFilled = "/rest/order/filleds?";
         public const string getOrdersByAccount = "/rest/order/all?";
-        public const string getMarketDataInstrumentRealTime = "/rest/marketdata/get?";
-        public const string getMarketDataInstrumentHistoric = "/rest/data/getTrades?";
         public const string getOrderStatusByExecutionID = "/rest/order/byExecId?";
         public const string getOrderByOrderID = "/rest/order/byOrderId?";
         public const string getOrderLastStatusByCliendOrderID = "/rest/order/id?";
@@ -32,6 +33,5 @@ namespace LatamQuants.PrimaryAPI.Models
         public const string getAccountPositions = "/rest/risk/position/getPositions/";
         public const string getAccountPositionsDetails = "/rest/risk/detailedPosition/";
         public const string getAccountReport = "/rest/risk/accountReport/";
-        public const string getCurrencies = "/rest/risk/currency/getAll";
     }
 }

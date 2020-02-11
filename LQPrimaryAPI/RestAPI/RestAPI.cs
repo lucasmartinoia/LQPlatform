@@ -197,7 +197,7 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
-        public static Models.getInstrumentsBySegmentResponse.RootObject getInstrumentsBySegment(string pMarketSegmentID, string pMarketID)
+        public static Models.getInstrumentsBySegmentResponse.RootObject GetInstrumentsBySegment(string pMarketSegmentID, string pMarketID)
         {
             Models.getInstrumentsBySegmentResponse.RootObject oReturn = null;
             bool bResult = false;
@@ -222,6 +222,54 @@ namespace LatamQuants.PrimaryAPI
                 {
                     throw new Exception(oReturn.description);
                 }
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getCurrenciesResponse.RootObject GetCurrencies()
+        {
+            Models.getCurrenciesResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getCurrencies);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getCurrenciesResponse.RootObject>(response.Content);
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getAccountReportResponse.RootObject GetAccountReport(string pAccount)
+        {
+            Models.getAccountReportResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountReport + pAccount);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getAccountReportResponse.RootObject>(response.Content);
             }
             else
             {
