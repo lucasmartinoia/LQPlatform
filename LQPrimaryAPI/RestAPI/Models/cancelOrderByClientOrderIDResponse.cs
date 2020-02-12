@@ -6,16 +6,10 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public static class cancelOrderByClientOrderIDResponse
     {
-        public class Order
-        {
-            public string clientId { get; set; }
-            public string proprietary { get; set; }
-        }
-
         public class RootObject
         {
             public string status { get; set; }
-            public Order order { get; set; }
+            public OrderId order { get; set; }
         }
     }
 }

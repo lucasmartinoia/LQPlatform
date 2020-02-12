@@ -6,18 +6,12 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public static class newSingleOrderResponse
     {
-        public class Order
-        {
-            public string clientId { get; set; }
-            public string proprietary { get; set; }
-        }
-
         public class RootObject
         {
             public string status { get; set; }
             public string message { get; set; }
             public string description { get; set; }
-            public Order order { get; set; }
+            public OrderId order { get; set; }
         }
     }
 }

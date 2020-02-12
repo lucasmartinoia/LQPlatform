@@ -116,5 +116,53 @@ namespace Testing
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void GetMarketDataInstrumentHistoric()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getMarketDataInstrumentHistoricResponse.RootObject oResponse = RestAPI.GetMarketDataInstrumentHistoric("ROFX", "DONov20",DateTime.Now.AddDays(-60),DateTime.Now,false, "REMARKETS");
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GetMarketDataInstrumentRealTime()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getMarketDataInstrumentRealTimeResponse.RootObject oResponse = RestAPI.GetMarketDataInstrumentRealTime("ROFX", "DONov20", "BI,OF,LA,OP,CL,SE,OI",3);
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GetAccountPositions()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.RootObject oResponse = RestAPI.GetAccountPositions("REM1545");
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void GetAccountPositionsDetails()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+");
+
+            Assert.IsTrue(bResult);
+
+            LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.RootObject oResponse = RestAPI.GetAccountPositionsDetails("REM1545");
+
+            Assert.IsTrue(true);
+        }
     }
 }

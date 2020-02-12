@@ -278,5 +278,127 @@ namespace LatamQuants.PrimaryAPI
 
             return oReturn;
         }
+
+        public static Models.getMarketDataInstrumentHistoricResponse.RootObject GetMarketDataInstrumentHistoric(string pMarketID, string pSymbol, DateTime pDateFrom, DateTime pDateTo, bool pExternal, string pEnvironment)
+        {
+            Models.getMarketDataInstrumentHistoricResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getMarketDataInstrumentHistoric);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+            request.AddParameter("marketId", pMarketID);
+            request.AddParameter("symbol", pSymbol);
+            request.AddParameter("dateFrom", pDateFrom.ToString("yyyy-MM-dd"));
+            request.AddParameter("dateTo", pDateTo.ToString("yyyy-MM-dd"));
+            request.AddParameter("external", pExternal);
+            request.AddParameter("environment", pEnvironment);
+
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentHistoricResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getMarketDataInstrumentRealTimeResponse.RootObject GetMarketDataInstrumentRealTime(string pMarketID, string pSymbol, string pEntries, int pDepth)
+        {
+            Models.getMarketDataInstrumentRealTimeResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getMarketDataInstrumentRealTime);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+            request.AddParameter("marketId", pMarketID);
+            request.AddParameter("symbol", pSymbol);
+            request.AddParameter("entries", pEntries);
+            request.AddParameter("depth", pDepth);
+
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentRealTimeResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getAccountPositionsResponse.RootObject GetAccountPositions(string pAccount)
+        {
+            Models.getAccountPositionsResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountPositions + pAccount);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsResponse.RootObject>(response.Content);
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getAccountPositionsDetailsResponse.RootObject GetAccountPositionsDetails(string pAccount)
+        {
+            Models.getAccountPositionsDetailsResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountPositions + pAccount);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+            IRestResponse response = client.Execute(request);
+            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+            if (bResult)
+            {
+                oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+            }
+            else
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
     }
 }
