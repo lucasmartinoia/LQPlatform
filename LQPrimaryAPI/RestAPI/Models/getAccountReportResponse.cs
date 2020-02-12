@@ -34,11 +34,10 @@ namespace LatamQuants.PrimaryAPI.Models
         public class AccountValue
         {
             public Cash cash { get; set; }
-            public double dailyDiff { get; set; }
             public double movements { get; set; }
-            public double portfolio { get; set; }
             public double credit { get; set; }
             public double total { get; set; }
+            public int pendingMovements { get; set; }
         }
 
         public class DetailedCurrencyBalance
@@ -76,14 +75,19 @@ namespace LatamQuants.PrimaryAPI.Models
             public CurrencyBalance currencyBalance { get; set; }
             public AccountValue accountValue { get; set; }
             public AccountValue availableToOperate { get; set; }
+            public long settlementDate { get; set; }
         }
 
         public class DetailedAccountReports
         {
-            public DetailedAccountReport T_PLUS_2 { get; set; }
-            public DetailedAccountReport NEXT_DAY { get; set; }
-            public DetailedAccountReport T_PLUS_3 { get; set; }
+            [JsonProperty("0")]
             public DetailedAccountReport CASH { get; set; }
+            [JsonProperty("1")]
+            public DetailedAccountReport NEXT_DAY { get; set; }
+            [JsonProperty("2")]
+            public DetailedAccountReport T_PLUS_2 { get; set; }
+            [JsonProperty("3")]
+            public DetailedAccountReport T_PLUS_3 { get; set; }
         }
 
         public class AccountData
@@ -98,6 +102,11 @@ namespace LatamQuants.PrimaryAPI.Models
             public DetailedAccountReports detailedAccountReports { get; set; }
             public bool hasError { get; set; }
             public string errorDetail { get; set; }
+            public double portfolio { get; set; }
+            public double ordersMargin { get; set; }
+            public double currentCash { get; set; }
+            public double dailyDiff { get; set; }
+            public double uncoveredMargin { get; set; }
         }
 
         public class RootObject
