@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Text;
-using LatamQuants.Support;
 using RestSharp;
 using System.Linq;
 using Newtonsoft.Json;
+using LatamQuants.PrimaryAPI.Models;
 
 namespace LatamQuants.PrimaryAPI
 {

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{403BC314-A4E4-4488-896E-D46A398F8B98}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LQTrader</RootNamespace>
+    <AssemblyName>LQTrader</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountReportUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AccountReportUC.Designer.cs">
+      <DependentUpon>AccountReportUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlotterUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BlotterUC.Designer.cs">
+      <DependentUpon>BlotterUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InstrumentsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InstrumentsUC.Designer.cs">
+      <DependentUpon>InstrumentsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarketDataHistoricUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarketDataHistoricUC.Designer.cs">
+      <DependentUpon>MarketDataHistoricUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarketDataUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarketDataUC.Designer.cs">
+      <DependentUpon>MarketDataUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpportunitiesUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OpportunitiesUC.Designer.cs">
+      <DependentUpon>OpportunitiesUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderUC.Designer.cs">
+      <DependentUpon>OrderUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PositionsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PositionsUC.Designer.cs">
+      <DependentUpon>PositionsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TraderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TraderView.Designer.cs">
+      <DependentUpon>TraderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="InstrumentsUC.resx">
+      <DependentUpon>InstrumentsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TraderView.resx">
+      <DependentUpon>TraderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LQPrimaryAPI\LQPrimaryAPI.csproj">
+      <Project>{08517306-9a14-4d42-9c49-db0aea157a6c}</Project>
+      <Name>LQPrimaryAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

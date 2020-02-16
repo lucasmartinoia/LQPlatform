@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RuntimeFrameworkVersion>3.1.101</RuntimeFrameworkVersion>
+    <TargetFrameworks>net452;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <Compile Remove="Resource\**" />
     <EmbeddedResource Remove="Resource\**" />
@@ -17,8 +16,6 @@
   </ItemGroup>
  <ItemGroup>
     <PackageReference Include="AspNetCore.Http.Extensions" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
     <PackageReference Include="RestSharp" Version="106.10.2-alpha.0.8" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
@@ -27,16 +24,8 @@
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="4.5.0" />
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
   </ItemGroup>
-
-
- <ItemGroup>
-   <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
-     <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-   </Reference>
- </ItemGroup>
 
 
  <ItemGroup>
