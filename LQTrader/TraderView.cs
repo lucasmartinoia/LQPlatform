@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LatamQuants.PrimaryAPI;
 
 namespace LQTrader
 {
@@ -26,6 +27,37 @@ namespace LQTrader
         {
             if (e.Control == null)
                 e.Control = new System.Windows.Forms.Control();
+        }
+
+        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Login frmLogin = new Login();
+            frmLogin.ShowDialog();
+
+            if(frmLogin.Connected==true)
+            {
+                txtStatusBar.Caption = "CONNECTED";
+                cmdConnect.Enabled = false;
+                cmdDisconnect.Enabled = true;
+
+           }
+            else
+            {
+                txtStatusBar.Caption = "DISCONNECTED";
+                cmdConnect.Enabled = true;
+                cmdDisconnect.Enabled = false;
+            }
+
+            frmLogin.Dispose();
+        }
+
+        private void cmdDisconnect_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            bool bResult=RestAPI.RemoveToken();
+
+            txtStatusBar.Caption = "DISCONNECTED";
+            cmdConnect.Enabled = true;
+            cmdDisconnect.Enabled = false;
         }
     }
 }

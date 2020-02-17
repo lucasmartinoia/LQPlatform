@@ -12,10 +12,17 @@ namespace LatamQuants.PrimaryAPI
     {
         // Private variables
         private static Authentication m_auth=new Authentication();
+        private static string m_baseURL = Models.EndPoint.baseURL;
+        private static string m_account = "";
 
-        public static bool Login(string pUser, string pPassword)
+        public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
         {
             bool bResult = false;
+
+            if (pBaseURL != null)
+                m_baseURL = pBaseURL;
+
+            m_account = pAccount;
 
             m_auth.User = pUser;
             m_auth.Password = pPassword;
@@ -30,14 +37,21 @@ namespace LatamQuants.PrimaryAPI
         {
             string sReturn = "";
 
-            var client = new RestClient(Models.EndPoint.baseURL+Models.EndPoint.getToken);
+            var client = new RestClient(m_baseURL+Models.EndPoint.getToken);
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", "Basic "+ Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
             IRestResponse response = client.Execute(request);
 
-            // Get Token from header
-            sReturn = (string)response.Headers.Cast<RestSharp.Parameter>().SingleOrDefault(x => x.Name == m_auth.TokenKey).Value;
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception(response.StatusDescription);
+            }
+            else
+            {
+                // Get Token from header
+                sReturn = (string)response.Headers.Cast<RestSharp.Parameter>().SingleOrDefault(x => x.Name == m_auth.TokenKey).Value;
+            }
 
             return sReturn;
         }
@@ -46,7 +60,7 @@ namespace LatamQuants.PrimaryAPI
         {
             bool bReturn = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getToken);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getToken);
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
@@ -62,7 +76,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getSegmentsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getSegments);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getSegments);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -86,7 +100,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstruments);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getInstruments);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -110,7 +124,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstrumentsDetails);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getInstrumentsDetails);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -134,7 +148,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getOneInstrumentDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getOneInstrumentDetails);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getOneInstrumentDetails);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -168,7 +182,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsByCFICodeResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstrumentsByCFICode);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getInstrumentsByCFICode);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -201,7 +215,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsBySegmentResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getInstrumentsBySegment);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getInstrumentsBySegment);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -235,7 +249,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getCurrenciesResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getCurrencies);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getCurrencies);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -254,12 +268,12 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
-        public static Models.getAccountReportResponse.RootObject GetAccountReport(string pAccount)
+        public static Models.getAccountReportResponse.RootObject GetAccountReport()
         {
             Models.getAccountReportResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountReport + pAccount);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getAccountReport + m_account);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -283,7 +297,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getMarketDataInstrumentHistoricResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getMarketDataInstrumentHistoric);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getMarketDataInstrumentHistoric);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -321,7 +335,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getMarketDataInstrumentRealTimeResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getMarketDataInstrumentRealTime);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getMarketDataInstrumentRealTime);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -352,12 +366,12 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
-        public static Models.getAccountPositionsResponse.RootObject GetAccountPositions(string pAccount)
+        public static Models.getAccountPositionsResponse.RootObject GetAccountPositions()
         {
             Models.getAccountPositionsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountPositions + pAccount);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getAccountPositions + m_account);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -376,12 +390,12 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
-        public static Models.getAccountPositionsDetailsResponse.RootObject GetAccountPositionsDetails(string pAccount)
+        public static Models.getAccountPositionsDetailsResponse.RootObject GetAccountPositionsDetails()
         {
             Models.getAccountPositionsDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(Models.EndPoint.baseURL + Models.EndPoint.getAccountPositions + pAccount);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getAccountPositions + m_account);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
