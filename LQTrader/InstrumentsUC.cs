@@ -23,5 +23,11 @@ namespace LQTrader
             gridControl1.DataSource = ModelViews.Instrument.GetInstruments();
             gridControl1.Update();
         }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            gridControl1.DataSource = ModelViews.InstrumentDetail.GetInstrumentsDetails();
+            gridControl1.Update();
+        }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.cmdLoadList = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
+            this.cmdLoadList = new System.Windows.Forms.Button();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pnlTop.SuspendLayout();
@@ -48,6 +48,16 @@
             this.pnlTop.Size = new System.Drawing.Size(910, 34);
             this.pnlTop.TabIndex = 0;
             // 
+            // btnDetails
+            // 
+            this.btnDetails.Location = new System.Drawing.Point(102, 6);
+            this.btnDetails.Name = "btnDetails";
+            this.btnDetails.Size = new System.Drawing.Size(75, 23);
+            this.btnDetails.TabIndex = 1;
+            this.btnDetails.Text = "Details";
+            this.btnDetails.UseVisualStyleBackColor = true;
+            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
+            // 
             // cmdLoadList
             // 
             this.cmdLoadList.Location = new System.Drawing.Point(10, 6);
@@ -58,18 +68,10 @@
             this.cmdLoadList.UseVisualStyleBackColor = true;
             this.cmdLoadList.Click += new System.EventHandler(this.cmdLoadList_Click);
             // 
-            // btnDetails
-            // 
-            this.btnDetails.Location = new System.Drawing.Point(102, 6);
-            this.btnDetails.Name = "btnDetails";
-            this.btnDetails.Size = new System.Drawing.Size(75, 23);
-            this.btnDetails.TabIndex = 1;
-            this.btnDetails.Text = "Details";
-            this.btnDetails.UseVisualStyleBackColor = true;
-            // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl1.EmbeddedNavigator.Buttons.Edit.Enabled = false;
             this.gridControl1.Location = new System.Drawing.Point(0, 34);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -82,6 +84,7 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             // 
             // InstrumentsUC
             // 

@@ -22,7 +22,8 @@ namespace LatamQuants.PrimaryAPI.Models
             public string timesInForce { get; set; }
             public string securityType { get; set; }
             public string settlType { get; set; }
-            public double instrumentPricePrecision { get; set; }
+            public int instrumentPricePrecision { get; set; }
+            public int instrumentSizePrecision { get; set; }
             public double roundLot { get; set; }
             public double priceConvertionFactor { get; set; }
     }
