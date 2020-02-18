@@ -19,7 +19,11 @@ namespace LQTrader
             // Handling the QueryControl event that will populate all automatically generated Documents
             
             this.tabbedView1.QueryControl += tabbedView1_QueryControl;
-            this.dockPanel1_Container.Controls.Add(new InstrumentsUC());
+
+            InstrumentsUC oInstrumentsUC = new InstrumentsUC();
+            oInstrumentsUC.Dock = DockStyle.Fill;
+            this.dockPanel1_Container.Controls.Add(oInstrumentsUC);
+
         }
 
         // Assigning a required content for each auto generated Document

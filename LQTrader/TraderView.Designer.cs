@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TraderView));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -159,8 +159,8 @@
             // 
             this.cmdConnect.Caption = "Login";
             this.cmdConnect.Id = 1;
-            this.cmdConnect.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
-            this.cmdConnect.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
+            this.cmdConnect.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("cmdConnect.ImageOptions.Image")));
+            this.cmdConnect.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("cmdConnect.ImageOptions.LargeImage")));
             this.cmdConnect.Name = "cmdConnect";
             this.cmdConnect.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
@@ -168,8 +168,8 @@
             // 
             this.cmdDisconnect.Caption = "Logout";
             this.cmdDisconnect.Id = 3;
-            this.cmdDisconnect.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.ImageOptions.Image")));
-            this.cmdDisconnect.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.ImageOptions.LargeImage")));
+            this.cmdDisconnect.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("cmdDisconnect.ImageOptions.Image")));
+            this.cmdDisconnect.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("cmdDisconnect.ImageOptions.LargeImage")));
             this.cmdDisconnect.Name = "cmdDisconnect";
             this.cmdDisconnect.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.cmdDisconnect_ItemClick);
             // 
@@ -190,7 +190,7 @@
             // txtStatusBar
             // 
             this.txtStatusBar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.txtStatusBar.Caption = "txtStatusBar";
+            this.txtStatusBar.Caption = "DISCONNECTED";
             this.txtStatusBar.Id = 2;
             this.txtStatusBar.Name = "txtStatusBar";
             // 
@@ -452,9 +452,9 @@
             this.document1,
             this.document2});
             this.tabbedView1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            dockingContainer3.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer3});
+            dockingContainer1});
             this.tabbedView1.RootContainer.Orientation = System.Windows.Forms.Orientation.Vertical;
             // 
             // bar1
