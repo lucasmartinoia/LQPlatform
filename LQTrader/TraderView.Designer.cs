@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TraderView));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -302,7 +302,7 @@
             this.dpOrder.OriginalSize = new System.Drawing.Size(200, 200);
             this.dpOrder.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
             this.dpOrder.SavedIndex = 1;
-            this.dpOrder.Size = new System.Drawing.Size(200, 450);
+            this.dpOrder.Size = new System.Drawing.Size(200, 484);
             this.dpOrder.Text = "Order";
             this.dpOrder.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
             // 
@@ -310,7 +310,7 @@
             // 
             this.dockPanel3_Container.Location = new System.Drawing.Point(4, 26);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(193, 421);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(193, 455);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // dpAccountReport
@@ -354,7 +354,7 @@
             this.dpMarketDataHistoric.OriginalSize = new System.Drawing.Size(200, 200);
             this.dpMarketDataHistoric.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.dpMarketDataHistoric.SavedIndex = 2;
-            this.dpMarketDataHistoric.Size = new System.Drawing.Size(758, 200);
+            this.dpMarketDataHistoric.Size = new System.Drawing.Size(1036, 200);
             this.dpMarketDataHistoric.Text = "Historic Market Data";
             this.dpMarketDataHistoric.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
             // 
@@ -362,7 +362,7 @@
             // 
             this.dockPanel5_Container.Location = new System.Drawing.Point(3, 27);
             this.dockPanel5_Container.Name = "dockPanel5_Container";
-            this.dockPanel5_Container.Size = new System.Drawing.Size(752, 170);
+            this.dockPanel5_Container.Size = new System.Drawing.Size(1030, 170);
             this.dockPanel5_Container.TabIndex = 0;
             // 
             // dpPositions
@@ -452,9 +452,9 @@
             this.document1,
             this.document2});
             this.tabbedView1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            dockingContainer1.Element = this.documentGroup1;
+            dockingContainer2.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer2});
             this.tabbedView1.RootContainer.Orientation = System.Windows.Forms.Orientation.Vertical;
             // 
             // bar1

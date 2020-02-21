@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.pnlGrid = new System.Windows.Forms.Panel();
             this.lblInstrumentName = new System.Windows.Forms.Label();
-            this.vGridControl1 = new DevExpress.XtraVerticalGrid.VGridControl();
+            this.pnlGrid = new System.Windows.Forms.Panel();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.cmdClose = new System.Windows.Forms.Button();
+            this.vGridControl1 = new DevExpress.XtraVerticalGrid.VGridControl();
             this.pnlTop.SuspendLayout();
             this.pnlGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             this.pnlBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlTop
@@ -48,16 +48,6 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(292, 41);
             this.pnlTop.TabIndex = 0;
-            // 
-            // pnlGrid
-            // 
-            this.pnlGrid.Controls.Add(this.pnlBottom);
-            this.pnlGrid.Controls.Add(this.vGridControl1);
-            this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGrid.Location = new System.Drawing.Point(0, 41);
-            this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(292, 414);
-            this.pnlGrid.TabIndex = 1;
             // 
             // lblInstrumentName
             // 
@@ -70,14 +60,15 @@
             this.lblInstrumentName.Text = "label1";
             this.lblInstrumentName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // vGridControl1
+            // pnlGrid
             // 
-            this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vGridControl1.Location = new System.Drawing.Point(0, 0);
-            this.vGridControl1.Name = "vGridControl1";
-            this.vGridControl1.OptionsBehavior.Editable = false;
-            this.vGridControl1.Size = new System.Drawing.Size(292, 414);
-            this.vGridControl1.TabIndex = 0;
+            this.pnlGrid.Controls.Add(this.pnlBottom);
+            this.pnlGrid.Controls.Add(this.vGridControl1);
+            this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGrid.Location = new System.Drawing.Point(0, 41);
+            this.pnlGrid.Name = "pnlGrid";
+            this.pnlGrid.Size = new System.Drawing.Size(292, 414);
+            this.pnlGrid.TabIndex = 1;
             // 
             // pnlBottom
             // 
@@ -99,6 +90,15 @@
             this.cmdClose.UseVisualStyleBackColor = true;
             this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
+            // vGridControl1
+            // 
+            this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vGridControl1.Location = new System.Drawing.Point(0, 0);
+            this.vGridControl1.Name = "vGridControl1";
+            this.vGridControl1.OptionsBehavior.Editable = false;
+            this.vGridControl1.Size = new System.Drawing.Size(292, 414);
+            this.vGridControl1.TabIndex = 0;
+            // 
             // InstrumentDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -110,8 +110,8 @@
             this.Text = "Instrument Details";
             this.pnlTop.ResumeLayout(false);
             this.pnlGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).EndInit();
             this.pnlBottom.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
