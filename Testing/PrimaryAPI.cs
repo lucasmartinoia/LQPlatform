@@ -164,5 +164,19 @@ namespace Testing
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void GetAccountPositionsDetails()
+        {
+            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+
+            Assert.IsTrue(bResult);
+
+            
+
+            LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.RootObject oResponse = RestAPI.GetAccountPositionsDetails();
+
+            Assert.IsTrue(true);
+        }
     }
 }
