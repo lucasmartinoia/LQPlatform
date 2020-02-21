@@ -56,6 +56,7 @@
             this.btnDetails.TabIndex = 1;
             this.btnDetails.Text = "Details";
             this.btnDetails.UseVisualStyleBackColor = true;
+            this.btnDetails.Visible = false;
             this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
             // 
             // cmdLoadList
@@ -79,12 +80,15 @@
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.Click += new System.EventHandler(this.gridControl1_Click);
+            this.gridControl1.DoubleClick += new System.EventHandler(this.gridControl1_DoubleClick);
             // 
             // gridView1
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // InstrumentsUC
             // 

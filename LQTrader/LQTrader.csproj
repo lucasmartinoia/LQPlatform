@@ -76,6 +76,12 @@
       <DependentUpon>BlotterUC.cs</DependentUpon>
     </Compile>
     <Compile Include="DomainProfile.cs" />
+    <Compile Include="InstrumentDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InstrumentDetails.Designer.cs">
+      <DependentUpon>InstrumentDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="InstrumentsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     <Compile Include="ModelViews\InstrumentDetail.cs" />
     <EmbeddedResource Include="BlotterUC.resx">
       <DependentUpon>BlotterUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstrumentDetails.resx">
+      <DependentUpon>InstrumentDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InstrumentsUC.resx">
       <DependentUpon>InstrumentsUC.cs</DependentUpon>

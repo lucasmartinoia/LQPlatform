@@ -8,12 +8,12 @@ namespace LQTrader
     {
         public DomainProfile()
         {
-            CreateMap<Instrument, ModelViews.Instrument>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.Instrument, ModelViews.Instrument>()
                .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.cficode))
                .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.instrumentId.marketId))
                .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.instrumentId.symbol));
 
-            CreateMap<InstrumentDetails, ModelViews.InstrumentDetail>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.InstrumentDetails, ModelViews.InstrumentDetail>()
                 .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.cficode))
                 .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.contractMultiplier))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.currency))

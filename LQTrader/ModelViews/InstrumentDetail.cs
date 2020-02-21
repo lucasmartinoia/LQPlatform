@@ -7,7 +7,7 @@ using LatamQuants.PrimaryAPI;
 
 namespace LQTrader.ModelViews
 {
-    class InstrumentDetail
+    public class InstrumentDetail
     {
         public string Symbol { get; set; }
         public string MarketID { get; set; }
