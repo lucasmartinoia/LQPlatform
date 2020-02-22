@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LQTrader.ModelViews
 {
-    public class OrderView
+    public class Order
     {
         // Order and execution reference properties
         public string AccountID { get; set; }
@@ -22,6 +22,8 @@ namespace LQTrader.ModelViews
         public string Type { get; set; }
         public string Side { get; set; }
         public string TimeInForce { get; set; }
+        public DateTime? ExpireDate { get; set; }
+        public int? DisplayQuantity { get; set; }
 
         // Response only properties
         public string TransactionTime { get; set; }
@@ -33,5 +35,9 @@ namespace LQTrader.ModelViews
         public string Status { get; set; }
         public string Text { get; set; }
         public string Proprietary { get; set; }
+
+        // Control properties
+        public string ReplaceClientOrderID { get; set; }
+        public string CancelClientOrderID { get; set; }
     }
 }
