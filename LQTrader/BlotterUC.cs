@@ -16,5 +16,11 @@ namespace LQTrader
         {
             InitializeComponent();
         }
+
+        private void cmdNew_Click(object sender, EventArgs e)
+        {
+            Order frmOrder = new Order(Order.eMode.New);
+            frmOrder.ShowDialog();
+        }
     }
 }

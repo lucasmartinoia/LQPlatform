@@ -24,9 +24,9 @@ namespace LQTrader
             oInstrumentsUC.Dock = DockStyle.Fill;
             this.dockPanel1_Container.Controls.Add(oInstrumentsUC);
 
-            OrderUC oOrderUC = new OrderUC();
-            oOrderUC.Dock = DockStyle.Fill;
-            this.dockPanel3_Container.Controls.Add(oOrderUC);
+            BlotterUC oBlotterUC = new BlotterUC();
+            oBlotterUC.Dock = DockStyle.Fill;
+            this.dockPanel7_Container.Controls.Add(oBlotterUC);
         }
 
         // Assigning a required content for each auto generated Document
