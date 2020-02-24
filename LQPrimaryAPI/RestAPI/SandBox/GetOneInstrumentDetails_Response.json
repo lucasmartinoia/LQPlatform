@@ -1,0 +1,32 @@
+{
+    "status": "OK",
+    "instrument": {
+        "symbol": null,
+        "segment": {
+            "marketSegmentId": "DDF",
+            "marketId": "ROFX"
+        },
+        "lowLimitPrice": 75.000,
+        "highLimitPrice": 125.000,
+        "minPriceIncrement": 0.001000,
+        "minTradeVol": 1.000000,
+        "maxTradeVol": 10000.000000,
+        "tickSize": 1.000000,
+        "contractMultiplier": 1000.000000,
+        "roundLot": 1.000000,
+        "priceConvertionFactor": 1.000000,
+        "maturityDate": "20201130",
+        "currency": "ARS",
+        "orderTypes": null,
+        "timesInForce": null,
+        "securityType": null,
+        "settlType": null,
+        "instrumentPricePrecision": 3,
+        "instrumentSizePrecision": 0,
+        "cficode": "FXXXSX",
+        "instrumentId": {
+            "marketId": "ROFX",
+            "symbol": "DONov20"
+        }
+    }
+}

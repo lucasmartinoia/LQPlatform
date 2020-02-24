@@ -301,10 +301,12 @@
             this.chkIceberg.TabIndex = 23;
             this.chkIceberg.Text = "Iceberg";
             this.chkIceberg.UseVisualStyleBackColor = true;
+            this.chkIceberg.CheckedChanged += new System.EventHandler(this.chkIceberg_CheckedChanged);
             // 
             // dtExpire
             // 
             this.dtExpire.CustomFormat = "dd/MM/yyyy";
+            this.dtExpire.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtExpire.Location = new System.Drawing.Point(342, 150);
             this.dtExpire.Name = "dtExpire";
             this.dtExpire.Size = new System.Drawing.Size(121, 20);
@@ -323,6 +325,7 @@
             // 
             // cboTimeInForce
             // 
+            this.cboTimeInForce.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTimeInForce.FormattingEnabled = true;
             this.cboTimeInForce.Items.AddRange(new object[] {
             "Day",
@@ -333,6 +336,7 @@
             this.cboTimeInForce.Name = "cboTimeInForce";
             this.cboTimeInForce.Size = new System.Drawing.Size(121, 21);
             this.cboTimeInForce.TabIndex = 19;
+            this.cboTimeInForce.SelectedIndexChanged += new System.EventHandler(this.cboTimeInForce_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -370,6 +374,7 @@
             // 
             // cboType
             // 
+            this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboType.FormattingEnabled = true;
             this.cboType.Items.AddRange(new object[] {
             "LIMIT",
@@ -390,6 +395,7 @@
             // 
             // cboSide
             // 
+            this.cboSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSide.FormattingEnabled = true;
             this.cboSide.Items.AddRange(new object[] {
             "Buy",
@@ -667,6 +673,7 @@
             this.cmdClose.TabIndex = 1;
             this.cmdClose.Text = "CLOSE";
             this.cmdClose.UseVisualStyleBackColor = true;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
             // cmdSend
             // 
@@ -682,7 +689,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 675);
+            this.ClientSize = new System.Drawing.Size(579, 588);
             this.Controls.Add(this.pnlButton);
             this.Controls.Add(this.grpStatus);
             this.Controls.Add(this.grpInput);

@@ -1,0 +1,72 @@
+{
+    "status": "OK",
+    "marketData": {
+        "BI": [
+            {
+                "price": 62.350,
+                "size": 649
+            },
+            {
+                "price": 62.300,
+                "size": 10
+            },
+            {
+                "price": 61.880,
+                "size": 657
+            },
+            {
+                "price": 61.710,
+                "size": 657
+            },
+            {
+                "price": 61.600,
+                "size": 656
+            }
+        ],
+        "OF": [
+            {
+                "price": 62.400,
+                "size": 84
+            },
+            {
+                "price": 62.420,
+                "size": 90
+            },
+            {
+                "price": 62.480,
+                "size": 150
+            },
+            {
+                "price": 62.550,
+                "size": 500
+            },
+            {
+                "price": 62.820,
+                "size": 200
+            }
+        ],
+        "LA": {
+            "price": 62.350,
+            "size": 8,
+            "date": 1582050011973
+        },
+        "OP": 62.360,
+        "SE": {
+            "price": 62.420,
+            "size": null,
+            "date": 1581897600000
+        },
+        "OI": {
+            "price": null,
+            "size": 406784,
+            "date": 1581897600000
+        },
+        "CL": {
+            "price": 62.400,
+            "size": null,
+            "date": 1581897600000
+        }
+    },
+    "depth": 10,
+    "aggregated": true
+}

@@ -22,5 +22,11 @@ namespace LQTrader
             Order frmOrder = new Order(Order.eMode.New);
             frmOrder.ShowDialog();
         }
+
+        private void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            gridControl1.DataSource = ModelViews.Order.UpdateOrders(null);
+            gridControl1.Update();
+        }
     }
 }

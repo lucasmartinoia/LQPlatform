@@ -150,5 +150,38 @@ namespace LQTrader
 
             return oReturn;
         }
+
+        private void cboTimeInForce_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboTimeInForce.SelectedItem.ToString()=="GTD")
+            {
+                lblExpire.Visible = true;
+                dtExpire.Visible = true;
+            }
+            else
+            {
+                lblExpire.Visible = false;
+                dtExpire.Visible = false;
+            }
+        }
+
+        private void chkIceberg_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkIceberg.Checked==true)
+            {
+                txtDisplayQuantity.Visible = true;
+                lblDisplayQuantity.Visible = true;
+            }
+            else
+            {
+                txtDisplayQuantity.Visible = false;
+                lblDisplayQuantity.Visible = false;
+            }
+        }
+
+        private void cmdClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

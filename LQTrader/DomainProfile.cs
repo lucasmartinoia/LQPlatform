@@ -36,15 +36,32 @@ namespace LQTrader
                 .ForMember(dest => dest.TickSize, opt => opt.MapFrom(o => o.tickSize))
                 .ForMember(dest => dest.TimesInForce, opt => opt.MapFrom(o => o.timesInForce));
 
-
-
-            //CreateMap<InstructionFundsTransferFund, InstructionFundsAmendOrder>()
-            //  .ForMember(dest => dest.InstructionID, opt => opt.Ignore())
-            //  .ForMember(dest => dest.Orders, opt => opt.Ignore())
-            //  .ForMember(dest => dest.ParentInstructionID, opt => opt.Ignore())
-            //  .ForMember(dest => dest.ParentInstructionID, opt => opt.MapFrom(o => o.InstructionID))
-            //  .ForMember(dest => dest.OrderID, opt => opt.Ignore());
-
+            CreateMap<LatamQuants.PrimaryAPI.Models.Order, ModelViews.Order>()
+               .ForMember(dest => dest.AccountID, opt => opt.MapFrom(o => o.accountId.id))
+               .ForMember(dest => dest.AveragePrice, opt => opt.MapFrom(o => o.avgPx))
+               .ForMember(dest => dest.ClientOrderID, opt => opt.MapFrom(o => o.clOrdId))
+               .ForMember(dest => dest.CumulativeQuantity, opt => opt.MapFrom(o => o.cumQty))
+               .ForMember(dest => dest.ExecutionID, opt => opt.MapFrom(o => o.execId))
+               .ForMember(dest => dest.LastPrice, opt => opt.MapFrom(o => o.lastPx))
+               .ForMember(dest => dest.LastQuantity, opt => opt.MapFrom(o => o.lastQty))
+               .ForMember(dest => dest.LeavesQuantity, opt => opt.MapFrom(o => o.leavesQty))
+               .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.instrumentId.marketId))
+               .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.instrumentId.symbol))
+               .ForMember(dest => dest.OrderID, opt => opt.MapFrom(o => o.orderId))
+               .ForMember(dest => dest.Price, opt => opt.MapFrom(o => o.price))
+               .ForMember(dest => dest.Proprietary, opt => opt.MapFrom(o => o.proprietary))
+               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(o => o.orderQty))
+               .ForMember(dest => dest.Side, opt => opt.MapFrom(o => o.side))
+               .ForMember(dest => dest.Status, opt => opt.MapFrom(o => o.status))
+               .ForMember(dest => dest.Text, opt => opt.MapFrom(o => o.text))
+               .ForMember(dest => dest.TimeInForce, opt => opt.MapFrom(o => o.timeInForce))
+               .ForMember(dest => dest.TransactionTime, opt => opt.MapFrom(o => o.transactTime))
+               .ForMember(dest => dest.Type, opt => opt.MapFrom(o => o.ordType))
+               .ForMember(dest => dest.CancelClientOrderID, opt => opt.Ignore())
+               .ForMember(dest => dest.DisplayQuantity, opt => opt.Ignore())
+               .ForMember(dest => dest.ExpireDate, opt => opt.Ignore())
+               .ForMember(dest => dest.Iceberg, opt => opt.Ignore())
+               .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore());
         }
     }
 }

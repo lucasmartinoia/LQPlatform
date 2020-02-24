@@ -106,7 +106,10 @@
             this.ClientSize = new System.Drawing.Size(292, 455);
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlTop);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "InstrumentDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Instrument Details";
             this.pnlTop.ResumeLayout(false);
             this.pnlGrid.ResumeLayout(false);

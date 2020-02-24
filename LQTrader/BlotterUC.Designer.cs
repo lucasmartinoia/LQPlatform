@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.cmdNew = new System.Windows.Forms.Button();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.cmdNew = new System.Windows.Forms.Button();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pnlTop.SuspendLayout();
@@ -48,6 +48,16 @@
             this.pnlTop.Size = new System.Drawing.Size(758, 40);
             this.pnlTop.TabIndex = 0;
             // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.Location = new System.Drawing.Point(86, 9);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(75, 23);
+            this.cmdRefresh.TabIndex = 1;
+            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
             // cmdNew
             // 
             this.cmdNew.Location = new System.Drawing.Point(4, 9);
@@ -57,15 +67,6 @@
             this.cmdNew.Text = "New";
             this.cmdNew.UseVisualStyleBackColor = true;
             this.cmdNew.Click += new System.EventHandler(this.cmdNew_Click);
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.Location = new System.Drawing.Point(86, 9);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(75, 23);
-            this.cmdRefresh.TabIndex = 1;
-            this.cmdRefresh.Text = "Refresh";
-            this.cmdRefresh.UseVisualStyleBackColor = true;
             // 
             // gridControl1
             // 

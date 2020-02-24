@@ -109,14 +109,14 @@
             // 
             this.txtRestAPI.Location = new System.Drawing.Point(110, 160);
             this.txtRestAPI.Name = "txtRestAPI";
-            this.txtRestAPI.Size = new System.Drawing.Size(428, 20);
+            this.txtRestAPI.Size = new System.Drawing.Size(184, 20);
             this.txtRestAPI.TabIndex = 7;
             this.txtRestAPI.Text = "http://api.remarkets.primary.com.ar";
             // 
             // cmdOK
             // 
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(154, 203);
+            this.cmdOK.Location = new System.Drawing.Point(48, 208);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -127,7 +127,7 @@
             // cmdCancel
             // 
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(316, 203);
+            this.cmdCancel.Location = new System.Drawing.Point(210, 208);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 243);
+            this.ClientSize = new System.Drawing.Size(341, 243);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.txtRestAPI);
@@ -153,6 +153,7 @@
             this.MinimizeBox = false;
             this.Name = "Login";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

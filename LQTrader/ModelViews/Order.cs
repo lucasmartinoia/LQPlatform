@@ -1,4 +1,5 @@
-﻿    using System;
+﻿using LatamQuants.PrimaryAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,22 +18,22 @@ namespace LQTrader.ModelViews
         // Input order properties
         public string MarketID { get; set; }
         public string Symbol { get; set; }
-        public int Price { get; set; }
-        public int Quantity { get; set; }
+        public double Price { get; set; }
+        public double Quantity { get; set; }
         public string Type { get; set; }
         public string Side { get; set; }
         public string TimeInForce { get; set; }
         public DateTime? ExpireDate { get; set; }
         public bool Iceberg { get; set; }
-        public int? DisplayQuantity { get; set; }
+        public double? DisplayQuantity { get; set; }
 
         // Response only properties
         public string TransactionTime { get; set; }
         public double AveragePrice { get; set; }
         public double LastPrice { get; set; }
-        public int LastQuantity { get; set; }
-        public int CumulativeQuantity { get; set; }
-        public int LeavesQuantity { get; set; }
+        public double LastQuantity { get; set; }
+        public double CumulativeQuantity { get; set; }
+        public double LeavesQuantity { get; set; }
         public string Status { get; set; }
         public string Text { get; set; }
         public string Proprietary { get; set; }
@@ -95,6 +96,22 @@ namespace LQTrader.ModelViews
                 else if(this.Iceberg==true && this.DisplayQuantity>=this.Quantity)
                     throw new Exception("Display Quantity cannot be equal or greater than Quantity");
             }
+        }
+
+        public static List<Order> UpdateOrders(List<Order> pOrderList)
+        {
+            List<Order> colReturn = new List<Order>();
+
+            List<LatamQuants.PrimaryAPI.Models.Order> colActiveOrders= RestAPI.GetActiveOrders().orders;
+
+            foreach (LatamQuants.PrimaryAPI.Models.Order oOrder in colActiveOrders)
+            {
+                ModelViews.Order vOrder = new Order();
+                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.Order, ModelViews.Order>(oOrder, vOrder);
+                colReturn.Add(vOrder);
+            }
+
+            return colReturn;
         }
     }
 }

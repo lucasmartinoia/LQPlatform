@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TraderView));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer6 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -49,11 +49,6 @@
             this.hideContainerLeft = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dpMarketData = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
-            this.dpOrder = new DevExpress.XtraBars.Docking.DockPanel();
-            this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.dpAccountReport = new DevExpress.XtraBars.Docking.DockPanel();
-            this.dockPanel4_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.hideContainerBottom = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dpMarketDataHistoric = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel5_Container = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -68,6 +63,11 @@
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
+            this.dpAccountReport = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel4_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.dpOrder = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
@@ -76,9 +76,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.hideContainerLeft.SuspendLayout();
             this.dpMarketData.SuspendLayout();
-            this.hideContainerRight.SuspendLayout();
-            this.dpOrder.SuspendLayout();
-            this.dpAccountReport.SuspendLayout();
             this.hideContainerBottom.SuspendLayout();
             this.dpMarketDataHistoric.SuspendLayout();
             this.dpPositions.SuspendLayout();
@@ -86,6 +83,8 @@
             this.dpBlotter.SuspendLayout();
             this.dpOpportunities.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            this.dpAccountReport.SuspendLayout();
+            this.hideContainerRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -230,7 +229,6 @@
             // 
             this.dockManager1.AutoHideContainers.AddRange(new DevExpress.XtraBars.Docking.AutoHideContainer[] {
             this.hideContainerLeft,
-            this.hideContainerRight,
             this.hideContainerBottom});
             this.dockManager1.Form = this;
             this.dockManager1.MenuManager = this.barManager1;
@@ -282,58 +280,6 @@
             this.dockPanel2_Container.Size = new System.Drawing.Size(193, 516);
             this.dockPanel2_Container.TabIndex = 0;
             // 
-            // hideContainerRight
-            // 
-            this.hideContainerRight.BackColor = System.Drawing.SystemColors.Control;
-            this.hideContainerRight.Controls.Add(this.dpOrder);
-            this.hideContainerRight.Controls.Add(this.dpAccountReport);
-            this.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.hideContainerRight.Location = new System.Drawing.Point(1057, 24);
-            this.hideContainerRight.Name = "hideContainerRight";
-            this.hideContainerRight.Size = new System.Drawing.Size(21, 505);
-            // 
-            // dpOrder
-            // 
-            this.dpOrder.Controls.Add(this.dockPanel3_Container);
-            this.dpOrder.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-            this.dpOrder.ID = new System.Guid("85b59891-c2aa-48ab-864c-fca2e660bec3");
-            this.dpOrder.Location = new System.Drawing.Point(0, 0);
-            this.dpOrder.Name = "dpOrder";
-            this.dpOrder.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dpOrder.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-            this.dpOrder.SavedIndex = 1;
-            this.dpOrder.Size = new System.Drawing.Size(200, 484);
-            this.dpOrder.Text = "Order";
-            this.dpOrder.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
-            // 
-            // dockPanel3_Container
-            // 
-            this.dockPanel3_Container.Location = new System.Drawing.Point(4, 26);
-            this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(193, 455);
-            this.dockPanel3_Container.TabIndex = 0;
-            // 
-            // dpAccountReport
-            // 
-            this.dpAccountReport.Controls.Add(this.dockPanel4_Container);
-            this.dpAccountReport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-            this.dpAccountReport.ID = new System.Guid("3d121de3-0214-4226-b535-65fc2b709d26");
-            this.dpAccountReport.Location = new System.Drawing.Point(0, 0);
-            this.dpAccountReport.Name = "dpAccountReport";
-            this.dpAccountReport.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dpAccountReport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-            this.dpAccountReport.SavedIndex = 1;
-            this.dpAccountReport.Size = new System.Drawing.Size(200, 545);
-            this.dpAccountReport.Text = "Account Report";
-            this.dpAccountReport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
-            // 
-            // dockPanel4_Container
-            // 
-            this.dockPanel4_Container.Location = new System.Drawing.Point(4, 26);
-            this.dockPanel4_Container.Name = "dockPanel4_Container";
-            this.dockPanel4_Container.Size = new System.Drawing.Size(193, 516);
-            this.dockPanel4_Container.TabIndex = 0;
-            // 
             // hideContainerBottom
             // 
             this.hideContainerBottom.BackColor = System.Drawing.SystemColors.Control;
@@ -342,7 +288,7 @@
             this.hideContainerBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.hideContainerBottom.Location = new System.Drawing.Point(21, 508);
             this.hideContainerBottom.Name = "hideContainerBottom";
-            this.hideContainerBottom.Size = new System.Drawing.Size(1036, 21);
+            this.hideContainerBottom.Size = new System.Drawing.Size(1057, 21);
             // 
             // dpMarketDataHistoric
             // 
@@ -393,15 +339,15 @@
             this.dpInstruments.ID = new System.Guid("362dc0ee-d9fa-42ec-a9e3-deebd86aa18a");
             this.dpInstruments.Location = new System.Drawing.Point(21, 24);
             this.dpInstruments.Name = "dpInstruments";
-            this.dpInstruments.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dpInstruments.Size = new System.Drawing.Size(200, 484);
+            this.dpInstruments.OriginalSize = new System.Drawing.Size(544, 200);
+            this.dpInstruments.Size = new System.Drawing.Size(544, 484);
             this.dpInstruments.Text = "Instruments";
             // 
             // dockPanel1_Container
             // 
             this.dockPanel1_Container.Location = new System.Drawing.Point(3, 26);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(193, 455);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(537, 455);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // dpBlotter
@@ -435,7 +381,7 @@
             // 
             this.dockPanel8_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel8_Container.Name = "dockPanel8_Container";
-            this.dockPanel8_Container.Size = new System.Drawing.Size(830, 455);
+            this.dockPanel8_Container.Size = new System.Drawing.Size(486, 455);
             this.dockPanel8_Container.TabIndex = 0;
             // 
             // barSubItem1
@@ -452,9 +398,9 @@
             this.document1,
             this.document2});
             this.tabbedView1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer6.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer6});
             this.tabbedView1.RootContainer.Orientation = System.Windows.Forms.Orientation.Vertical;
             // 
             // bar1
@@ -465,15 +411,65 @@
             this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
             this.bar1.Text = "Tools";
             // 
+            // dpAccountReport
+            // 
+            this.dpAccountReport.Controls.Add(this.dockPanel4_Container);
+            this.dpAccountReport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+            this.dpAccountReport.ID = new System.Guid("3d121de3-0214-4226-b535-65fc2b709d26");
+            this.dpAccountReport.Location = new System.Drawing.Point(0, 0);
+            this.dpAccountReport.Name = "dpAccountReport";
+            this.dpAccountReport.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dpAccountReport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+            this.dpAccountReport.SavedIndex = 1;
+            this.dpAccountReport.Size = new System.Drawing.Size(200, 545);
+            this.dpAccountReport.Text = "Account Report";
+            this.dpAccountReport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
+            // 
+            // dockPanel4_Container
+            // 
+            this.dockPanel4_Container.Location = new System.Drawing.Point(4, 26);
+            this.dockPanel4_Container.Name = "dockPanel4_Container";
+            this.dockPanel4_Container.Size = new System.Drawing.Size(193, 516);
+            this.dockPanel4_Container.TabIndex = 0;
+            // 
+            // dpOrder
+            // 
+            this.dpOrder.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+            this.dpOrder.ID = new System.Guid("85b59891-c2aa-48ab-864c-fca2e660bec3");
+            this.dpOrder.Location = new System.Drawing.Point(857, 24);
+            this.dpOrder.Name = "dpOrder";
+            this.dpOrder.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dpOrder.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+            this.dpOrder.SavedIndex = 1;
+            this.dpOrder.Size = new System.Drawing.Size(200, 484);
+            this.dpOrder.Text = "Order";
+            // 
+            // dockPanel3_Container
+            // 
+            this.dockPanel3_Container.Location = new System.Drawing.Point(4, 26);
+            this.dockPanel3_Container.Name = "dockPanel3_Container";
+            this.dockPanel3_Container.Size = new System.Drawing.Size(193, 455);
+            this.dockPanel3_Container.TabIndex = 0;
+            // 
+            // hideContainerRight
+            // 
+            this.hideContainerRight.BackColor = System.Drawing.SystemColors.Control;
+            this.hideContainerRight.Controls.Add(this.dpOrder);
+            this.hideContainerRight.Controls.Add(this.dpAccountReport);
+            this.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.hideContainerRight.Location = new System.Drawing.Point(1057, 24);
+            this.hideContainerRight.Name = "hideContainerRight";
+            this.hideContainerRight.Size = new System.Drawing.Size(21, 484);
+            // 
             // TraderView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1078, 551);
             this.Controls.Add(this.dpInstruments);
+            this.Controls.Add(this.hideContainerRight);
             this.Controls.Add(this.hideContainerBottom);
             this.Controls.Add(this.hideContainerLeft);
-            this.Controls.Add(this.hideContainerRight);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -481,6 +477,7 @@
             this.Name = "TraderView";
             this.ShowIcon = false;
             this.Text = "LatamQuants Trader v1.5";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
@@ -489,9 +486,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.hideContainerLeft.ResumeLayout(false);
             this.dpMarketData.ResumeLayout(false);
-            this.hideContainerRight.ResumeLayout(false);
-            this.dpOrder.ResumeLayout(false);
-            this.dpAccountReport.ResumeLayout(false);
             this.hideContainerBottom.ResumeLayout(false);
             this.dpMarketDataHistoric.ResumeLayout(false);
             this.dpPositions.ResumeLayout(false);
@@ -499,6 +493,8 @@
             this.dpBlotter.ResumeLayout(false);
             this.dpOpportunities.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            this.dpAccountReport.ResumeLayout(false);
+            this.hideContainerRight.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -520,11 +516,6 @@
         private DevExpress.XtraBars.Docking.AutoHideContainer hideContainerLeft;
         private DevExpress.XtraBars.Docking.DockPanel dpMarketData;
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel2_Container;
-        private DevExpress.XtraBars.Docking.AutoHideContainer hideContainerRight;
-        private DevExpress.XtraBars.Docking.DockPanel dpOrder;
-        private DevExpress.XtraBars.Docking.ControlContainer dockPanel3_Container;
-        private DevExpress.XtraBars.Docking.DockPanel dpAccountReport;
-        private DevExpress.XtraBars.Docking.ControlContainer dockPanel4_Container;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document2;
         private DevExpress.XtraBars.Docking.DockPanel dpBlotter;
@@ -543,6 +534,11 @@
         private DevExpress.XtraBars.BarSubItem barSubItem1;
         private DevExpress.XtraBars.BarStaticItem txtStatusBar;
         private DevExpress.XtraBars.BarButtonItem cmdDisconnect;
+        private DevExpress.XtraBars.Docking.AutoHideContainer hideContainerRight;
+        private DevExpress.XtraBars.Docking.DockPanel dpOrder;
+        private DevExpress.XtraBars.Docking.DockPanel dpAccountReport;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel4_Container;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel3_Container;
     }
 }
 

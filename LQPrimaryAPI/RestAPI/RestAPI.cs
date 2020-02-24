@@ -5,6 +5,7 @@ using RestSharp;
 using System.Linq;
 using Newtonsoft.Json;
 using LatamQuants.PrimaryAPI.Models;
+using System.Reflection;
 
 namespace LatamQuants.PrimaryAPI
 {
@@ -14,6 +15,7 @@ namespace LatamQuants.PrimaryAPI
         private static Authentication m_auth=new Authentication();
         private static string m_baseURL = Models.EndPoint.baseURL;
         private static string m_account = "";
+        public static bool SandBoxMode = true;
 
         public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
         {
@@ -37,20 +39,28 @@ namespace LatamQuants.PrimaryAPI
         {
             string sReturn = "";
 
-            var client = new RestClient(m_baseURL+Models.EndPoint.getToken);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Basic "+ Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
-            IRestResponse response = client.Execute(request);
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (SandBoxMode == false)
             {
-                throw new Exception(response.StatusDescription);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getToken);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
+                IRestResponse response = client.Execute(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    throw new Exception(response.StatusDescription);
+                }
+                else
+                {
+                    // Get Token from header
+                    sReturn = (string)response.Headers.Cast<RestSharp.Parameter>().SingleOrDefault(x => x.Name == m_auth.TokenKey).Value;
+                }
             }
             else
             {
-                // Get Token from header
-                sReturn = (string)response.Headers.Cast<RestSharp.Parameter>().SingleOrDefault(x => x.Name == m_auth.TokenKey).Value;
+                // Custom SandBox
+                sReturn = "<TOKEN DEL SANDBOX>";
             }
 
             return sReturn;
@@ -60,13 +70,20 @@ namespace LatamQuants.PrimaryAPI
         {
             bool bReturn = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.getToken);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
-            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bReturn = (response.StatusCode== System.Net.HttpStatusCode.OK);
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getToken);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(m_auth.User + ":" + m_auth.Password)));
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bReturn = (response.StatusCode == System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                bReturn = true;
+            }
 
             return bReturn;
         }
@@ -100,20 +117,27 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.getInstruments);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
-
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsResponse.RootObject>(response.Content);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getInstruments);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn=SandBox.Service.GetResponse<Models.getInstrumentsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -124,20 +148,27 @@ namespace LatamQuants.PrimaryAPI
             Models.getInstrumentsDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.getInstrumentsDetails);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
-
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsDetailsResponse.RootObject>(response.Content);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getInstrumentsDetails);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsDetailsResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getInstrumentsDetailsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -148,30 +179,37 @@ namespace LatamQuants.PrimaryAPI
             Models.getOneInstrumentDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.getOneInstrumentDetails);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-
-            // Add parameters
-            request.AddParameter("marketId", pMarketID);
-            request.AddParameter("symbol", pSymbol);
-
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
-
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getOneInstrumentDetailsResponse.RootObject>(response.Content);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOneInstrumentDetails);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
 
-                if(oReturn.status=="ERROR")
+                // Add parameters
+                request.AddParameter("marketId", pMarketID);
+                request.AddParameter("symbol", pSymbol);
+
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getOneInstrumentDetailsResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getOneInstrumentDetailsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -470,6 +508,37 @@ namespace LatamQuants.PrimaryAPI
             else
             {
                 throw new Exception(response.ErrorMessage);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrdersActiveResponse.RootObject GetActiveOrders()
+        {
+            Models.getOrdersActiveResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrdersActive + m_account);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrdersActiveResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrdersActiveResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;

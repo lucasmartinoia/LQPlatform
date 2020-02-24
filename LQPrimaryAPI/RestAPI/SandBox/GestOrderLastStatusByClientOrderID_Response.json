@@ -1,0 +1,23 @@
+{
+    "status": "OK",
+    "order": {
+        "orderId": null,
+        "clOrdId": "320525085112497",
+        "proprietary": "PBCP",
+        "accountId": {
+            "id": "REM1545"
+        },
+        "instrumentId": {
+            "marketId": "ROFX",
+            "symbol": "GGALAbr20"
+        },
+        "price": 136,
+        "orderQty": 1,
+        "ordType": "LIMIT",
+        "side": "BUY",
+        "timeInForce": "DAY",
+        "transactTime": "20200217-15:44:45.530-0300",
+        "status": "PENDING_REPLACE",
+        "text": "Pendiente de Reemplazo"
+    }
+}

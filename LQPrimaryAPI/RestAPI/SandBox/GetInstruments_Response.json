@@ -1,0 +1,4737 @@
+{
+    "status": "OK",
+    "instruments": [
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 146c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.IWMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 158c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DODic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 169p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 351c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.SJO.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 157p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 290c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 161c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 173c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DONov20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.MINJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24C - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 168c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SFA.FAN.BSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 230p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 122p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "GIR.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 134p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 331p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 189p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 242p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 177p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 165p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 153p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BAFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1620c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 254c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 266c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 360c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 205c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 230c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 242c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 278c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 02/05 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSDic20 158c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 58000p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROS 12/01 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 238c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 170c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BA.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROS 05/11 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 109p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 169c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DODic20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 70c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 58000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 381c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROS 05/07 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 234p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 222p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 256c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 268c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 02/03 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 227c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS 08/12 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 239c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 203c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 215c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 215p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 227p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSDis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 232p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 270c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 152p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 140p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 203p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 366c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 169c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "AY24Mar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 176c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 164c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 152c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 365c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 140c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSJul20 183p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 189c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.BAMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 165p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 153p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 270c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 359c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 153c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 148c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 114p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 141c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 136c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 126p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 165c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 124c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 282c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 138p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROS 07/11 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 344c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 222p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 234p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 156c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 168c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.MINJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 210p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 197p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 185p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 246p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 173p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 161p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "GGALAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICA - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 359p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1600c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 330p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 258c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 234c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 201c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 246c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEVCONT - AY24D - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 153p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 189c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "LECHE.PMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 02/06 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 141p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 214p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 238p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 226p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 345c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.BAJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 252c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 264c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 223c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 358c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 235c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 211c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA46 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 345p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 262c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICA - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 274c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 250c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 120p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 344p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 211p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 66000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA37 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 223p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 189c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROS 03/07 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICAD - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 165c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 156c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 144c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 132c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 120c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SEF.ROS 04/05 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "NOV.PMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 144p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 132p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 374c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 161p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 157c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 145c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 169c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 286c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 159p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 173p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "NOV.DFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 118p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 164c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 128c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 274c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 262c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 250c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 02/03 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20 169c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 56000p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 284c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 272c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 260c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 64000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 226p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 238p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 179c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 367c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 214p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA37 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 167p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 66c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 238c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 142p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 130p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 197c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 121p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 173c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 145p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 133p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 54p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 157p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 181c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROS.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - A2E2 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOEne21A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 166c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 154c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 225c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 213c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 201c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOMay20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROS.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 218p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 337p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSJul20 207p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 243c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA37 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 228p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAgo20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 266c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ADA.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 242c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 254c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24C - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 230c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 231c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 353c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 64c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DONov20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24C - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 230p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA26 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSDic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 193p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20 156c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 181c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 250p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOJun20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 201p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24D - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 148p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 136p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 124p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 112p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 48p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 100p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.MINAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 338p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSDis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 193c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 278c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 266c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 254c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 137c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 242c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 149c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 167p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 179p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.MINJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 196c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 230c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 193c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 181c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 160c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20 164c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20D - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 169p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 172c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 157p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 280c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA26 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 160c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 206p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 02/04 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 218p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.BA.PDis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 62c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 159p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOJun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TER.DMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 162c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 150c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 58c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.MINMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 125p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 149p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 62p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 137p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 161c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TER.PMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 173c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSJul20 219c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 58p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 174c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "ZVZZTC2.0"
+            },
+            "cficode": "OCASPS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 248c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 221c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20D - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ODR.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 246c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 224p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 258c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 236p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA26 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 234c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 56p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 234p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 210p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 222p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 242p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 179c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 230p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 60p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICA - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 56c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.MINMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 128p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 116p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 104p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20 346c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20 150c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 318p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BCO.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 234c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 187p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 140p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 199p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 163p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 175p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 258c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 246c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 129p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 244p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 232p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 220p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 192c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 176c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 152c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 164c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20 160c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 140c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.PLR.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20 172c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOAgo20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 268c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24D - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 256c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 244c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.BADis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AO20D - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 171c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 54p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 183c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 62000p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - A2E2C - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 04/05 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 171p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "AY24Jun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20M"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS 07/12 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 62000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 138p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 66c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSDic20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 126p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 54c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "GGALFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOJul20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 141c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 165c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 153c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 189c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 209c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROS 04/07 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SEF.ROSAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 153p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 141p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 238c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SEF.ROSDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24D - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 238p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 214p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 226p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 52p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICAD - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TER.DAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20 142c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20 154c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 153p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1580p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 54000p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BADispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "NOV.PFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 199c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.MINDic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 246p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFXP 03/06 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 234p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 108p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 222p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1580c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 64c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 210p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 52c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 165p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 189c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 177c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 175c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 187c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 05/06 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.QQDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 238c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 170c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 238p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 226p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 214p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 183p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 195p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 240p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 120p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 171p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 132p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 252c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 132c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 144c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 290c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROS.PDis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 288c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 276c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 175c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 156c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 264c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 187c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 03/04 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 168c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 169c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 157c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 50p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 134p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 163p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 122p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.SDI.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 133p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 121p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSDic20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 157p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 145p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 146p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 58p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 62c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 158c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 146c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROS 07/12 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 145c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 133c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 380c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 217c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 205c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BAMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "ZVZZTV2.0"
+            },
+            "cficode": "OPASPS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.BAMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 270c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "NOV.DMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS 04/07 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSJul20 218p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROS 05/07 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20 146c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSSep20 158c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 68c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 173p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1560p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 205p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 171c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 183c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20 56p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMar20 60c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 197c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 195c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "ZVZZT"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 206p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 191p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 150c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 124p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 162c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 136p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 112p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SEF.ROSMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMay20 218p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS 07/09 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "EURUSD"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 193c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA46 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 181c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.LCS.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 228p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AY24 - CI"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BAMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 136c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 193p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 148c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SFA.FAN.BSFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 181p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 270c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 282c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 125c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 149c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 137c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BAEne21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 113p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 137p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 125p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 149p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSDic20 181c"
+            },
+            "cficode": "OCASPS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BAJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOSep20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 60000p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 274c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 393c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 262c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 250c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - AA46 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 60000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSNov20 260c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 201c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSSep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TER.PAbr20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSJul20 179p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSEne21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 197c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 185c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOAbr20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSMar20 173c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.LHS.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.BASep20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1540p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROS 08/09 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIJul20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "LECHE.PMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.MINNov20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 191c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSNov19"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSDic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 03/04 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "BTCEUR"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 142c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 387c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 154c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 166c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 224p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSAbr20 181c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 116p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSDic20 149p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 142p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.MAI.ROSJul20 128p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 236p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSSep20 130p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20 248c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 250c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1640c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 262c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "WTIP 03/05 20"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 352c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSEne21 191c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 274c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSMay20 286c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 129c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOOct20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - DICAD - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSNov20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20 200c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSDic20 118p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOFeb20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 246c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 117p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 352p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 258c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSAbr20 129p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOOct20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - A2E2 - 48hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "BTCUSD"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEJun20 373c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Mar20 68000c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 242c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 207c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 266c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 219c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 254c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOP 06/07 20A"
+            },
+            "cficode": "FXXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOMar20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMay20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.LPA.PDispo"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 386c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 207p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.SOJ.ROSJul20 230p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "RFX20Jun20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "TRI.ROSJul20 219p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOAgo20A"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "CRN.CMEFeb20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOY.CMEAbr20 372c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "I.RFX20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROMar20 1520p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSDis20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 169p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "PISO.TRI.ROSMar20 157p"
+            },
+            "cficode": "OPAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 172c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MAI.ROSJul20 160c"
+            },
+            "cficode": "OCAFXS"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "DOEne21"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "MERV - XMEV - A2E2 - 24hs"
+            },
+            "cficode": "DBXXXX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "SOJ.ROSMar20"
+            },
+            "cficode": "FXXXSX"
+        },
+        {
+            "instrumentId": {
+                "marketId": "ROFX",
+                "symbol": "OROP 03/05 20"
+            },
+            "cficode": "FXXXXX"
+        }
+    ]
+}

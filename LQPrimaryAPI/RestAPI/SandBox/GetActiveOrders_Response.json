@@ -1,0 +1,49 @@
+{
+    "status": "OK",
+  "orders": [
+    {
+      "orderId": null,
+      "clOrdId": "320521493976538",
+      "proprietary": "PBCP",
+      "accountId": {
+        "id": "REM1545"
+      },
+      "instrumentId": {
+        "marketId": "ROFX",
+        "symbol": "GGALAbr20"
+      },
+      "price": 134,
+      "orderQty": 1,
+      "ordType": "LIMIT",
+      "side": "BUY",
+      "timeInForce": "DAY",
+      "transactTime": "20200217-14:44:53.447-0300",
+      "status": "PENDING_NEW",
+      "text": "Enviada"
+    },
+    {
+      "orderId": "1130813",
+      "clOrdId": "user1145703678429722",
+      "proprietary": "api",
+      "execId": "160229133429-fix1-414",
+      "accountId": { "id": "10" },
+      "instrumentId": {
+        "marketId": "ROFX",
+        "symbol": "DODic21"
+      },
+      "price": 18.540,
+      "orderQty": 1,
+      "ordType": "LIMIT",
+      "side": "BUY",
+      "timeInForce": "DAY",
+      "transactTime": "20160303-17:27:08",
+      "avgPx": 0,
+      "lastPx": 0,
+      "lastQty": 0,
+      "cumQty": 0,
+      "leavesQty": 1,
+      "status": "NEW",
+      "text": "Aceptada"
+    }
+  ]
+}

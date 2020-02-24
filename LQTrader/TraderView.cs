@@ -16,6 +16,8 @@ namespace LQTrader
         public TraderView()
         {
             InitializeComponent();
+
+            
             // Handling the QueryControl event that will populate all automatically generated Documents
             
             this.tabbedView1.QueryControl += tabbedView1_QueryControl;
