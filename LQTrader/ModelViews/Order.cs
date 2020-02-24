@@ -49,7 +49,22 @@ namespace LQTrader.ModelViews
             Validate(pOrderOriginal);
 
             // Send order to market if the response is OK then populate the Client Order ID and Execution ID in the Order instance.
+            
+            // New order
+            if(pOrderOriginal is null)
+            {
+                LatamQuants.PrimaryAPI.Models.newSingleOrderRequest oReqNewOrder = new LatamQuants.PrimaryAPI.Models.newSingleOrderRequest();
+                Service.mapper.Map<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>(this, oReqNewOrder);
+                LatamQuants.PrimaryAPI.Models.OrderId oResponse=RestAPI.newSingleOrder(oReqNewOrder).order;
 
+                this.Proprietary = oResponse.proprietary;
+                this.ClientOrderID = oResponse.clientId;
+            }
+            // Replacement
+            else
+            {
+
+            }
 
             bReturn = true;
             return bReturn;

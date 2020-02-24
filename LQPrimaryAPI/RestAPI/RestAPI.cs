@@ -12,9 +12,9 @@ namespace LatamQuants.PrimaryAPI
     public static class RestAPI
     {
         // Private variables
-        private static Authentication m_auth=new Authentication();
+        public static Authentication m_auth=new Authentication();
         private static string m_baseURL = Models.EndPoint.baseURL;
-        private static string m_account = "";
+        public static string m_account = "";
         public static bool SandBoxMode = true;
 
         public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
@@ -457,57 +457,64 @@ namespace LatamQuants.PrimaryAPI
             Models.newSingleOrderResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.newSingleOrder);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-
-            // Add parameters
-
-            // Required
-            request.AddParameter("marketId", pOrderRequest.instrumentId.marketId);
-            request.AddParameter("symbol", pOrderRequest.instrumentId.symbol);
-            request.AddParameter("orderQty", pOrderRequest.orderQty);
-            request.AddParameter("ordType", pOrderRequest.ordType);
-            request.AddParameter("side", pOrderRequest.side);
-            request.AddParameter("account", pOrderRequest.account);
-            request.AddParameter("timeInForce", pOrderRequest.timeInForce);
-
-            // Price
-            if (pOrderRequest.ordType=="Limit")
-                request.AddParameter("price", pOrderRequest.price);
-
-
-            // Expire Date
-            if(pOrderRequest.timeInForce=="GTD")
-                request.AddParameter("expireDate", pOrderRequest.expireDate);
-
-            // Cancel Previous
-            if(pOrderRequest.cancelPrevious??false)
-                request.AddParameter("cancelPrevious", pOrderRequest.cancelPrevious);
-
-            // Iceberg
-            if (pOrderRequest.iceberg?? false)
+            if (SandBoxMode == false)
             {
-                request.AddParameter("iceberg", pOrderRequest.iceberg);
-                request.AddParameter("displayQty", pOrderRequest.displayQty);
-            }
+                var client = new RestClient(m_baseURL + Models.EndPoint.newSingleOrder);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
 
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+                // Add parameters
 
-            if (bResult)
-            {
-                oReturn = JsonConvert.DeserializeObject<Models.newSingleOrderResponse.RootObject>(response.Content);
+                // Required
+                request.AddParameter("marketId", pOrderRequest.instrumentId.marketId);
+                request.AddParameter("symbol", pOrderRequest.instrumentId.symbol);
+                request.AddParameter("orderQty", pOrderRequest.orderQty);
+                request.AddParameter("ordType", pOrderRequest.ordType);
+                request.AddParameter("side", pOrderRequest.side);
+                request.AddParameter("account", pOrderRequest.account);
+                request.AddParameter("timeInForce", pOrderRequest.timeInForce);
 
-                if (oReturn.status == "ERROR")
+                // Price
+                if (pOrderRequest.ordType=="Limit")
+                    request.AddParameter("price", pOrderRequest.price);
+
+
+                // Expire Date
+                if(pOrderRequest.timeInForce=="GTD")
+                    request.AddParameter("expireDate", pOrderRequest.expireDate);
+
+                // Cancel Previous
+                if(pOrderRequest.cancelPrevious??false)
+                    request.AddParameter("cancelPrevious", pOrderRequest.cancelPrevious);
+
+                // Iceberg
+                if (pOrderRequest.iceberg?? false)
                 {
-                    throw new Exception(oReturn.description);
+                    request.AddParameter("iceberg", pOrderRequest.iceberg);
+                    request.AddParameter("displayQty", pOrderRequest.displayQty);
+                }
+
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.newSingleOrderResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.newSingleOrderResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;

@@ -83,6 +83,12 @@
     <Compile Include="InstrumentDetails.Designer.cs">
       <DependentUpon>InstrumentDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="InstrumentSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InstrumentSelect.Designer.cs">
+      <DependentUpon>InstrumentSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="InstrumentsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InstrumentDetails.resx">
       <DependentUpon>InstrumentDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstrumentSelect.resx">
+      <DependentUpon>InstrumentSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InstrumentsUC.resx">
       <DependentUpon>InstrumentsUC.cs</DependentUpon>

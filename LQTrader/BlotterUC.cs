@@ -21,6 +21,22 @@ namespace LQTrader
         {
             Order frmOrder = new Order(Order.eMode.New);
             frmOrder.ShowDialog();
+            if(frmOrder.OrderUpdated!=null)
+            {
+                // Add to Blotter
+                if(gridControl1.DataSource != null)
+                {
+                    ((List<ModelViews.Order>)gridControl1.DataSource).Add(frmOrder.OrderUpdated);
+                    gridControl1.Update();
+                }
+                else
+                {
+                    List<ModelViews.Order> oNewDS = new List<ModelViews.Order>();
+                    oNewDS.Add(frmOrder.OrderUpdated);
+                    gridControl1.DataSource = oNewDS;
+                    gridControl1.Update();
+                }
+            }
         }
 
         private void cmdRefresh_Click(object sender, EventArgs e)

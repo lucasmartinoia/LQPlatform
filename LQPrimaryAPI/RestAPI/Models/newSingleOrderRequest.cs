@@ -6,6 +6,11 @@ namespace LatamQuants.PrimaryAPI.Models
 {
     public class newSingleOrderRequest
     {
+        public newSingleOrderRequest()
+        {
+            this.instrumentId = new InstrumentId();
+        }
+
         public InstrumentId instrumentId { get; set; }
         public double price { get; set; }
         public int orderQty { get; set; }

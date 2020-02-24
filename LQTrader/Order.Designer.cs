@@ -190,6 +190,8 @@
             this.txtClientOrderID.ReadOnly = true;
             this.txtClientOrderID.Size = new System.Drawing.Size(100, 20);
             this.txtClientOrderID.TabIndex = 6;
+            this.txtClientOrderID.TextChanged += new System.EventHandler(this.txtClientOrderID_TextChanged);
+            this.txtClientOrderID.DoubleClick += new System.EventHandler(this.txtClientOrderID_DoubleClick);
             // 
             // txtOrderID
             // 
@@ -431,6 +433,7 @@
             this.cmdSelect.TabIndex = 9;
             this.cmdSelect.Text = "Select";
             this.cmdSelect.UseVisualStyleBackColor = true;
+            this.cmdSelect.Click += new System.EventHandler(this.cmdSelect_Click);
             // 
             // txtSymbol
             // 

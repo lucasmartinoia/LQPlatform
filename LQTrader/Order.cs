@@ -21,7 +21,7 @@ namespace LQTrader
         }
 
         private eMode m_Mode = eMode.NotSet;
-        private ModelViews.Order m_OrderOriginal;
+        private ModelViews.Order m_OrderOriginal=null;
 
         // mOrder is not null when is necessary update the list of orders due an action of New, Replace or Delete.
         public ModelViews.Order OrderUpdated { get; private set; }
@@ -41,6 +41,7 @@ namespace LQTrader
             {
                 cmdCancelOrder.Visible = false;
                 cmdModify.Visible = false;
+                txtAccountID.Text = LatamQuants.PrimaryAPI.RestAPI.m_account;
             }
         }
 
@@ -139,14 +140,72 @@ namespace LQTrader
         {
             ModelViews.Order oOrder = PopulateOrderFromScreen();
 
-            
+            try
+            {
+                bool bResult = oOrder.Send(this.m_OrderOriginal);
+
+                if (bResult == true)
+                {
+                    // Update Client Order ID
+                    txtClientOrderID.Text = oOrder.ClientOrderID;
+                    txtStatus.Text = "SENT";
+                    MessageBox.Show("order sent successfully to the market" , "INFO", MessageBoxButtons.OK);
+                    this.OrderUpdated = PopulateOrderFromScreen();
+                    this.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK);
+            }
         }
 
         private ModelViews.Order PopulateOrderFromScreen()
         {
-            ModelViews.Order oReturn = null;
+            ModelViews.Order oReturn = new ModelViews.Order();
 
+            if(this.m_Mode== eMode.New)
+            {
+                //--------------- Identification section
+                oReturn.AccountID=txtAccountID.Text;
+                oReturn.OrderID=txtOrderID.Text;
+                oReturn.ClientOrderID=txtClientOrderID.Text;
+                oReturn.ExecutionID=txtExecutionID.Text;
+                oReturn.ReplaceClientOrderID=txtReplaceID.Text;
+                oReturn.CancelClientOrderID=txtCancelID.Text;
+                oReturn.Proprietary=txtPropietary.Text;
 
+                //--------------- Input section
+                oReturn.MarketID=txtMarketID.Text;
+                oReturn.Symbol=txtSymbol.Text;
+                oReturn.Side=(string)cboSide.SelectedItem;
+                oReturn.Type=(string)cboType.SelectedItem;
+                oReturn.Price=txtPrice.EditValue==null?0:Convert.ToDouble(txtPrice.EditValue);
+                oReturn.Quantity= txtQuantity.EditValue == null ? 0 : Convert.ToDouble(txtQuantity.EditValue);
+                oReturn.TimeInForce=(string)cboTimeInForce.SelectedItem;
+
+                if ((string)cboTimeInForce.SelectedItem == "GTD")
+                {
+                    oReturn.ExpireDate = dtExpire.Value;
+                }
+
+                oReturn.Iceberg=chkIceberg.Checked;
+
+                if (oReturn.Iceberg == true)
+                {
+                    oReturn.DisplayQuantity=(double)txtDisplayQuantity.EditValue;
+                }
+
+                //--------------- Status section
+                oReturn.TransactionTime=txtTransactionTime.Text;
+                oReturn.AveragePrice= txtAveragePrice.EditValue == null ? 0 : Convert.ToDouble(txtAveragePrice.EditValue);
+                oReturn.LastPrice= txtLastPrice.EditValue == null ? 0 : Convert.ToDouble(txtLastPrice.EditValue);
+                oReturn.LeavesQuantity= txtLeavesQuantity.EditValue == null ? 0 : Convert.ToDouble(txtLeavesQuantity.EditValue);
+                oReturn.CumulativeQuantity= txtCumulativeQuantity.EditValue == null ? 0 : Convert.ToDouble(txtCumulativeQuantity.EditValue);
+                oReturn.LastQuantity= txtLastQuantity.EditValue == null ? 0 : Convert.ToDouble(txtLastQuantity.EditValue);
+                oReturn.Status=txtStatus.Text;
+                oReturn.Text=txtText.Text;
+            }
 
             return oReturn;
         }
@@ -182,6 +241,28 @@ namespace LQTrader
         private void cmdClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cmdSelect_Click(object sender, EventArgs e)
+        {
+            InstrumentSelect frmInstrumentSelect = new InstrumentSelect();
+            frmInstrumentSelect.ShowDialog();
+            
+            if(frmInstrumentSelect.SelectedInstrument!=null)
+            {
+                txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
+                txtSymbol.Text = frmInstrumentSelect.SelectedInstrument.Symbol;
+            }
+        }
+
+        private void txtClientOrderID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtClientOrderID_DoubleClick(object sender, EventArgs e)
+        {
+            txtClientOrderID.ReadOnly = false;
         }
     }
 }

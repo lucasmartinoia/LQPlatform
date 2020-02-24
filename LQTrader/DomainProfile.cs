@@ -62,6 +62,20 @@ namespace LQTrader
                .ForMember(dest => dest.ExpireDate, opt => opt.Ignore())
                .ForMember(dest => dest.Iceberg, opt => opt.Ignore())
                .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore());
+
+            CreateMap<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>()
+                .ForMember(dest => dest.account, opt => opt.MapFrom(o => o.AccountID))
+                .ForMember(dest => dest.cancelPrevious, opt => opt.Ignore())
+                .ForMember(dest => dest.displayQty, opt => opt.MapFrom(o => o.DisplayQuantity))
+                .ForMember(dest => dest.expireDate, opt => opt.MapFrom(o => o.ExpireDate))
+                .ForMember(dest => dest.iceberg, opt => opt.MapFrom(o => o.Iceberg))
+                .ForMember(dest => dest.orderQty, opt => opt.MapFrom(o => o.Quantity))
+                .ForMember(dest => dest.ordType, opt => opt.MapFrom(o => o.Type))
+                .ForMember(dest => dest.price, opt => opt.MapFrom(o => o.Price))
+                .ForMember(dest => dest.side, opt => opt.MapFrom(o => o.Side))
+                .ForMember(dest => dest.timeInForce, opt => opt.MapFrom(o => o.TimeInForce))
+                .ForPath(dest => dest.instrumentId.marketId, opt => opt.MapFrom(o => o.MarketID))
+                .ForPath(dest => dest.instrumentId.symbol, opt => opt.MapFrom(o => o.Symbol));
         }
     }
 }

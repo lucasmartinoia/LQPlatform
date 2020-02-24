@@ -17,10 +17,23 @@ namespace LatamQuants.PrimaryAPI.SandBox
             string sFileName = pMethodName + "_Response.json";
 
             RestSharp.RestResponse oRestResponse = new RestSharp.RestResponse();
-            oRestResponse.Content = File.ReadAllText(m_Path + sFileName);
+            string sContent= File.ReadAllText(m_Path + sFileName);
+
+            // Replace auto generated string.
+            sContent = sContent.Replace("<<AUTO>>", RandomString(20));
+
+            oRestResponse.Content = sContent;
             oReturn=JsonConvert.DeserializeObject<R>(oRestResponse.Content);
 
             return oReturn;
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
