@@ -117,16 +117,81 @@ namespace LQTrader.ModelViews
         {
             List<Order> colReturn = new List<Order>();
 
-            List<LatamQuants.PrimaryAPI.Models.Order> colActiveOrders= RestAPI.GetActiveOrders().orders;
+            if (pOrderList != null && pOrderList.Count > 0)
+                colReturn = pOrderList;
 
-            foreach (LatamQuants.PrimaryAPI.Models.Order oOrder in colActiveOrders)
+            // Update all orders asking for all request done for current account.
+
+            List<LatamQuants.PrimaryAPI.Models.Order> colOrders= RestAPI.GetOrdersByAccount().orders;
+
+            foreach (LatamQuants.PrimaryAPI.Models.Order oOrder in colOrders)
             {
-                ModelViews.Order vOrder = new Order();
+                Order vOrder = new Order();
+                Order blotterOrder = null;
                 Service.mapper.Map<LatamQuants.PrimaryAPI.Models.Order, ModelViews.Order>(oOrder, vOrder);
-                colReturn.Add(vOrder);
+
+                // Check if order already exists
+                if(colReturn != null)
+                    blotterOrder = colReturn.Where(x => x.OrderID == (vOrder.OrderID ?? "") || x.ClientOrderID == vOrder.ClientOrderID).FirstOrDefault();
+
+                // Update order
+                if (blotterOrder != null)
+                {
+                    if(colReturn.Remove(blotterOrder))
+                    {
+                        blotterOrder.Update(vOrder);
+                        colReturn.Add(vOrder);
+                    }
+                }
+                // Add order
+                else
+                {
+                    colReturn.Add(vOrder);
+                }
             }
 
             return colReturn;
+        }
+
+        public void Update(Order pOrder)
+        {
+            this.AveragePrice = pOrder.AveragePrice;
+            this.CumulativeQuantity = pOrder.CumulativeQuantity;
+            this.DisplayQuantity = pOrder.DisplayQuantity;
+            this.ExecutionID = pOrder.ExecutionID;
+            this.LastPrice = pOrder.LastPrice;
+            this.LastQuantity = pOrder.LastQuantity;
+            this.LeavesQuantity = pOrder.LeavesQuantity;
+            this.OrderID = pOrder.OrderID;
+            this.Proprietary = pOrder.Proprietary;
+            this.Status = Order.GetBlotterStatus(pOrder);
+            this.Text = pOrder.Text;
+            this.TransactionTime = pOrder.TransactionTime;
+        }
+
+        public static string GetBlotterStatus(Order pOrder)
+        {
+            string sReturn = "";
+
+            // PENDING_NEW
+            if (pOrder.Status == "PENDING_NEW")
+                sReturn = "PENDING_NEW";
+            // PENDING
+            else if (pOrder.Status == "NEW" || (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0 && pOrder.Status != "CANCELLED"))
+                sReturn = "PENDING";
+            // FILLED
+            else if (pOrder.Status == "FILLED" && (pOrder.LeavesQuantity == 0))
+                sReturn = "FILLED";
+            // PARTIALLY FILLED
+            else if (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0)
+                sReturn = "PARTIALLY FILLED";
+            // CANCELLED
+            else if (pOrder.Status == "CANCELLED")
+                sReturn = "CANCELLED";
+            else
+                sReturn = "PENDING";
+
+            return sReturn;
         }
     }
 }

@@ -22,14 +22,14 @@ namespace LatamQuants.PrimaryAPI.Models
         public const string getAccountPositions = "/rest/risk/position/getPositions/"; // TODO: VERIFICAR EN HORARIO DE MERCADO LA PARTE DE TRADES
         public const string getAccountPositionsDetails = "/rest/risk/detailedPosition/"; // TODO: VERIFICAR EN HORARIO DE MERCADO LA PARTE DE TRADES
         public const string newSingleOrder = "/rest/order/newSingleOrder?"; // EN CURSO
-        public const string replaceOrderByClientOrderID = "/rest/order/replaceById?";
-        public const string cancelOrderByClientOrderID = "/rest/order/cancelById?";
-        public const string getOrdersActive = "/rest/order/actives?";
-        public const string getOrdersFilled = "/rest/order/filleds?";
-        public const string getOrdersByAccount = "/rest/order/all?";
-        public const string getOrderStatusByExecutionID = "/rest/order/byExecId?";
-        public const string getOrderByOrderID = "/rest/order/byOrderId?";
-        public const string getOrderLastStatusByCliendOrderID = "/rest/order/id?";
-        public const string getOrderAllStatusByCliendOrderID = "/rest/order/allById?";
+        public const string replaceOrderByClientOrderID = "/rest/order/replaceById?"; //OK
+        public const string cancelOrderByClientOrderID = "/rest/order/cancelById?"; //OK
+        public const string getOrdersActive = "/rest/order/actives?"; //OK
+        public const string getOrdersFilled = "/rest/order/filleds?"; //OK
+        public const string getOrdersByAccount = "/rest/order/all?"; //OK
+        public const string getOrderStatusByExecutionID = "/rest/order/byExecId?"; //OK
+        public const string getOrderByOrderID = "/rest/order/byOrderId?"; //OK
+        public const string getOrderLastStatusByCliendOrderID = "/rest/order/id?"; //OK
+        public const string getOrderAllStatusByCliendOrderID = "/rest/order/allById?"; //OK
     }
 }

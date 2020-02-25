@@ -457,44 +457,44 @@ namespace LatamQuants.PrimaryAPI
             Models.newSingleOrderResponse.RootObject oReturn = null;
             bool bResult = false;
 
+            var client = new RestClient(m_baseURL + Models.EndPoint.newSingleOrder);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+
+            // Required
+            request.AddParameter("marketId", pOrderRequest.instrumentId.marketId);
+            request.AddParameter("symbol", pOrderRequest.instrumentId.symbol);
+            request.AddParameter("orderQty", pOrderRequest.orderQty);
+            request.AddParameter("ordType", pOrderRequest.ordType);
+            request.AddParameter("side", pOrderRequest.side);
+            request.AddParameter("account", pOrderRequest.account);
+            request.AddParameter("timeInForce", pOrderRequest.timeInForce);
+
+            // Price
+            if (pOrderRequest.ordType=="Limit")
+                request.AddParameter("price", pOrderRequest.price);
+
+
+            // Expire Date
+            if(pOrderRequest.timeInForce=="GTD")
+                request.AddParameter("expireDate", pOrderRequest.expireDate);
+
+            // Cancel Previous
+            if(pOrderRequest.cancelPrevious??false)
+                request.AddParameter("cancelPrevious", pOrderRequest.cancelPrevious);
+
+            // Iceberg
+            if (pOrderRequest.iceberg?? false)
+            {
+                request.AddParameter("iceberg", pOrderRequest.iceberg);
+                request.AddParameter("displayQty", pOrderRequest.displayQty);
+            }
+
             if (SandBoxMode == false)
             {
-                var client = new RestClient(m_baseURL + Models.EndPoint.newSingleOrder);
-                client.Timeout = -1;
-                var request = new RestRequest(Method.GET);
-                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-
-                // Add parameters
-
-                // Required
-                request.AddParameter("marketId", pOrderRequest.instrumentId.marketId);
-                request.AddParameter("symbol", pOrderRequest.instrumentId.symbol);
-                request.AddParameter("orderQty", pOrderRequest.orderQty);
-                request.AddParameter("ordType", pOrderRequest.ordType);
-                request.AddParameter("side", pOrderRequest.side);
-                request.AddParameter("account", pOrderRequest.account);
-                request.AddParameter("timeInForce", pOrderRequest.timeInForce);
-
-                // Price
-                if (pOrderRequest.ordType=="Limit")
-                    request.AddParameter("price", pOrderRequest.price);
-
-
-                // Expire Date
-                if(pOrderRequest.timeInForce=="GTD")
-                    request.AddParameter("expireDate", pOrderRequest.expireDate);
-
-                // Cancel Previous
-                if(pOrderRequest.cancelPrevious??false)
-                    request.AddParameter("cancelPrevious", pOrderRequest.cancelPrevious);
-
-                // Iceberg
-                if (pOrderRequest.iceberg?? false)
-                {
-                    request.AddParameter("iceberg", pOrderRequest.iceberg);
-                    request.AddParameter("displayQty", pOrderRequest.displayQty);
-                }
-
                 IRestResponse response = client.Execute(request);
                 bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
@@ -520,6 +520,94 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
+        public static Models.cancelOrderByClientOrderIDResponse.RootObject CancelOrderByClientOrderID(string pClientOrderID, string pProprietary)
+        {
+            Models.cancelOrderByClientOrderIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(m_baseURL + Models.EndPoint.cancelOrderByClientOrderID);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+
+            // Required
+            request.AddParameter("clOrdId", pClientOrderID);
+            request.AddParameter("proprietary", pProprietary);
+
+            if (SandBoxMode == false)
+            {
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.cancelOrderByClientOrderIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.cancelOrderByClientOrderIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.replaceOrderByClientOrderIDResponse.RootObject ReplaceOrderByClientOrderID(string pClientOrderID, string pProprietary, double pOrderQuantity, double pPrice)
+        {
+            Models.replaceOrderByClientOrderIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            var client = new RestClient(m_baseURL + Models.EndPoint.replaceOrderByClientOrderID);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+            // Add parameters
+
+            // Required
+            request.AddParameter("clOrdId", pClientOrderID);
+            request.AddParameter("proprietary", pProprietary);
+            request.AddParameter("orderQty", pOrderQuantity);
+            request.AddParameter("price", pPrice);
+
+            if (SandBoxMode == false)
+            {
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.replaceOrderByClientOrderIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.replaceOrderByClientOrderIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
         public static Models.getOrdersActiveResponse.RootObject GetActiveOrders()
         {
             Models.getOrdersActiveResponse.RootObject oReturn = null;
@@ -527,7 +615,7 @@ namespace LatamQuants.PrimaryAPI
 
             if (SandBoxMode == false)
             {
-                var client = new RestClient(m_baseURL + Models.EndPoint.getOrdersActive + m_account);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrdersActive + "accountId=" + m_account);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
@@ -550,5 +638,193 @@ namespace LatamQuants.PrimaryAPI
 
             return oReturn;
         }
+
+        public static Models.getOrderAllStatusByCliendOrderIDResponse.RootObject GetOrderAllStatusByCliendOrderID(string sClientOrderID)
+        {
+            Models.getOrderAllStatusByCliendOrderIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderAllStatusByCliendOrderID + "clOrdId=" + sClientOrderID);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrderAllStatusByCliendOrderIDResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrderAllStatusByCliendOrderIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrderLastStatusByCliendOrderIDResponse.RootObject GetOrderLastStatusByCliendOrderID(string sClientOrderID)
+        {
+            Models.getOrderLastStatusByCliendOrderIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderLastStatusByCliendOrderID + "clOrdId=" + sClientOrderID);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrderLastStatusByCliendOrderIDResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrderLastStatusByCliendOrderIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrderByOrderIDResponse.RootObject GetOrderByOrderID(string sOrderID)
+        {
+            Models.getOrderByOrderIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderByOrderID + "orderId=" + sOrderID);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrderByOrderIDResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrderByOrderIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrderStatusByExecutionIDResponse.RootObject GetOrderStatusByExecutionID(string sExecID)
+        {
+            Models.getOrderStatusByExecutionIDResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderStatusByExecutionID + "execId=" + sExecID);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrderStatusByExecutionIDResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrderStatusByExecutionIDResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrdersFilledResponse.RootObject GetOrdersFilled()
+        {
+            Models.getOrdersFilledResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrdersFilled + "accountId=" + m_account);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrdersFilledResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrdersFilledResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+        public static Models.getOrdersByAccountResponse.RootObject GetOrdersByAccount()
+        {
+            Models.getOrdersByAccountResponse.RootObject oReturn = null;
+            bool bResult = false;
+
+            if (SandBoxMode == false)
+            {
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrdersByAccount + "accountId=" + m_account);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
+
+                if (bResult)
+                {
+                    oReturn = JsonConvert.DeserializeObject<Models.getOrdersByAccountResponse.RootObject>(response.Content);
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
+                }
+            }
+            else
+            {
+                oReturn = SandBox.Service.GetResponse<Models.getOrdersByAccountResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+            }
+
+            return oReturn;
+        }
+
+
     }
 }

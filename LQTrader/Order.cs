@@ -60,30 +60,25 @@ namespace LQTrader
             txtMarketID.Text = pOrder.MarketID;
             txtSymbol.Text = pOrder.Symbol;
             cmdSelect.Visible = false;
-            
-            //if(pOrder.Side=="Buy")
-            //{
-            //    cboSide.SelectedIndex = 0;
-            //}
-            //else
-            //{
-            //    cboSide.SelectedIndex = 1;
-            //}
-            cboSide.SelectedItem = pOrder.Side;
 
-            //if(pOrder.Type=="LIMIT")
-            //{
-            //    cboType.SelectedIndex = 0;
-            //}
-            //else
-            //{
-            //    cboType.SelectedIndex = 1;
-            //}
+            if (pOrder.Side.ToLower() == "buy")
+            {
+                cboSide.SelectedIndex = 0;
+            }
+            else
+            {
+                cboSide.SelectedIndex = 1;
+            }
+
             cboType.SelectedItem = pOrder.Type;
 
             txtPrice.EditValue = pOrder.Price;
             txtQuantity.EditValue = pOrder.Quantity;
-            cboTimeInForce.SelectedItem=pOrder.TimeInForce;
+
+            if (pOrder.TimeInForce.ToLower() == "day")
+                cboTimeInForce.SelectedIndex = 0;
+            else
+                cboTimeInForce.SelectedItem=pOrder.TimeInForce;
 
             if(pOrder.TimeInForce=="GTD")
             {
@@ -121,8 +116,16 @@ namespace LQTrader
             txtStatus.Text = pOrder.Status;
             txtText.Text = pOrder.Text;
 
+            // Not allow input
+            cboSide.Enabled = false;
+            cboTimeInForce.Enabled = false;
+            txtPrice.Enabled = false;
+            txtQuantity.Enabled = false;
+            chkIceberg.Enabled = false;
+            cboType.Enabled = false;
+
             //--------------- Buttons
-            if(txtStatus.Text=="PENDING")
+            if(txtStatus.Text=="PENDING" && this.m_Mode== eMode.Edit)
             {
                 cmdCancelOrder.Visible = true;
                 cmdModify.Visible = true;
@@ -148,6 +151,7 @@ namespace LQTrader
                 {
                     // Update Client Order ID
                     txtClientOrderID.Text = oOrder.ClientOrderID;
+                    txtPropietary.Text = oOrder.Proprietary;
                     txtStatus.Text = "SENT";
                     MessageBox.Show("order sent successfully to the market" , "INFO", MessageBoxButtons.OK);
                     this.OrderUpdated = PopulateOrderFromScreen();
