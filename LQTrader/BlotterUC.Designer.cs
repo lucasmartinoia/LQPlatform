@@ -33,6 +33,8 @@
             this.cmdNew = new System.Windows.Forms.Button();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.cmdActiveOrders = new System.Windows.Forms.Button();
+            this.cmdOrdersTraded = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -40,6 +42,8 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.cmdOrdersTraded);
+            this.pnlTop.Controls.Add(this.cmdActiveOrders);
             this.pnlTop.Controls.Add(this.cmdRefresh);
             this.pnlTop.Controls.Add(this.cmdNew);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -52,9 +56,9 @@
             // 
             this.cmdRefresh.Location = new System.Drawing.Point(86, 9);
             this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(75, 23);
+            this.cmdRefresh.Size = new System.Drawing.Size(108, 23);
             this.cmdRefresh.TabIndex = 1;
-            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.Text = "Account Orders";
             this.cmdRefresh.UseVisualStyleBackColor = true;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
@@ -86,6 +90,26 @@
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
+            // cmdActiveOrders
+            // 
+            this.cmdActiveOrders.Location = new System.Drawing.Point(200, 9);
+            this.cmdActiveOrders.Name = "cmdActiveOrders";
+            this.cmdActiveOrders.Size = new System.Drawing.Size(108, 23);
+            this.cmdActiveOrders.TabIndex = 2;
+            this.cmdActiveOrders.Text = "Active Orders";
+            this.cmdActiveOrders.UseVisualStyleBackColor = true;
+            this.cmdActiveOrders.Click += new System.EventHandler(this.cmdActiveOrders_Click);
+            // 
+            // cmdOrdersTraded
+            // 
+            this.cmdOrdersTraded.Location = new System.Drawing.Point(317, 9);
+            this.cmdOrdersTraded.Name = "cmdOrdersTraded";
+            this.cmdOrdersTraded.Size = new System.Drawing.Size(108, 23);
+            this.cmdOrdersTraded.TabIndex = 3;
+            this.cmdOrdersTraded.Text = "Filled Orders";
+            this.cmdOrdersTraded.UseVisualStyleBackColor = true;
+            this.cmdOrdersTraded.Click += new System.EventHandler(this.cmdOrdersTraded_Click);
+            // 
             // BlotterUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,5 +132,7 @@
         private System.Windows.Forms.Button cmdRefresh;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private System.Windows.Forms.Button cmdOrdersTraded;
+        private System.Windows.Forms.Button cmdActiveOrders;
     }
 }

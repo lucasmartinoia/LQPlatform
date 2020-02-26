@@ -42,78 +42,126 @@ namespace LQTrader.ModelViews
         public string ReplaceClientOrderID { get; set; }
         public string CancelClientOrderID { get; set; }
 
-        public bool Send(ModelViews.Order pOrderOriginal = null)
+        public enum eUpdateOrdersMode
+        {
+            ByAccount=0,
+            ActiveOrders=1,
+            FilledOrders=2,
+        }
+        public bool Cancel()
         {
             bool bReturn = false;
 
-            Validate(pOrderOriginal);
+            LatamQuants.PrimaryAPI.Models.OrderId oResponse= RestAPI.CancelOrderByClientOrderID(this.ClientOrderID, this.Proprietary).order;
+            this.CancelClientOrderID = oResponse.clientId;
 
-            // Send order to market if the response is OK then populate the Client Order ID and Execution ID in the Order instance.
-            
-            // New order
-            if(pOrderOriginal is null)
-            {
-                LatamQuants.PrimaryAPI.Models.newSingleOrderRequest oReqNewOrder = new LatamQuants.PrimaryAPI.Models.newSingleOrderRequest();
-                Service.mapper.Map<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>(this, oReqNewOrder);
-                LatamQuants.PrimaryAPI.Models.OrderId oResponse=RestAPI.newSingleOrder(oReqNewOrder).order;
+            bReturn = true;
+            return bReturn;
+        }
+        
+        
+        public Order Replace(double pPrice, double pQuantity)
+        {
+            Order oReturn = null;
 
-                this.Proprietary = oResponse.proprietary;
-                this.ClientOrderID = oResponse.clientId;
-            }
-            // Replacement
-            else
-            {
+            // Validate parameters
+            if (pPrice <= 0)
+                throw new Exception("Price cannot be 0");
+            else if (pQuantity <= 0)
+                throw new Exception("Quantity cannot be 0");
 
-            }
+            // Send request
+            LatamQuants.PrimaryAPI.Models.OrderId oResponse = RestAPI.ReplaceOrderByClientOrderID(this.ClientOrderID, this.Proprietary, pQuantity, pPrice).order;
+
+            // Update current order
+            this.ReplaceClientOrderID= oResponse.clientId;
+
+            // Returns new order
+            oReturn = this.New();
+            oReturn.Quantity = pQuantity;
+            oReturn.Price = pPrice;
+            oReturn.ClientOrderID = oResponse.clientId;
+            oReturn.Status = "SENT";
+
+            return oReturn;
+        }
+        
+        /// <summary>
+        /// Return a new order instance with same input values from original.
+        /// </summary>
+        /// <returns>New order</returns>
+        public Order New()
+        {
+            Order oReturn = new Order();
+
+            oReturn.AccountID = this.AccountID;
+            oReturn.DisplayQuantity = this.DisplayQuantity;
+            oReturn.ExpireDate = this.ExpireDate;
+            oReturn.Iceberg = this.Iceberg;
+            oReturn.MarketID = this.MarketID;
+            oReturn.Price = this.Price;
+            oReturn.Proprietary = this.Proprietary;
+            oReturn.Quantity = this.Quantity;
+            oReturn.Side = this.Side;
+            oReturn.Symbol = this.Symbol;
+            oReturn.TimeInForce = this.TimeInForce;
+            oReturn.Type = this.Type;
+
+            return oReturn;
+        }
+        
+        /// <summary>
+        /// Send NEW order to the market
+        /// </summary>
+        /// <returns></returns>
+        public bool Send()
+        {
+            bool bReturn = false;
+
+            Validate();
+
+            LatamQuants.PrimaryAPI.Models.newSingleOrderRequest oReqNewOrder = new LatamQuants.PrimaryAPI.Models.newSingleOrderRequest();
+            Service.mapper.Map<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>(this, oReqNewOrder);
+            LatamQuants.PrimaryAPI.Models.OrderId oResponse=RestAPI.newSingleOrder(oReqNewOrder).order;
+
+            this.Proprietary = oResponse.proprietary;
+            this.ClientOrderID = oResponse.clientId;
+            this.Status = "SENT";
 
             bReturn = true;
             return bReturn;
         }
 
-
-        // Validate if Order information is OK to send it to Market.
-        private void Validate(ModelViews.Order pOrderOriginal=null)
+        public Order Clone()
         {
-            // Validation for Replace an existent order in the market
-            if(pOrderOriginal!=null)
-            {
-                if(pOrderOriginal.Status=="PENDING")
-                {
-                    if (this.Price <= 0)
-                        throw new Exception("Price cannot be 0");
-                    else if(this.Quantity<=0)
-                        throw new Exception("Quantity cannot be 0");
-                    if (this.Quantity == pOrderOriginal.Quantity && this.Price == pOrderOriginal.Price)
-                        throw new Exception("Price and Quantity not were modified");
-                    if(this.Quantity>pOrderOriginal.LeavesQuantity)
-                        throw new Exception("Quantity cannot be higher than Pending Quantity");
-                }
-            }
-            // Validation for a NEW order
-            else
-            {
-                if(String.IsNullOrEmpty(this.MarketID)==true)
-                    throw new Exception("Please select an Instrument");
-                else if(String.IsNullOrEmpty(this.Side)==true)
-                    throw new Exception("Please select a Side");
-                else if(String.IsNullOrEmpty(this.Type)==true)
-                    throw new Exception("Please select a Type");
-                else if(this.Type=="LIMIT" && this.Price<=0)
-                    throw new Exception("Price cannot be 0 for a LIMIT order");
-                else if(this.Quantity<=0)
-                    throw new Exception("Quantity cannot be 0");
-                else if(String.IsNullOrEmpty(this.TimeInForce)==true)
-                    throw new Exception("Please select a TimeInForce option");
-                else if(this.TimeInForce=="GTD" && (this.ExpireDate is null || this.ExpireDate<=System.DateTime.Now.Date))
-                    throw new Exception("Expire Date cannot be in the past");
-                else if(this.Iceberg==true && (this.DisplayQuantity is null || this.DisplayQuantity<=0))
-                    throw new Exception("Display Quantity cannot be 0 for an Iceberg order");
-                else if(this.Iceberg==true && this.DisplayQuantity>=this.Quantity)
-                    throw new Exception("Display Quantity cannot be equal or greater than Quantity");
-            }
+            return (Order)this.MemberwiseClone();
         }
 
-        public static List<Order> UpdateOrders(List<Order> pOrderList)
+
+        // Validate if Order information is OK to send it to Market.
+        private void Validate()
+        {
+            if(String.IsNullOrEmpty(this.MarketID)==true)
+                throw new Exception("Please select an Instrument");
+            else if(String.IsNullOrEmpty(this.Side)==true)
+                throw new Exception("Please select a Side");
+            else if(String.IsNullOrEmpty(this.Type)==true)
+                throw new Exception("Please select a Type");
+            else if(this.Type=="LIMIT" && this.Price<=0)
+                throw new Exception("Price cannot be 0 for a LIMIT order");
+            else if(this.Quantity<=0)
+                throw new Exception("Quantity cannot be 0");
+            else if(String.IsNullOrEmpty(this.TimeInForce)==true)
+                throw new Exception("Please select a TimeInForce option");
+            else if(this.TimeInForce=="GTD" && (this.ExpireDate is null || this.ExpireDate<=System.DateTime.Now.Date))
+                throw new Exception("Expire Date cannot be in the past");
+            else if(this.Iceberg==true && (this.DisplayQuantity is null || this.DisplayQuantity<=0))
+                throw new Exception("Display Quantity cannot be 0 for an Iceberg order");
+            else if(this.Iceberg==true && this.DisplayQuantity>=this.Quantity)
+                throw new Exception("Display Quantity cannot be equal or greater than Quantity");
+        }
+
+        public static List<Order> UpdateOrders(List<Order> pOrderList, eUpdateOrdersMode pMode)
         {
             List<Order> colReturn = new List<Order>();
 
@@ -121,8 +169,14 @@ namespace LQTrader.ModelViews
                 colReturn = pOrderList;
 
             // Update all orders asking for all request done for current account.
+            List<LatamQuants.PrimaryAPI.Models.Order> colOrders = null;
 
-            List<LatamQuants.PrimaryAPI.Models.Order> colOrders= RestAPI.GetOrdersByAccount().orders;
+            if (pMode== eUpdateOrdersMode.ByAccount)
+                colOrders= RestAPI.GetOrdersByAccount().orders;
+            else if(pMode== eUpdateOrdersMode.ActiveOrders)
+                colOrders = RestAPI.GetActiveOrders().orders;
+            else if(pMode== eUpdateOrdersMode.FilledOrders)
+                colOrders = RestAPI.GetOrdersFilled().orders;
 
             foreach (LatamQuants.PrimaryAPI.Models.Order oOrder in colOrders)
             {
@@ -153,11 +207,46 @@ namespace LQTrader.ModelViews
             return colReturn;
         }
 
+        public static List<Order> UpdateOrders(List<Order> pOrderListOriginal, List<Order> pOrderListNews)
+        {
+            List<Order> colReturn = new List<Order>();
+
+            colReturn = pOrderListOriginal;
+
+            foreach (Order vOrder in pOrderListNews)
+            {
+                Order oOriginalOrder = null;
+
+                // Check if order already exists
+                if (colReturn != null)
+                    oOriginalOrder = colReturn.Where(x => x.OrderID == (vOrder.OrderID ?? "") || x.ClientOrderID == vOrder.ClientOrderID).FirstOrDefault();
+
+                // Update order
+                if (oOriginalOrder != null)
+                {
+                    if (colReturn.Remove(oOriginalOrder))
+                    {
+                        oOriginalOrder.Update(vOrder);
+                        colReturn.Add(vOrder);
+                    }
+                }
+                // Add order
+                else
+                {
+                    colReturn.Add(vOrder);
+                }
+            }
+
+            return colReturn;
+        }
+
         public void Update(Order pOrder)
         {
             this.AveragePrice = pOrder.AveragePrice;
             this.CumulativeQuantity = pOrder.CumulativeQuantity;
-            this.DisplayQuantity = pOrder.DisplayQuantity;
+            //this.DisplayQuantity = pOrder.DisplayQuantity;
+            this.Price = pOrder.Price;
+            this.Quantity = pOrder.Quantity;
             this.ExecutionID = pOrder.ExecutionID;
             this.LastPrice = pOrder.LastPrice;
             this.LastQuantity = pOrder.LastQuantity;
@@ -167,6 +256,34 @@ namespace LQTrader.ModelViews
             this.Status = Order.GetBlotterStatus(pOrder);
             this.Text = pOrder.Text;
             this.TransactionTime = pOrder.TransactionTime;
+        }
+
+        public void Update(string sOrderID, string sClientOrderID, string sExecutionID)
+        {
+            LatamQuants.PrimaryAPI.Models.Order oOrder=null;
+
+            if (String.IsNullOrEmpty(sOrderID) == false)
+            {
+                // Update by OrderID
+                oOrder = RestAPI.GetOrderByOrderID(sOrderID).order;
+            }
+            else if (String.IsNullOrEmpty(sClientOrderID) == false)
+            {
+                // Update by Client Order ID
+                oOrder = RestAPI.GetOrderAllStatusByCliendOrderID(sClientOrderID).orders.LastOrDefault();
+            }
+            else if (String.IsNullOrEmpty(sExecutionID) == false)
+            {
+                // Update by Execution ID
+                oOrder = RestAPI.GetOrderStatusByExecutionID(sExecutionID).orders.LastOrDefault();
+            }
+
+            if(oOrder != null)
+            {
+                Order vOrder = new Order();
+                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.Order, ModelViews.Order>(oOrder, vOrder);
+                Update(vOrder);
+            }
         }
 
         public static string GetBlotterStatus(Order pOrder)

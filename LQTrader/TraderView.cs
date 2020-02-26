@@ -62,7 +62,14 @@ namespace LQTrader
 
         private void cmdDisconnect_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            bool bResult=RestAPI.RemoveToken();
+            try
+            {
+                bool bResult = RestAPI.RemoveToken();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             txtStatusBar.Caption = "DISCONNECTED";
             cmdConnect.Enabled = true;

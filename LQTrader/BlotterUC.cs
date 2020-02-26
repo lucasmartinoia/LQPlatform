@@ -24,38 +24,39 @@ namespace LQTrader
         {
             Order frmOrder = new Order(Order.eMode.New);
             frmOrder.ShowDialog();
-            if(frmOrder.OrderUpdated!=null)
+
+            if (frmOrder.OrderUpdated != null && frmOrder.OrderUpdated.Count > 0)
             {
-                // Add to Blotter
-                if(gridControl1.DataSource != null)
-                {
-                    ((List<ModelViews.Order>)gridControl1.DataSource).Add(frmOrder.OrderUpdated);
-                    gridControl1.Update();
-                    gridView1.RefreshData();
-                }
-                else
-                {
-                    List<ModelViews.Order> oNewDS = new List<ModelViews.Order>();
-                    oNewDS.Add(frmOrder.OrderUpdated);
-                    gridControl1.DataSource = oNewDS;
-                    gridControl1.Update();
-                    gridView1.RefreshData();
-                }
+                List<ModelViews.Order> colBlotter = ((List<ModelViews.Order>)gridControl1.DataSource);
+
+                if (colBlotter == null)
+                    colBlotter = new List<ModelViews.Order>();
+
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotter, frmOrder.OrderUpdated);
+                gridControl1.Update();
+                gridView1.RefreshData();
             }
         }
 
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
-            List<ModelViews.Order> colBlotterOrders = null;
-
-            if(gridControl1.DataSource!=null)
+            try
             {
-                colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
-            }
+                List<ModelViews.Order> colBlotterOrders = null;
 
-            gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders);
-            gridControl1.Update();
-            gridView1.RefreshData();
+                if (gridControl1.DataSource != null)
+                {
+                    colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
+                }
+
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.ByAccount);
+                gridControl1.Update();
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void gridView1_DoubleClick(object sender, EventArgs e)
@@ -68,26 +69,62 @@ namespace LQTrader
             if (grdHitInfo.InRow)
             {
                 ModelViews.Order oOrder = gridView1.GetFocusedRow() as ModelViews.Order;
-                frmOrder = new Order(Order.eMode.View,oOrder);
+                frmOrder = new Order(Order.eMode.Edit,oOrder);
                 frmOrder.ShowDialog();
 
-                if (frmOrder.OrderUpdated != null)
+                if (frmOrder.OrderUpdated != null && frmOrder.OrderUpdated.Count>0)
                 {
-                    // Add to Blotter
-                    if (gridControl1.DataSource != null)
-                    {
-                        ((List<ModelViews.Order>)gridControl1.DataSource).Remove(oOrder);
-                        ((List<ModelViews.Order>)gridControl1.DataSource).Add(frmOrder.OrderUpdated);
-                        gridControl1.Update();
-                    }
-                    else
-                    {
-                        List<ModelViews.Order> oNewDS = new List<ModelViews.Order>();
-                        oNewDS.Add(frmOrder.OrderUpdated);
-                        gridControl1.DataSource = oNewDS;
-                        gridControl1.Update();
-                    }
+                    List<ModelViews.Order> colBlotter = ((List<ModelViews.Order>)gridControl1.DataSource);
+
+                    if (colBlotter == null)
+                        colBlotter = new List<ModelViews.Order>();
+
+                    gridControl1.DataSource=ModelViews.Order.UpdateOrders(colBlotter, frmOrder.OrderUpdated);
+                    gridControl1.Update();
+                    gridView1.RefreshData();
                 }
+            }
+        }
+
+        private void cmdActiveOrders_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<ModelViews.Order> colBlotterOrders = null;
+
+                if (gridControl1.DataSource != null)
+                {
+                    colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
+                }
+
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.ActiveOrders);
+                gridControl1.Update();
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdOrdersTraded_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<ModelViews.Order> colBlotterOrders = null;
+
+                if (gridControl1.DataSource != null)
+                {
+                    colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
+                }
+
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.FilledOrders);
+                gridControl1.Update();
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

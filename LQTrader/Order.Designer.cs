@@ -86,6 +86,9 @@
             this.cmdCancelOrder = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdSend = new System.Windows.Forms.Button();
+            this.cmdUpdateByOrderID = new System.Windows.Forms.Button();
+            this.cmdUpdateByClientOrderID = new System.Windows.Forms.Button();
+            this.cmdUpdateByExecutionID = new System.Windows.Forms.Button();
             this.grpReference.SuspendLayout();
             this.grpInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDisplayQuantity.Properties)).BeginInit();
@@ -102,6 +105,9 @@
             // 
             // grpReference
             // 
+            this.grpReference.Controls.Add(this.cmdUpdateByExecutionID);
+            this.grpReference.Controls.Add(this.cmdUpdateByClientOrderID);
+            this.grpReference.Controls.Add(this.cmdUpdateByOrderID);
             this.grpReference.Controls.Add(this.txtPropietary);
             this.grpReference.Controls.Add(this.label18);
             this.grpReference.Controls.Add(this.txtCancelID);
@@ -123,6 +129,7 @@
             this.grpReference.TabIndex = 0;
             this.grpReference.TabStop = false;
             this.grpReference.Text = "Identification";
+            this.grpReference.Enter += new System.EventHandler(this.grpReference_Enter);
             // 
             // txtPropietary
             // 
@@ -657,6 +664,7 @@
             this.cmdModify.Text = "MODIFY";
             this.cmdModify.UseVisualStyleBackColor = true;
             this.cmdModify.Visible = false;
+            this.cmdModify.Click += new System.EventHandler(this.cmdModify_Click);
             // 
             // cmdCancelOrder
             // 
@@ -667,6 +675,7 @@
             this.cmdCancelOrder.Text = "CANCEL ORDER";
             this.cmdCancelOrder.UseVisualStyleBackColor = true;
             this.cmdCancelOrder.Visible = false;
+            this.cmdCancelOrder.Click += new System.EventHandler(this.cmdCancelOrder_Click);
             // 
             // cmdClose
             // 
@@ -687,6 +696,36 @@
             this.cmdSend.Text = "SEND";
             this.cmdSend.UseVisualStyleBackColor = true;
             this.cmdSend.Click += new System.EventHandler(this.cmdSend_Click);
+            // 
+            // cmdUpdateByOrderID
+            // 
+            this.cmdUpdateByOrderID.Location = new System.Drawing.Point(216, 58);
+            this.cmdUpdateByOrderID.Name = "cmdUpdateByOrderID";
+            this.cmdUpdateByOrderID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByOrderID.TabIndex = 15;
+            this.cmdUpdateByOrderID.Text = "Update";
+            this.cmdUpdateByOrderID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByOrderID.Click += new System.EventHandler(this.cmdUpdateByOrderID_Click);
+            // 
+            // cmdUpdateByClientOrderID
+            // 
+            this.cmdUpdateByClientOrderID.Location = new System.Drawing.Point(215, 87);
+            this.cmdUpdateByClientOrderID.Name = "cmdUpdateByClientOrderID";
+            this.cmdUpdateByClientOrderID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByClientOrderID.TabIndex = 16;
+            this.cmdUpdateByClientOrderID.Text = "Update";
+            this.cmdUpdateByClientOrderID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByClientOrderID.Click += new System.EventHandler(this.cmdUpdateByClientOrderID_Click);
+            // 
+            // cmdUpdateByExecutionID
+            // 
+            this.cmdUpdateByExecutionID.Location = new System.Drawing.Point(289, 123);
+            this.cmdUpdateByExecutionID.Name = "cmdUpdateByExecutionID";
+            this.cmdUpdateByExecutionID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByExecutionID.TabIndex = 17;
+            this.cmdUpdateByExecutionID.Text = "Update";
+            this.cmdUpdateByExecutionID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByExecutionID.Click += new System.EventHandler(this.cmdUpdateByExecutionID_Click);
             // 
             // Order
             // 
@@ -781,5 +820,8 @@
         private System.Windows.Forms.Button cmdCancelOrder;
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.Button cmdSend;
+        private System.Windows.Forms.Button cmdUpdateByExecutionID;
+        private System.Windows.Forms.Button cmdUpdateByClientOrderID;
+        private System.Windows.Forms.Button cmdUpdateByOrderID;
     }
 }

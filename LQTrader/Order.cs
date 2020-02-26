@@ -24,15 +24,16 @@ namespace LQTrader
         private ModelViews.Order m_OrderOriginal=null;
 
         // mOrder is not null when is necessary update the list of orders due an action of New, Replace or Delete.
-        public ModelViews.Order OrderUpdated { get; private set; }
+        public List<ModelViews.Order> OrderUpdated { get; private set; }
 
         public Order(eMode pMode, ModelViews.Order pOrder = null)
         {
             InitializeComponent();
 
+            this.OrderUpdated = new List<ModelViews.Order>();
             m_Mode = pMode;
 
-            if(m_Mode==eMode.View)
+            if(m_Mode==eMode.View || m_Mode==eMode.Edit)
             {
                 m_OrderOriginal = pOrder;
                 PopulateScreen(m_OrderOriginal);
@@ -119,13 +120,31 @@ namespace LQTrader
             // Not allow input
             cboSide.Enabled = false;
             cboTimeInForce.Enabled = false;
-            txtPrice.Enabled = false;
-            txtQuantity.Enabled = false;
+            txtPrice.ReadOnly = true;
+            txtQuantity.ReadOnly = true;
             chkIceberg.Enabled = false;
             cboType.Enabled = false;
+            txtDisplayQuantity.ReadOnly = true;
 
             //--------------- Buttons
-            if(txtStatus.Text=="PENDING" && this.m_Mode== eMode.Edit)
+
+            if (String.IsNullOrEmpty(txtOrderID.Text) == false)
+                cmdUpdateByOrderID.Visible = true;
+            else
+                cmdUpdateByOrderID.Visible = false;
+
+            if (String.IsNullOrEmpty(txtClientOrderID.Text) == false)
+                cmdUpdateByClientOrderID.Visible = true;
+            else
+                cmdUpdateByClientOrderID.Visible = false;
+
+            if (String.IsNullOrEmpty(txtExecutionID.Text) == false)
+                cmdUpdateByExecutionID.Visible = true;
+            else
+                cmdUpdateByExecutionID.Visible = false;
+
+
+            if((txtStatus.Text=="PENDING" || txtStatus.Text=="SENT") && this.m_Mode== eMode.Edit)
             {
                 cmdCancelOrder.Visible = true;
                 cmdModify.Visible = true;
@@ -141,26 +160,41 @@ namespace LQTrader
 
         private void cmdSend_Click(object sender, EventArgs e)
         {
-            ModelViews.Order oOrder = PopulateOrderFromScreen();
+            ModelViews.Order oOrder = null;
+            bool bResult = false;
 
             try
             {
-                bool bResult = oOrder.Send(this.m_OrderOriginal);
-
-                if (bResult == true)
+                // NEW
+                if (this.m_Mode == eMode.New)
                 {
-                    // Update Client Order ID
-                    txtClientOrderID.Text = oOrder.ClientOrderID;
-                    txtPropietary.Text = oOrder.Proprietary;
-                    txtStatus.Text = "SENT";
-                    MessageBox.Show("order sent successfully to the market" , "INFO", MessageBoxButtons.OK);
-                    this.OrderUpdated = PopulateOrderFromScreen();
-                    this.Close();
+                    oOrder = PopulateOrderFromScreen();
+                    bResult = oOrder.Send();
+
+                    if (bResult == true)
+                    {
+                        this.OrderUpdated.Add(oOrder);
+                        MessageBox.Show("Order sent successfully to the market", "Send Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
+                // REPLACEMENT
+                else
+                {
+                    oOrder = this.m_OrderOriginal.Clone();
+
+                    if (txtClientOrderID.ReadOnly == false)
+                        oOrder.ClientOrderID = txtClientOrderID.Text;
+
+                    ModelViews.Order oNewOrder = oOrder.Replace(Convert.ToDouble(txtPrice.EditValue), Convert.ToDouble(txtQuantity.EditValue));
+                    this.OrderUpdated.Add(oOrder);
+                    this.OrderUpdated.Add(oNewOrder);
+                    MessageBox.Show("Order replacement sent successfully to the market", "Replace Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                this.Close();
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -197,7 +231,7 @@ namespace LQTrader
 
                 if (oReturn.Iceberg == true)
                 {
-                    oReturn.DisplayQuantity=(double)txtDisplayQuantity.EditValue;
+                    oReturn.DisplayQuantity=Convert.ToDouble(txtDisplayQuantity.EditValue);
                 }
 
                 //--------------- Status section
@@ -249,13 +283,20 @@ namespace LQTrader
 
         private void cmdSelect_Click(object sender, EventArgs e)
         {
-            InstrumentSelect frmInstrumentSelect = new InstrumentSelect();
-            frmInstrumentSelect.ShowDialog();
-            
-            if(frmInstrumentSelect.SelectedInstrument!=null)
+            try
             {
-                txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
-                txtSymbol.Text = frmInstrumentSelect.SelectedInstrument.Symbol;
+                InstrumentSelect frmInstrumentSelect = new InstrumentSelect();
+                frmInstrumentSelect.ShowDialog();
+
+                if (frmInstrumentSelect.SelectedInstrument != null)
+                {
+                    txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
+                    txtSymbol.Text = frmInstrumentSelect.SelectedInstrument.Symbol;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -267,6 +308,92 @@ namespace LQTrader
         private void txtClientOrderID_DoubleClick(object sender, EventArgs e)
         {
             txtClientOrderID.ReadOnly = false;
+        }
+
+        private void cmdModify_Click(object sender, EventArgs e)
+        {
+            txtPrice.ReadOnly = false;
+            txtQuantity.ReadOnly = false;
+            cmdSend.Visible = true;
+        }
+
+        private void cmdCancelOrder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult oResult = MessageBox.Show("Do you confirm current order CANCELATION?", "Cancel Order", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+                if (oResult == DialogResult.Yes)
+                {
+                    ModelViews.Order oOrder = this.m_OrderOriginal.Clone();
+
+                    if (txtClientOrderID.ReadOnly == false)
+                        oOrder.ClientOrderID = txtClientOrderID.Text;
+
+                    bool bResult = oOrder.Cancel();
+
+                    if (bResult)
+                    {
+                        this.OrderUpdated.Add(oOrder);
+                        MessageBox.Show("Cancelation was sent to market", "Cancel Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void grpReference_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmdUpdateByOrderID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ModelViews.Order oOrder = this.m_OrderOriginal.Clone();
+                oOrder.Update(txtOrderID.Text, null, null);
+                this.OrderUpdated.Add(oOrder);
+                PopulateScreen(oOrder);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdUpdateByClientOrderID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ModelViews.Order oOrder = this.m_OrderOriginal.Clone();
+                oOrder.Update(null, txtClientOrderID.Text,null);
+                this.OrderUpdated.Add(oOrder);
+                PopulateScreen(oOrder);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdUpdateByExecutionID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ModelViews.Order oOrder = this.m_OrderOriginal.Clone();
+                oOrder.Update(null, null, txtExecutionID.Text);
+                this.OrderUpdated.Add(oOrder);
+                PopulateScreen(oOrder);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

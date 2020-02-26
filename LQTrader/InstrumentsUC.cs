@@ -24,14 +24,30 @@ namespace LQTrader
 
         private void cmdLoadList_Click(object sender, EventArgs e)
         {
-            gridControl1.DataSource = ModelViews.Instrument.GetInstruments();
-            gridControl1.Update();
+            try
+            {
+                gridControl1.DataSource = ModelViews.Instrument.GetInstruments();
+                gridControl1.Update();
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDetails_Click(object sender, EventArgs e)
         {
-            gridControl1.DataSource = ModelViews.InstrumentDetail.GetInstrumentsDetails();
-            gridControl1.Update();
+            try
+            {
+                gridControl1.DataSource = ModelViews.InstrumentDetail.GetInstrumentsDetails();
+                gridControl1.Update();
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void gridControl1_Click(object sender, EventArgs e)
@@ -46,16 +62,23 @@ namespace LQTrader
 
         private void gridView1_DoubleClick(object sender, EventArgs e)
         {
-            DXMouseEventArgs args = (e as DXMouseEventArgs);
-            GridView view = sender as GridView;
-            GridHitInfo grdHitInfo = view.CalcHitInfo(args.Location);
-
-            if (grdHitInfo.InRow)
+            try
             {
-                ModelViews.Instrument rowUserRecord = gridView1.GetFocusedRow() as ModelViews.Instrument;
+                DXMouseEventArgs args = (e as DXMouseEventArgs);
+                GridView view = sender as GridView;
+                GridHitInfo grdHitInfo = view.CalcHitInfo(args.Location);
 
-                InstrumentDetails frmInstrumentDetails = new InstrumentDetails(rowUserRecord);
-                frmInstrumentDetails.ShowDialog();
+                if (grdHitInfo.InRow)
+                {
+                    ModelViews.Instrument rowUserRecord = gridView1.GetFocusedRow() as ModelViews.Instrument;
+
+                    InstrumentDetails frmInstrumentDetails = new InstrumentDetails(rowUserRecord);
+                    frmInstrumentDetails.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
