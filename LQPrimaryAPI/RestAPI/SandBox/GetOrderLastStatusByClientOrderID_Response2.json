@@ -1,0 +1,29 @@
+{
+    "status": "OK",
+    "order": {
+        "orderId": "166667747",
+        "clOrdId": "321294004164192",
+        "proprietary": "PBCP",
+        "execId": "200226063614-fix1-1824545",
+        "accountId": {
+            "id": "REM1545"
+        },
+        "instrumentId": {
+            "marketId": "ROFX",
+            "symbol": "GGALAbr20"
+        },
+        "price": 106.00,
+        "orderQty": 1,
+        "ordType": "LIMIT",
+        "side": "BUY",
+        "timeInForce": "DAY",
+        "transactTime": "20200226-13:20:05.102-0300",
+        "avgPx": 0,
+        "lastPx": 0,
+        "lastQty": 0,
+        "cumQty": 0,
+        "leavesQty": 1,
+        "status": "NEW",
+        "text": "Aceptada "
+    }
+}

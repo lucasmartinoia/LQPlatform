@@ -1,0 +1,27 @@
+{
+    "status": "OK",
+    "order": {
+        "orderId": "NONE",
+        "clOrdId": "321293748121292",
+        "proprietary": "PBCP",
+        "execId": "200226063614-fix1-1787456",
+        "accountId": {
+            "id": "REM1545"
+        },
+        "instrumentId": {
+            "marketId": "ROFX",
+            "symbol": "GGALAbr20"
+        },
+        "price": null,
+        "orderQty": 1,
+        "ordType": "MARKET",
+        "side": "BUY",
+        "timeInForce": "DAY",
+        "transactTime": "20200226-13:15:48.097-0300",
+        "avgPx": 0,
+        "cumQty": 0,
+        "leavesQty": 0,
+        "status": "REJECTED",
+        "text": "Tipo de orden MARKET inválido o no soportado"
+    }
+}

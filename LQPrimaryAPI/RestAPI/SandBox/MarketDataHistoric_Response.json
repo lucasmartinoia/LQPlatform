@@ -1,0 +1,126 @@
+{
+    "status": "OK",
+    "symbol": "DOFeb20",
+    "market": "ROFX",
+    "trades": [
+        {
+            "price": 62.21,
+            "size": 1.0,
+            "datetime": "2020-02-26 13:36:36.084",
+            "servertime": 1582724196084,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 1.0,
+            "datetime": "2020-02-26 14:15:56.816",
+            "servertime": 1582726556816,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 40.0,
+            "datetime": "2020-02-26 15:33:30.431",
+            "servertime": 1582731210431,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 10.0,
+            "datetime": "2020-02-26 15:33:30.431",
+            "servertime": 1582731210431,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 15.0,
+            "datetime": "2020-02-26 15:33:34.423",
+            "servertime": 1582731214423,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.24,
+            "size": 100.0,
+            "datetime": "2020-02-26 15:34:43.619",
+            "servertime": 1582731283619,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.24,
+            "size": 50.0,
+            "datetime": "2020-02-26 15:38:25.217",
+            "servertime": 1582731505217,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 24.0,
+            "datetime": "2020-02-26 15:39:10.063",
+            "servertime": 1582731550063,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 24.0,
+            "datetime": "2020-02-26 15:39:10.081",
+            "servertime": 1582731550081,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 50.0,
+            "datetime": "2020-02-26 15:39:47.841",
+            "servertime": 1582731587841,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.22,
+            "size": 103.0,
+            "datetime": "2020-02-26 15:41:28.023",
+            "servertime": 1582731688023,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.21,
+            "size": 2.0,
+            "datetime": "2020-02-26 15:41:52.554",
+            "servertime": 1582731712554,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 24.0,
+            "datetime": "2020-02-26 15:45:47.584",
+            "servertime": 1582731947584,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 126.0,
+            "datetime": "2020-02-26 15:45:51.435",
+            "servertime": 1582731951435,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 100.0,
+            "datetime": "2020-02-26 15:47:03.025",
+            "servertime": 1582732023025,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.22,
+            "size": 2.0,
+            "datetime": "2020-02-26 15:52:23.822",
+            "servertime": 1582732343822,
+            "symbol": "DOFeb20"
+        },
+        {
+            "price": 62.23,
+            "size": 100.0,
+            "datetime": "2020-02-26 15:52:45.088",
+            "servertime": 1582732365088,
+            "symbol": "DOFeb20"
+        }
+    ]
+}

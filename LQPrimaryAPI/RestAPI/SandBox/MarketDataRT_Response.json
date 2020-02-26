@@ -1,72 +1,68 @@
 {
     "status": "OK",
     "marketData": {
-        "BI": [
-            {
-                "price": 62.350,
-                "size": 649
-            },
-            {
-                "price": 62.300,
-                "size": 10
-            },
-            {
-                "price": 61.880,
-                "size": 657
-            },
-            {
-                "price": 61.710,
-                "size": 657
-            },
-            {
-                "price": 61.600,
-                "size": 656
-            }
-        ],
+        "OI": {
+            "price": null,
+            "size": 69,
+            "date": 1582243200000
+        },
         "OF": [
             {
-                "price": 62.400,
-                "size": 84
+                "price": 119.40,
+                "size": 3
             },
             {
-                "price": 62.420,
-                "size": 90
+                "price": 119.75,
+                "size": 3
             },
             {
-                "price": 62.480,
-                "size": 150
+                "price": 120.68,
+                "size": 2
             },
             {
-                "price": 62.550,
-                "size": 500
+                "price": 121.39,
+                "size": 1
             },
             {
-                "price": 62.820,
-                "size": 200
+                "price": 121.42,
+                "size": 2
+            }
+        ],
+        "OP": 114.00,
+        "BI": [
+            {
+                "price": 117.75,
+                "size": 2
+            },
+            {
+                "price": 117.54,
+                "size": 2
+            },
+            {
+                "price": 117.40,
+                "size": 2
+            },
+            {
+                "price": 116.80,
+                "size": 2
+            },
+            {
+                "price": 113.34,
+                "size": 2
             }
         ],
         "LA": {
-            "price": 62.350,
-            "size": 8,
-            "date": 1582050011973
+            "price": 114.00,
+            "size": 6,
+            "date": 1582729369155
         },
-        "OP": 62.360,
         "SE": {
-            "price": 62.420,
+            "price": 124.00,
             "size": null,
-            "date": 1581897600000
+            "date": 1582243200000
         },
-        "OI": {
-            "price": null,
-            "size": 406784,
-            "date": 1581897600000
-        },
-        "CL": {
-            "price": 62.400,
-            "size": null,
-            "date": 1581897600000
-        }
+        "CL": null
     },
-    "depth": 10,
+    "depth": 5,
     "aggregated": true
 }

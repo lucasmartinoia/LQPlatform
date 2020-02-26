@@ -1,0 +1,63 @@
+{
+    "status": "OK",
+    "accountData": {
+        "accountName": "REM1545",
+        "marketMember": "PrimaryVenture",
+        "marketMemberIdentity": "PMYVTR",
+        "collateral": 0,
+        "margin": 0.000000,
+        "availableToCollateral": 1000000.000000,
+        "detailedAccountReports": {
+            "0": {
+                "currencyBalance": {
+                    "detailedCurrencyBalance": {
+                        "ARS": {
+                            "consumed": 0,
+                            "available": 1000000.000000
+                        }
+                    }
+                },
+                "availableToOperate": {
+                    "cash": {
+                        "totalCash": 0,
+                        "detailedCash": {}
+                    },
+                    "movements": 0,
+                    "credit": 1000000.000000,
+                    "total": 1000000.000000,
+                    "pendingMovements": 0
+                },
+                "settlementDate": 1582675200000
+            },
+            "1": {
+                "currencyBalance": {
+                    "detailedCurrencyBalance": {
+                        "ARS": {
+                            "consumed": 0,
+                            "available": 2000000.000000
+                        }
+                    }
+                },
+                "availableToOperate": {
+                    "cash": {
+                        "totalCash": 0,
+                        "detailedCash": {}
+                    },
+                    "movements": 0,
+                    "credit": 1000000.000000,
+                    "total": 2000000.000000,
+                    "pendingMovements": 0
+                },
+                "settlementDate": 1582761600000
+            }
+        },
+        "hasError": false,
+        "errorDetail": null,
+        "lastCalculation": 1582701047395,
+        "portfolio": 0,
+        "ordersMargin": 0.000000,
+        "currentCash": 1000000.000000,
+        "dailyDiff": 0,
+        "uncoveredMargin": 0
+    }
+}
