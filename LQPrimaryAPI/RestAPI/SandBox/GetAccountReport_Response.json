@@ -5,8 +5,8 @@
         "marketMember": "PrimaryVenture",
         "marketMemberIdentity": "PMYVTR",
         "collateral": 0,
-        "margin": 0.000000,
-        "availableToCollateral": 1000000.000000,
+        "margin": 25200.000000,
+        "availableToCollateral": 791200.000000,
         "detailedAccountReports": {
             "0": {
                 "currencyBalance": {
@@ -27,7 +27,7 @@
                     "total": 1000000.000000,
                     "pendingMovements": 0
                 },
-                "settlementDate": 1582675200000
+                "settlementDate": 1582761600000
             },
             "1": {
                 "currencyBalance": {
@@ -48,16 +48,16 @@
                     "total": 2000000.000000,
                     "pendingMovements": 0
                 },
-                "settlementDate": 1582761600000
+                "settlementDate": 1582848000000
             }
         },
         "hasError": false,
         "errorDetail": null,
-        "lastCalculation": 1582701047395,
+        "lastCalculation": 1582776357823,
         "portfolio": 0,
-        "ordersMargin": 0.000000,
+        "ordersMargin": 183600.000000,
         "currentCash": 1000000.000000,
-        "dailyDiff": 0,
+        "dailyDiff": 13944.000000,
         "uncoveredMargin": 0
     }
 }

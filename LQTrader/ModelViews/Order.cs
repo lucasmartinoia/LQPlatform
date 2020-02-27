@@ -11,14 +11,16 @@ namespace LQTrader.ModelViews
     {
         // Order and execution reference properties
         public string AccountID { get; set; }
-        public string OrderID { get; set; }
         public string ClientOrderID { get; set; }
+        public string Status { get; set; }
+        public string Text { get; set; }
+        public string OrderID { get; set; }
         public string ExecutionID { get; set; }
 
         // Input order properties
         public string MarketID { get; set; }
         public string Symbol { get; set; }
-        public double Price { get; set; }
+        public double? Price { get; set; }
         public double Quantity { get; set; }
         public string Type { get; set; }
         public string Side { get; set; }
@@ -34,13 +36,15 @@ namespace LQTrader.ModelViews
         public double LastQuantity { get; set; }
         public double CumulativeQuantity { get; set; }
         public double LeavesQuantity { get; set; }
-        public string Status { get; set; }
-        public string Text { get; set; }
         public string Proprietary { get; set; }
 
         // Control properties
         public string ReplaceClientOrderID { get; set; }
         public string CancelClientOrderID { get; set; }
+
+        // NEW order replacing a previous order has this property with the Original Client Order ID
+        public string OriginalClientOrderID { get; set; }
+
 
         public enum eUpdateOrdersMode
         {
@@ -194,12 +198,13 @@ namespace LQTrader.ModelViews
                     if(colReturn.Remove(blotterOrder))
                     {
                         blotterOrder.Update(vOrder);
-                        colReturn.Add(vOrder);
+                        colReturn.Add(blotterOrder);
                     }
                 }
                 // Add order
                 else
                 {
+                    vOrder.Status = Order.GetBlotterStatus(vOrder);
                     colReturn.Add(vOrder);
                 }
             }
@@ -270,7 +275,7 @@ namespace LQTrader.ModelViews
             else if (String.IsNullOrEmpty(sClientOrderID) == false)
             {
                 // Update by Client Order ID
-                oOrder = RestAPI.GetOrderAllStatusByCliendOrderID(sClientOrderID).orders.LastOrDefault();
+                oOrder = RestAPI.GetOrderAllStatusByCliendOrderID(sClientOrderID,this.Proprietary).orders.LastOrDefault();
             }
             else if (String.IsNullOrEmpty(sExecutionID) == false)
             {
@@ -294,7 +299,7 @@ namespace LQTrader.ModelViews
             if (pOrder.Status == "PENDING_NEW")
                 sReturn = "PENDING_NEW";
             // PENDING
-            else if (pOrder.Status == "NEW" || (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0 && pOrder.Status != "CANCELLED"))
+            else if (pOrder.Status == "NEW" || (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0 && (pOrder.Status != "CANCELED" || pOrder.Status != "CANCELLED")))
                 sReturn = "PENDING";
             // FILLED
             else if (pOrder.Status == "FILLED" && (pOrder.LeavesQuantity == 0))
@@ -302,9 +307,14 @@ namespace LQTrader.ModelViews
             // PARTIALLY FILLED
             else if (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0)
                 sReturn = "PARTIALLY FILLED";
-            // CANCELLED
-            else if (pOrder.Status == "CANCELLED")
-                sReturn = "CANCELLED";
+            // CANCELED
+            else if (pOrder.Status == "CANCELED" || pOrder.Status == "CANCELLED")
+                sReturn = "CANCELED";
+            // REJECTED
+            else if (pOrder.Status == "REJECTED")
+                sReturn = "REJECTED";
+            else if (pOrder.Status == "EXPIRED")
+                sReturn = "EXPIRED";
             else
                 sReturn = "PENDING";
 

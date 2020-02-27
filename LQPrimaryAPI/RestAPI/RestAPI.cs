@@ -15,7 +15,7 @@ namespace LatamQuants.PrimaryAPI
         public static Authentication m_auth=new Authentication();
         private static string m_baseURL = Models.EndPoint.baseURL;
         public static string m_account = "";
-        public static bool SandBoxMode = true;
+        public static bool SandBoxMode = false;
 
         public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
         {
@@ -103,6 +103,11 @@ namespace LatamQuants.PrimaryAPI
             if(bResult)
             {
                 oReturn= JsonConvert.DeserializeObject<Models.getSegmentsResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
             }
             else
             {
@@ -129,6 +134,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -160,6 +170,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getInstrumentsDetailsResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -297,6 +312,11 @@ namespace LatamQuants.PrimaryAPI
             if (bResult)
             {
                 oReturn = JsonConvert.DeserializeObject<Models.getCurrenciesResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
             }
             else
             {
@@ -321,6 +341,11 @@ namespace LatamQuants.PrimaryAPI
             if (bResult)
             {
                 oReturn = JsonConvert.DeserializeObject<Models.getAccountReportResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
             }
             else
             {
@@ -419,6 +444,11 @@ namespace LatamQuants.PrimaryAPI
             if (bResult)
             {
                 oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
             }
             else
             {
@@ -443,6 +473,11 @@ namespace LatamQuants.PrimaryAPI
             if (bResult)
             {
                 oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+
+                if (oReturn.status == "ERROR")
+                {
+                    throw new Exception(oReturn.description);
+                }
             }
             else
             {
@@ -625,6 +660,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrdersActiveResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -639,23 +679,35 @@ namespace LatamQuants.PrimaryAPI
             return oReturn;
         }
 
-        public static Models.getOrderAllStatusByCliendOrderIDResponse.RootObject GetOrderAllStatusByCliendOrderID(string sClientOrderID)
+        public static Models.getOrderAllStatusByCliendOrderIDResponse.RootObject GetOrderAllStatusByCliendOrderID(string pClientOrderID, string pProprietary)
         {
             Models.getOrderAllStatusByCliendOrderIDResponse.RootObject oReturn = null;
             bool bResult = false;
 
             if (SandBoxMode == false)
             {
-                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderAllStatusByCliendOrderID + "clOrdId=" + sClientOrderID);
+                var client = new RestClient(m_baseURL + Models.EndPoint.getOrderAllStatusByCliendOrderID);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
+
+                // Add parameters
+
+                // Required
+                request.AddParameter("clOrdId", pClientOrderID);
+                request.AddParameter("proprietary", pProprietary);
+
                 IRestResponse response = client.Execute(request);
                 bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrderAllStatusByCliendOrderIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -687,6 +739,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrderLastStatusByCliendOrderIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -718,6 +775,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrderByOrderIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -749,6 +811,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrderStatusByExecutionIDResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -780,6 +847,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrdersFilledResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {
@@ -811,6 +883,11 @@ namespace LatamQuants.PrimaryAPI
                 if (bResult)
                 {
                     oReturn = JsonConvert.DeserializeObject<Models.getOrdersByAccountResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
                 }
                 else
                 {

@@ -58,10 +58,11 @@ namespace LQTrader
                .ForMember(dest => dest.TransactionTime, opt => opt.MapFrom(o => o.transactTime))
                .ForMember(dest => dest.Type, opt => opt.MapFrom(o => o.ordType))
                .ForMember(dest => dest.CancelClientOrderID, opt => opt.Ignore())
-               .ForMember(dest => dest.DisplayQuantity, opt => opt.Ignore())
+               .ForMember(dest => dest.DisplayQuantity, opt => opt.MapFrom(o => o.displayQty))
                .ForMember(dest => dest.ExpireDate, opt => opt.Ignore())
-               .ForMember(dest => dest.Iceberg, opt => opt.Ignore())
-               .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore());
+               .ForMember(dest => dest.Iceberg, opt => opt.MapFrom(o => o.iceberg))
+               .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore())
+               .ForMember(dest => dest.OriginalClientOrderID, opt => opt.MapFrom(o => o.origClOrdId));
 
             CreateMap<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>()
                 .ForMember(dest => dest.account, opt => opt.MapFrom(o => o.AccountID))

@@ -12,7 +12,7 @@ namespace LatamQuants.PrimaryAPI.Models
         public string execId { get; set; }
         public AccountId accountId { get; set; }
         public InstrumentId instrumentId { get; set; }
-        public double price { get; set; }
+        public double? price { get; set; }
         public double orderQty { get; set; }
         public string ordType { get; set; }
         public string side { get; set; }
@@ -25,5 +25,8 @@ namespace LatamQuants.PrimaryAPI.Models
         public double? leavesQty { get; set; }
         public string status { get; set; }
         public string text { get; set; }
+        public string origClOrdId { get; set; }
+        public bool? iceberg { get; set; }
+        public double? displayQty { get; set; }
     }
 }

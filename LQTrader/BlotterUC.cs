@@ -49,7 +49,7 @@ namespace LQTrader
                     colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
                 }
 
-                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.ByAccount);
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(null, ModelViews.Order.eUpdateOrdersMode.ByAccount);
                 gridControl1.Update();
                 gridView1.RefreshData();
             }
@@ -97,7 +97,7 @@ namespace LQTrader
                     colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
                 }
 
-                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.ActiveOrders);
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(null, ModelViews.Order.eUpdateOrdersMode.ActiveOrders);
                 gridControl1.Update();
                 gridView1.RefreshData();
             }
@@ -118,7 +118,7 @@ namespace LQTrader
                     colBlotterOrders = ((List<ModelViews.Order>)gridControl1.DataSource);
                 }
 
-                gridControl1.DataSource = ModelViews.Order.UpdateOrders(colBlotterOrders, ModelViews.Order.eUpdateOrdersMode.FilledOrders);
+                gridControl1.DataSource = ModelViews.Order.UpdateOrders(null, ModelViews.Order.eUpdateOrdersMode.FilledOrders);
                 gridControl1.Update();
                 gridView1.RefreshData();
             }

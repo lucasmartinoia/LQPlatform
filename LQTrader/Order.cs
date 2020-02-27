@@ -55,6 +55,7 @@ namespace LQTrader
             txtExecutionID.Text = pOrder.ExecutionID;
             txtReplaceID.Text = pOrder.ReplaceClientOrderID;
             txtCancelID.Text = pOrder.CancelClientOrderID;
+            txtOriginalOrderID.Text = pOrder.OriginalClientOrderID;
             txtPropietary.Text = pOrder.Proprietary;
 
             //--------------- Input section
@@ -71,7 +72,10 @@ namespace LQTrader
                 cboSide.SelectedIndex = 1;
             }
 
-            cboType.SelectedItem = pOrder.Type;
+            if (pOrder.Type.ToLower() == "limit")
+                cboType.SelectedIndex = 0;
+            else
+                cboType.SelectedIndex = 1;
 
             txtPrice.EditValue = pOrder.Price;
             txtQuantity.EditValue = pOrder.Quantity;
@@ -128,7 +132,7 @@ namespace LQTrader
 
             //--------------- Buttons
 
-            if (String.IsNullOrEmpty(txtOrderID.Text) == false)
+            if (String.IsNullOrEmpty(txtOrderID.Text) == false && txtOrderID.Text!="NONE")
                 cmdUpdateByOrderID.Visible = true;
             else
                 cmdUpdateByOrderID.Visible = false;
@@ -186,8 +190,8 @@ namespace LQTrader
                         oOrder.ClientOrderID = txtClientOrderID.Text;
 
                     ModelViews.Order oNewOrder = oOrder.Replace(Convert.ToDouble(txtPrice.EditValue), Convert.ToDouble(txtQuantity.EditValue));
-                    this.OrderUpdated.Add(oOrder);
-                    this.OrderUpdated.Add(oNewOrder);
+                    //this.OrderUpdated.Add(oOrder);
+                    //this.OrderUpdated.Add(oNewOrder);
                     MessageBox.Show("Order replacement sent successfully to the market", "Replace Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 this.Close();
@@ -211,6 +215,7 @@ namespace LQTrader
                 oReturn.ExecutionID=txtExecutionID.Text;
                 oReturn.ReplaceClientOrderID=txtReplaceID.Text;
                 oReturn.CancelClientOrderID=txtCancelID.Text;
+                oReturn.OriginalClientOrderID = txtOriginalOrderID.Text;
                 oReturn.Proprietary=txtPropietary.Text;
 
                 //--------------- Input section

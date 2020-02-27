@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.grpReference = new System.Windows.Forms.GroupBox();
+            this.cmdUpdateByExecutionID = new System.Windows.Forms.Button();
+            this.cmdUpdateByClientOrderID = new System.Windows.Forms.Button();
+            this.cmdUpdateByOrderID = new System.Windows.Forms.Button();
             this.txtPropietary = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtCancelID = new System.Windows.Forms.TextBox();
@@ -86,9 +89,8 @@
             this.cmdCancelOrder = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdSend = new System.Windows.Forms.Button();
-            this.cmdUpdateByOrderID = new System.Windows.Forms.Button();
-            this.cmdUpdateByClientOrderID = new System.Windows.Forms.Button();
-            this.cmdUpdateByExecutionID = new System.Windows.Forms.Button();
+            this.txtOriginalOrderID = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.grpReference.SuspendLayout();
             this.grpInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDisplayQuantity.Properties)).BeginInit();
@@ -105,6 +107,8 @@
             // 
             // grpReference
             // 
+            this.grpReference.Controls.Add(this.label8);
+            this.grpReference.Controls.Add(this.txtOriginalOrderID);
             this.grpReference.Controls.Add(this.cmdUpdateByExecutionID);
             this.grpReference.Controls.Add(this.cmdUpdateByClientOrderID);
             this.grpReference.Controls.Add(this.cmdUpdateByOrderID);
@@ -131,9 +135,42 @@
             this.grpReference.Text = "Identification";
             this.grpReference.Enter += new System.EventHandler(this.grpReference_Enter);
             // 
+            // cmdUpdateByExecutionID
+            // 
+            this.cmdUpdateByExecutionID.Location = new System.Drawing.Point(289, 123);
+            this.cmdUpdateByExecutionID.Name = "cmdUpdateByExecutionID";
+            this.cmdUpdateByExecutionID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByExecutionID.TabIndex = 17;
+            this.cmdUpdateByExecutionID.Text = "Update";
+            this.cmdUpdateByExecutionID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByExecutionID.Visible = false;
+            this.cmdUpdateByExecutionID.Click += new System.EventHandler(this.cmdUpdateByExecutionID_Click);
+            // 
+            // cmdUpdateByClientOrderID
+            // 
+            this.cmdUpdateByClientOrderID.Location = new System.Drawing.Point(215, 87);
+            this.cmdUpdateByClientOrderID.Name = "cmdUpdateByClientOrderID";
+            this.cmdUpdateByClientOrderID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByClientOrderID.TabIndex = 16;
+            this.cmdUpdateByClientOrderID.Text = "Update";
+            this.cmdUpdateByClientOrderID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByClientOrderID.Visible = false;
+            this.cmdUpdateByClientOrderID.Click += new System.EventHandler(this.cmdUpdateByClientOrderID_Click);
+            // 
+            // cmdUpdateByOrderID
+            // 
+            this.cmdUpdateByOrderID.Location = new System.Drawing.Point(216, 58);
+            this.cmdUpdateByOrderID.Name = "cmdUpdateByOrderID";
+            this.cmdUpdateByOrderID.Size = new System.Drawing.Size(51, 23);
+            this.cmdUpdateByOrderID.TabIndex = 15;
+            this.cmdUpdateByOrderID.Text = "Update";
+            this.cmdUpdateByOrderID.UseVisualStyleBackColor = true;
+            this.cmdUpdateByOrderID.Visible = false;
+            this.cmdUpdateByOrderID.Click += new System.EventHandler(this.cmdUpdateByOrderID_Click);
+            // 
             // txtPropietary
             // 
-            this.txtPropietary.Location = new System.Drawing.Point(385, 97);
+            this.txtPropietary.Location = new System.Drawing.Point(451, 120);
             this.txtPropietary.Name = "txtPropietary";
             this.txtPropietary.ReadOnly = true;
             this.txtPropietary.Size = new System.Drawing.Size(100, 20);
@@ -142,7 +179,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(325, 97);
+            this.label18.Location = new System.Drawing.Point(391, 123);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(54, 13);
             this.label18.TabIndex = 13;
@@ -150,7 +187,7 @@
             // 
             // txtCancelID
             // 
-            this.txtCancelID.Location = new System.Drawing.Point(385, 62);
+            this.txtCancelID.Location = new System.Drawing.Point(451, 60);
             this.txtCancelID.Name = "txtCancelID";
             this.txtCancelID.ReadOnly = true;
             this.txtCancelID.Size = new System.Drawing.Size(100, 20);
@@ -158,25 +195,27 @@
             // 
             // txtReplaceID
             // 
-            this.txtReplaceID.Location = new System.Drawing.Point(385, 25);
+            this.txtReplaceID.Location = new System.Drawing.Point(451, 28);
             this.txtReplaceID.Name = "txtReplaceID";
             this.txtReplaceID.ReadOnly = true;
             this.txtReplaceID.Size = new System.Drawing.Size(100, 20);
             this.txtReplaceID.TabIndex = 11;
+            this.txtReplaceID.Visible = false;
             // 
             // lblReplaceClientOrderID
             // 
             this.lblReplaceClientOrderID.AutoSize = true;
-            this.lblReplaceClientOrderID.Location = new System.Drawing.Point(318, 28);
+            this.lblReplaceClientOrderID.Location = new System.Drawing.Point(384, 31);
             this.lblReplaceClientOrderID.Name = "lblReplaceClientOrderID";
             this.lblReplaceClientOrderID.Size = new System.Drawing.Size(61, 13);
             this.lblReplaceClientOrderID.TabIndex = 10;
             this.lblReplaceClientOrderID.Text = "Replace ID";
+            this.lblReplaceClientOrderID.Visible = false;
             // 
             // lblCancelClOrdID
             // 
             this.lblCancelClOrdID.AutoSize = true;
-            this.lblCancelClOrdID.Location = new System.Drawing.Point(325, 65);
+            this.lblCancelClOrdID.Location = new System.Drawing.Point(391, 63);
             this.lblCancelClOrdID.Name = "lblCancelClOrdID";
             this.lblCancelClOrdID.Size = new System.Drawing.Size(54, 13);
             this.lblCancelClOrdID.TabIndex = 8;
@@ -386,8 +425,8 @@
             this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboType.FormattingEnabled = true;
             this.cboType.Items.AddRange(new object[] {
-            "LIMIT",
-            "MARKET"});
+            "Limit",
+            "Market"});
             this.cboType.Location = new System.Drawing.Point(342, 67);
             this.cboType.Name = "cboType";
             this.cboType.Size = new System.Drawing.Size(121, 21);
@@ -697,35 +736,22 @@
             this.cmdSend.UseVisualStyleBackColor = true;
             this.cmdSend.Click += new System.EventHandler(this.cmdSend_Click);
             // 
-            // cmdUpdateByOrderID
+            // txtOriginalOrderID
             // 
-            this.cmdUpdateByOrderID.Location = new System.Drawing.Point(216, 58);
-            this.cmdUpdateByOrderID.Name = "cmdUpdateByOrderID";
-            this.cmdUpdateByOrderID.Size = new System.Drawing.Size(51, 23);
-            this.cmdUpdateByOrderID.TabIndex = 15;
-            this.cmdUpdateByOrderID.Text = "Update";
-            this.cmdUpdateByOrderID.UseVisualStyleBackColor = true;
-            this.cmdUpdateByOrderID.Click += new System.EventHandler(this.cmdUpdateByOrderID_Click);
+            this.txtOriginalOrderID.Location = new System.Drawing.Point(451, 89);
+            this.txtOriginalOrderID.Name = "txtOriginalOrderID";
+            this.txtOriginalOrderID.ReadOnly = true;
+            this.txtOriginalOrderID.Size = new System.Drawing.Size(100, 20);
+            this.txtOriginalOrderID.TabIndex = 18;
             // 
-            // cmdUpdateByClientOrderID
+            // label8
             // 
-            this.cmdUpdateByClientOrderID.Location = new System.Drawing.Point(215, 87);
-            this.cmdUpdateByClientOrderID.Name = "cmdUpdateByClientOrderID";
-            this.cmdUpdateByClientOrderID.Size = new System.Drawing.Size(51, 23);
-            this.cmdUpdateByClientOrderID.TabIndex = 16;
-            this.cmdUpdateByClientOrderID.Text = "Update";
-            this.cmdUpdateByClientOrderID.UseVisualStyleBackColor = true;
-            this.cmdUpdateByClientOrderID.Click += new System.EventHandler(this.cmdUpdateByClientOrderID_Click);
-            // 
-            // cmdUpdateByExecutionID
-            // 
-            this.cmdUpdateByExecutionID.Location = new System.Drawing.Point(289, 123);
-            this.cmdUpdateByExecutionID.Name = "cmdUpdateByExecutionID";
-            this.cmdUpdateByExecutionID.Size = new System.Drawing.Size(51, 23);
-            this.cmdUpdateByExecutionID.TabIndex = 17;
-            this.cmdUpdateByExecutionID.Text = "Update";
-            this.cmdUpdateByExecutionID.UseVisualStyleBackColor = true;
-            this.cmdUpdateByExecutionID.Click += new System.EventHandler(this.cmdUpdateByExecutionID_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(389, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Original ID";
             // 
             // Order
             // 
@@ -823,5 +849,7 @@
         private System.Windows.Forms.Button cmdUpdateByExecutionID;
         private System.Windows.Forms.Button cmdUpdateByClientOrderID;
         private System.Windows.Forms.Button cmdUpdateByOrderID;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtOriginalOrderID;
     }
 }

@@ -1,0 +1,52 @@
+{
+    "status": "OK",
+    "detailedPosition": {
+        "account": "REM1545",
+        "totalDailyDiffPlain": -11256.0,
+        "report": {
+            "FUTURE": {
+                "GGAL042020": {
+                    "detailedPositions": [
+                        {
+                            "symbolReference": "GGAL042020",
+                            "contractType": "FUTURE",
+                            "priceConversionFactor": 1.0,
+                            "contractSize": 100.0,
+                            "marketPrice": 124.0,
+                            "currency": "ARS",
+                            "exchangeRate": 1.0,
+                            "contractMultiplier": 1.0,
+                            "totalInitialSize": 0,
+                            "buyInitialSize": 0,
+                            "sellInitialSize": 0,
+                            "buyInitialPrice": 0,
+                            "sellInitialPrice": 0,
+                            "totalFilledSize": -14.0,
+                            "buyFilledSize": 0.0,
+                            "sellFilledSize": 14.0,
+                            "buyFilledPrice": 0,
+                            "sellFilledPrice": 115.96,
+                            "totalCurrentSize": -14.0,
+                            "buyCurrentSize": 0.0,
+                            "sellCurrentSize": 14.0,
+                            "detailedDailyDiff": {
+                                "buyPricePPPDiff": 0,
+                                "sellPricePPPDiff": 115.96,
+                                "totalDailyDiff": -11256.0,
+                                "buyDailyDiff": 0.0,
+                                "sellDailyDiff": -11256.0,
+                                "totalDailyDiffPlain": -11256.0,
+                                "buyDailyDiffPlain": 0.0,
+                                "sellDailyDiffPlain": -11256.0
+                            }
+                        }
+                    ],
+                    "instrumentInitialSize": 0,
+                    "instrumentFilledSize": -14.0,
+                    "instrumentCurrentSize": -14.0
+                }
+            }
+        },
+        "lastCalculation": 1582775705882
+    }
+}

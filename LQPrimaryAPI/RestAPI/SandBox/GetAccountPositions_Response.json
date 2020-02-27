@@ -1,0 +1,20 @@
+{
+    "status": "OK",
+    "positions": [
+        {
+            "instrument": {
+                "symbolReference": "GGAL042020"
+            },
+            "symbol": "GGALAbr20",
+            "buySize": 0.0,
+            "buyPrice": 0.0,
+            "sellSize": 14.0,
+            "sellPrice": 115.96,
+            "totalDailyDiff": 13944.0,
+            "totalDiff": 13944.0,
+            "tradingSymbol": "GGALAbr20",
+            "originalBuyPrice": 0.0,
+            "originalSellPrice": 115.96
+        }
+    ]
+}
