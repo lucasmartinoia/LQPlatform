@@ -59,7 +59,7 @@ namespace LQTrader
                .ForMember(dest => dest.Type, opt => opt.MapFrom(o => o.ordType))
                .ForMember(dest => dest.CancelClientOrderID, opt => opt.Ignore())
                .ForMember(dest => dest.DisplayQuantity, opt => opt.MapFrom(o => o.displayQty))
-               .ForMember(dest => dest.ExpireDate, opt => opt.Ignore())
+               .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(o => o.expireDate))
                .ForMember(dest => dest.Iceberg, opt => opt.MapFrom(o => o.iceberg))
                .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore())
                .ForMember(dest => dest.OriginalClientOrderID, opt => opt.MapFrom(o => o.origClOrdId));
@@ -77,6 +77,11 @@ namespace LQTrader
                 .ForMember(dest => dest.timeInForce, opt => opt.MapFrom(o => o.TimeInForce))
                 .ForPath(dest => dest.instrumentId.marketId, opt => opt.MapFrom(o => o.MarketID))
                 .ForPath(dest => dest.instrumentId.symbol, opt => opt.MapFrom(o => o.Symbol));
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(o => o.price))
+                .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.date)?"": (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(1582729369155).ToString()));
         }
     }
 }

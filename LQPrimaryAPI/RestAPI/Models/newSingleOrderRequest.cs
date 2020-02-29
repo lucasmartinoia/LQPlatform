@@ -20,7 +20,7 @@ namespace LatamQuants.PrimaryAPI.Models
         public string account { get; set; }
         public bool? cancelPrevious { get; set; }
         public bool? iceberg { get; set; }
-        public DateTime? expireDate { get; set; }
+        public string expireDate { get; set; }
         public int? displayQty { get; set; }
     }
 }

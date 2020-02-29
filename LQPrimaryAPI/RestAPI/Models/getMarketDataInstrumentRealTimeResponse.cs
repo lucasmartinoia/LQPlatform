@@ -8,13 +8,13 @@ namespace LatamQuants.PrimaryAPI.Models
     {
         public class MarketData
         {
-            public Trade LA { get; set; }
-            public Trade SE { get; set; }
-            public List<Trade> BI { get; set; }
-            public Trade OI { get; set; }
-            public List<Trade> OF { get; set; }
-            public Trade OP { get; set; }
-            public Trade CL { get; set; }
+            public MarketDataRT LA { get; set; }
+            public MarketDataRT SE { get; set; }
+            public List<MarketDataRT> BI { get; set; }
+            public MarketDataRT OI { get; set; }
+            public List<MarketDataRT> OF { get; set; }
+            public MarketDataRT OP { get; set; }
+            public MarketDataRT CL { get; set; }
         }
 
         public class RootObject

@@ -29,6 +29,10 @@ namespace LQTrader
             BlotterUC oBlotterUC = new BlotterUC();
             oBlotterUC.Dock = DockStyle.Fill;
             this.dockPanel7_Container.Controls.Add(oBlotterUC);
+
+            MarketDataUC oMarketDataUD = new MarketDataUC();
+            oMarketDataUD.Dock = DockStyle.Fill;
+            this.dockPanel2_Container.Controls.Add(oMarketDataUD);
         }
 
         // Assigning a required content for each auto generated Document

@@ -28,5 +28,6 @@ namespace LatamQuants.PrimaryAPI.Models
         public string origClOrdId { get; set; }
         public bool? iceberg { get; set; }
         public double? displayQty { get; set; }
+        public string expireDate { get; set; }
     }
 }

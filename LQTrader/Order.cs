@@ -89,7 +89,7 @@ namespace LQTrader
             {
                 lblExpire.Visible = true;
                 dtExpire.Visible = true;
-                dtExpire.Value = (DateTime)pOrder.ExpireDate;
+                dtExpire.Value = DateTime.ParseExact(pOrder.ExpireDate, "yyyyMMdd", null);
             }
             else
             {
@@ -229,7 +229,7 @@ namespace LQTrader
 
                 if ((string)cboTimeInForce.SelectedItem == "GTD")
                 {
-                    oReturn.ExpireDate = dtExpire.Value;
+                    oReturn.ExpireDate = dtExpire.Value.Date.ToString("yyyyMMdd");
                 }
 
                 oReturn.Iceberg=chkIceberg.Checked;

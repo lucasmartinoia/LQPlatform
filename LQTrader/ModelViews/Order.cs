@@ -25,7 +25,7 @@ namespace LQTrader.ModelViews
         public string Type { get; set; }
         public string Side { get; set; }
         public string TimeInForce { get; set; }
-        public DateTime? ExpireDate { get; set; }
+        public string ExpireDate { get; set; }
         public bool Iceberg { get; set; }
         public double? DisplayQuantity { get; set; }
 
@@ -157,7 +157,7 @@ namespace LQTrader.ModelViews
                 throw new Exception("Quantity cannot be 0");
             else if(String.IsNullOrEmpty(this.TimeInForce)==true)
                 throw new Exception("Please select a TimeInForce option");
-            else if(this.TimeInForce=="GTD" && (this.ExpireDate is null || this.ExpireDate<=System.DateTime.Now.Date))
+            else if(this.TimeInForce=="GTD" && String.IsNullOrEmpty(this.ExpireDate))
                 throw new Exception("Expire Date cannot be in the past");
             else if(this.Iceberg==true && (this.DisplayQuantity is null || this.DisplayQuantity<=0))
                 throw new Exception("Display Quantity cannot be 0 for an Iceberg order");
@@ -305,7 +305,7 @@ namespace LQTrader.ModelViews
             else if (pOrder.Status == "FILLED" && (pOrder.LeavesQuantity == 0))
                 sReturn = "FILLED";
             // PARTIALLY FILLED
-            else if (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0)
+            else if (pOrder.Status == "PARTIALLY_FILLED" || (pOrder.CumulativeQuantity > 0 && pOrder.LeavesQuantity > 0))
                 sReturn = "PARTIALLY FILLED";
             // CANCELED
             else if (pOrder.Status == "CANCELED" || pOrder.Status == "CANCELLED")
