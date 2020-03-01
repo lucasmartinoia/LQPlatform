@@ -81,7 +81,14 @@ namespace LQTrader
             CreateMap<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>()
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(o => o.price))
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size))
-                .ForMember(dest => dest.Date, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.date)?"": (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(1582729369155).ToString()));
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.date) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.date)).ToString()))
+                .ForMember(dest => dest.Name, opt => opt.Ignore());
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.Trade, ModelViews.MarketDataHistoric>()
+                .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.symbol))
+                //.ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.servertime))))
+                .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.datetime))
+                .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size));
         }
     }
 }

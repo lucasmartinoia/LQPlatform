@@ -33,6 +33,10 @@ namespace LQTrader
             MarketDataUC oMarketDataUD = new MarketDataUC();
             oMarketDataUD.Dock = DockStyle.Fill;
             this.dockPanel2_Container.Controls.Add(oMarketDataUD);
+
+            MarketDataHistoricUC oMarketDataHistoricUC = new MarketDataHistoricUC();
+            oMarketDataHistoricUC.Dock = DockStyle.Fill;
+            this.dockPanel5_Container.Controls.Add(oMarketDataHistoricUC);
         }
 
         // Assigning a required content for each auto generated Document

@@ -26,7 +26,8 @@ namespace LQTrader.ModelViews
             // OP -  Open Price
             if (oMarketDataRT.OP != null)
             {
-                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.OP, oMDItem);
+                oMDItem.Name = "Open price";
+                oMDItem.Price = (double)oMarketDataRT.OP;
                 oReturn.MainInfo.Add(oMDItem);
             }
 
@@ -35,6 +36,7 @@ namespace LQTrader.ModelViews
             {
                 oMDItem = new MarketDataItem();
                 Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.LA, oMDItem);
+                oMDItem.Name = "Last price";
                 oReturn.MainInfo.Add(oMDItem);
             }
 
@@ -43,6 +45,7 @@ namespace LQTrader.ModelViews
             {
                 oMDItem = new MarketDataItem();
                 Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.SE, oMDItem);
+                oMDItem.Name = "Settlement";
                 oReturn.MainInfo.Add(oMDItem);
             }
 
@@ -51,6 +54,7 @@ namespace LQTrader.ModelViews
             {
                 oMDItem = new MarketDataItem();
                 Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.OI, oMDItem);
+                oMDItem.Name = "Open interest";
                 oReturn.MainInfo.Add(oMDItem);
             }
 
@@ -58,17 +62,22 @@ namespace LQTrader.ModelViews
             if (oMarketDataRT.CL != null)
             {
                 oMDItem = new MarketDataItem();
-                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.CL, oMDItem);
+                oMDItem.Name = "Close price";
+                oMDItem.Price = (double)oMarketDataRT.CL;
                 oReturn.MainInfo.Add(oMDItem);
             }
 
             // Populate Bids
-            if(oMarketDataRT.BI!=null)
+            if (oMarketDataRT.BI != null)
                 oReturn.Bids = PopulateDepth(oMarketDataRT.BI);
+            else
+                oReturn.Bids = new List<MarketDataDepthItem>();
 
             // Populate Offers
-            if(oMarketDataRT.OF!=null)
+            if (oMarketDataRT.OF != null)
                 oReturn.Offers = PopulateDepth(oMarketDataRT.OF);
+            else
+                oReturn.Offers = new List<MarketDataDepthItem>();
 
             return oReturn;
         }
@@ -80,8 +89,8 @@ namespace LQTrader.ModelViews
             foreach(LatamQuants.PrimaryAPI.Models.MarketDataRT oDepthItem in colDepthItems)
             {
                 MarketDataDepthItem ovDepthItem = new MarketDataDepthItem();
-                ovDepthItem.Price = oDepthItem.price;
-                ovDepthItem.Size = oDepthItem.size;
+                ovDepthItem.Price = (double)oDepthItem.price;
+                ovDepthItem.Size = (double)oDepthItem.size;
                 colReturn.Add(ovDepthItem);
             }
 
@@ -90,6 +99,7 @@ namespace LQTrader.ModelViews
 
         public class MarketDataItem
         {
+            public string Name { get; set; }
             public double Price { get; set; }
             public double Size { get; set; }
             public string Date { get; set; }

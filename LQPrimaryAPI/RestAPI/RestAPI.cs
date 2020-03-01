@@ -15,7 +15,7 @@ namespace LatamQuants.PrimaryAPI
         public static Authentication m_auth=new Authentication();
         private static string m_baseURL = Models.EndPoint.baseURL;
         public static string m_account = "";
-        public static bool SandBoxMode = false;
+        public static bool SandBoxMode = true;
 
         public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
         {
@@ -335,23 +335,30 @@ namespace LatamQuants.PrimaryAPI
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getAccountReportResponse.RootObject>(response.Content);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-                if (oReturn.status == "ERROR")
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getAccountReportResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getAccountReportResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
-
             return oReturn;
         }
 
@@ -373,21 +380,28 @@ namespace LatamQuants.PrimaryAPI
             request.AddParameter("external", pExternal);
             request.AddParameter("environment", pEnvironment);
 
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
-
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentHistoricResponse.RootObject>(response.Content);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-                if (oReturn.status == "ERROR")
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentHistoricResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getMarketDataInstrumentHistoricResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -409,21 +423,28 @@ namespace LatamQuants.PrimaryAPI
             request.AddParameter("entries", pEntries);
             request.AddParameter("depth", pDepth);
 
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
-
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentRealTimeResponse.RootObject>(response.Content);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-                if (oReturn.status == "ERROR")
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getMarketDataInstrumentRealTimeResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getMarketDataInstrumentRealTimeResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -438,21 +459,29 @@ namespace LatamQuants.PrimaryAPI
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsResponse.RootObject>(response.Content);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-                if (oReturn.status == "ERROR")
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getAccountPositionsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;
@@ -467,21 +496,29 @@ namespace LatamQuants.PrimaryAPI
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);
-            IRestResponse response = client.Execute(request);
-            bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-            if (bResult)
+            if (SandBoxMode == false)
             {
-                oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+                IRestResponse response = client.Execute(request);
+                bResult = (response.StatusCode == System.Net.HttpStatusCode.OK);
 
-                if (oReturn.status == "ERROR")
+                if (bResult)
                 {
-                    throw new Exception(oReturn.description);
+                    oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+
+                    if (oReturn.status == "ERROR")
+                    {
+                        throw new Exception(oReturn.description);
+                    }
+                }
+                else
+                {
+                    throw new Exception(response.ErrorMessage);
                 }
             }
             else
             {
-                throw new Exception(response.ErrorMessage);
+                oReturn = SandBox.Service.GetResponse<Models.getAccountPositionsDetailsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
             }
 
             return oReturn;

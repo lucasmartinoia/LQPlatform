@@ -113,6 +113,7 @@
     <Compile Include="MarketDataUC.Designer.cs">
       <DependentUpon>MarketDataUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelViews\MarketDataHistoric.cs" />
     <Compile Include="ModelViews\MarketDataRT.cs" />
     <Compile Include="ModelViews\Order.cs" />
     <Compile Include="OpportunitiesUC.cs">
@@ -158,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarketDataHistoricUC.resx">
+      <DependentUpon>MarketDataHistoricUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MarketDataUC.resx">
       <DependentUpon>MarketDataUC.cs</DependentUpon>

@@ -10,7 +10,7 @@ namespace LatamQuants.PrimaryAPI.SandBox
 {
     public class Service
     {
-        private const string m_Path = "C:\\Lucas\\devs\\LQPlatform\\LQPrimaryAPI\\RestAPI\\SandBox\\";
+        private const string m_Path = "E:\\devs\\LatamQuants\\LQPlatform\\LQPrimaryAPI\\RestAPI\\SandBox\\";
         public static R GetResponse<R>(string pMethodName)
         {
             R oReturn = default(R);

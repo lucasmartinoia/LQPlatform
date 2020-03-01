@@ -46,11 +46,19 @@ namespace LQTrader
                 if(oMarketDataRT!=null)
                 {
                     // Main info
-                    this.pnlMD.Controls["grdMD"]   gridControl1.DataSource = ModelViews.Order.UpdateOrders(null, ModelViews.Order.eUpdateOrdersMode.ByAccount);
-                    gridControl1.Update();
-                    gridView1.RefreshData();
+                    this.grdInfo.DataSource = oMarketDataRT.MainInfo;
+                    this.grdInfo.Update();
+                    this.grdvInfo.RefreshData();
 
+                    // Bids
+                    this.grdBids.DataSource = oMarketDataRT.Bids;
+                    this.grdBids.Update();
+                    this.grdvBids.RefreshData();
 
+                    // Offers
+                    this.grdOffers.DataSource = oMarketDataRT.Offers;
+                    this.grdOffers.Update();
+                    this.grdvOffers.RefreshData();
                 }
             }
             catch(Exception ex)

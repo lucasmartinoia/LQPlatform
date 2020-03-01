@@ -16,5 +16,51 @@ namespace LQTrader
         {
             InitializeComponent();
         }
+
+        private void cmdSelect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                InstrumentSelect frmInstrumentSelect = new InstrumentSelect();
+                frmInstrumentSelect.ShowDialog();
+
+                if (frmInstrumentSelect.SelectedInstrument != null)
+                {
+                    txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
+                    txtSymbol.Text = frmInstrumentSelect.SelectedInstrument.Symbol;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmdSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidateSearch();
+                List<ModelViews.MarketDataHistoric> colHistoric = ModelViews.MarketDataHistoric.GetMarketDataHistoric(txtMarketID.Text, txtSymbol.Text,dtFrom.Value,dtTo.Value,chkExternal.Checked,txtEnvironment.Text);
+
+                if (colHistoric != null)
+                {
+                    // Main info
+                    this.grdInfo.DataSource = colHistoric;
+                    this.grdInfo.Update();
+                    this.grdvInfo.RefreshData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ValidateSearch()
+        {
+            if (String.IsNullOrEmpty(txtSymbol.Text) == true)
+                throw new Exception("Please select an instrument");
+        }
     }
 }
