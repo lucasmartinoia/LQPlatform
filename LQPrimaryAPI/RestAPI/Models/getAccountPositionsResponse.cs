@@ -20,7 +20,7 @@ namespace LatamQuants.PrimaryAPI.Models
             public double buyPrice { get; set; }
             public double buySize { get; set; }
             public double sellPrice { get; set; }
-            public int sellSize { get; set; }
+            public double sellSize { get; set; }
             public double totalDailyDiff { get; set; }
             public double totalDiff { get; set; }
         }

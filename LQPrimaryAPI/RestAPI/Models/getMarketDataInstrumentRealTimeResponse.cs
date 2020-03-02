@@ -14,7 +14,7 @@ namespace LatamQuants.PrimaryAPI.Models
             public MarketDataRT OI { get; set; }
             public List<MarketDataRT> OF { get; set; }
             public double? OP { get; set; }
-            public double? CL { get; set; }
+            public MarketDataRT CL { get; set; }
         }
 
         public class RootObject

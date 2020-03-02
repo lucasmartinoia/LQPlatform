@@ -62,8 +62,8 @@ namespace LQTrader.ModelViews
             if (oMarketDataRT.CL != null)
             {
                 oMDItem = new MarketDataItem();
+                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>(oMarketDataRT.CL, oMDItem);
                 oMDItem.Name = "Close price";
-                oMDItem.Price = (double)oMarketDataRT.CL;
                 oReturn.MainInfo.Add(oMDItem);
             }
 

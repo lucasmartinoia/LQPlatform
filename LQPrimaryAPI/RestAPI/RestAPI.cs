@@ -15,7 +15,7 @@ namespace LatamQuants.PrimaryAPI
         public static Authentication m_auth=new Authentication();
         private static string m_baseURL = Models.EndPoint.baseURL;
         public static string m_account = "";
-        public static bool SandBoxMode = true;
+        public static bool SandBoxMode = false;
 
         public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
         {
