@@ -89,6 +89,18 @@ namespace LQTrader
                 //.ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.servertime))))
                 .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.datetime))
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size));
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position, ModelViews.Position>()
+                .ForMember(dest => dest.BuyPrice, opt => opt.MapFrom(o => o.buyPrice))
+                .ForMember(dest => dest.BuySize, opt => opt.MapFrom(o => o.buySize))
+                .ForMember(dest => dest.OriginalBuyPrice, opt => opt.MapFrom(o => o.originalBuyPrice))
+                .ForMember(dest => dest.OriginalSellPrice, opt => opt.MapFrom(o => o.originalSellPrice))
+                .ForMember(dest => dest.SellPrice, opt => opt.MapFrom(o => o.sellPrice))
+                .ForMember(dest => dest.SellSize, opt => opt.MapFrom(o => o.sellSize))
+                .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.symbol))
+                .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.instrument.symbolReference))
+                .ForMember(dest => dest.TotalDailyDiff, opt => opt.MapFrom(o => o.totalDailyDiff))
+                .ForMember(dest => dest.TotalDiff, opt => opt.MapFrom(o => o.totalDiff));
         }
     }
 }

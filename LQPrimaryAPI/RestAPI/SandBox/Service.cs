@@ -23,9 +23,19 @@ namespace LatamQuants.PrimaryAPI.SandBox
             sContent = sContent.Replace("<<AUTO>>", RandomString(20));
 
             oRestResponse.Content = sContent;
-            oReturn=JsonConvert.DeserializeObject<R>(oRestResponse.Content);
+            oReturn = JsonConvert.DeserializeObject<R>(oRestResponse.Content);
 
             return oReturn;
+        }
+
+        public static string GetResponseContent(string pMethodName)
+        {
+            string sReturn = "";
+
+            string sFileName = pMethodName + "_Response.json";
+            sReturn = File.ReadAllText(m_Path + sFileName);
+
+            return sReturn;
         }
 
         private static Random random = new Random();

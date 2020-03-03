@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -69,8 +70,8 @@ namespace LatamQuants.PrimaryAPI.Models
         {
             public string account { get; set; }
             public double totalDailyDiffPlain { get; set; }
-            public object totalMarketValue { get; set; }
-            public Report report { get; set; }
+            public double totalMarketValue { get; set; }
+            //public Report report { get; set; }
             public long lastCalculation { get; set; }
         }
 
@@ -80,6 +81,16 @@ namespace LatamQuants.PrimaryAPI.Models
             public string message { get; set; }
             public string description { get; set; }
             public DetailedPosition detailedPosition { get; set; }
+
+            public static RootObject Parse(string sJson)
+            {
+                RootObject oReturn = new RootObject();
+
+                oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(sJson);
+
+
+                return oReturn;
+            }
         }
     }
 }

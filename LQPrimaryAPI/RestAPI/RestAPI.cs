@@ -504,7 +504,8 @@ namespace LatamQuants.PrimaryAPI
 
                 if (bResult)
                 {
-                    oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+                    //oReturn = JsonConvert.DeserializeObject<Models.getAccountPositionsDetailsResponse.RootObject>(response.Content);
+                    oReturn = Models.getAccountPositionsDetailsResponse.RootObject.Parse(response.Content);
 
                     if (oReturn.status == "ERROR")
                     {
@@ -518,7 +519,7 @@ namespace LatamQuants.PrimaryAPI
             }
             else
             {
-                oReturn = SandBox.Service.GetResponse<Models.getAccountPositionsDetailsResponse.RootObject>(MethodBase.GetCurrentMethod().Name);
+                oReturn = Models.getAccountPositionsDetailsResponse.RootObject.Parse(SandBox.Service.GetResponseContent(MethodBase.GetCurrentMethod().Name));
             }
 
             return oReturn;

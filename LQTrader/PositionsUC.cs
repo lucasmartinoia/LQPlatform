@@ -33,6 +33,19 @@ namespace LQTrader
             pnlPositionDetails.Dock = DockStyle.None;
             pnlPositions.Visible = true;
             pnlPositions.Dock = DockStyle.Fill;
+
+            // Load positions
+            try
+            {
+                grdPositions.DataSource = ModelViews.Position.GetPositions();
+                grdPositions.Update();
+                grdvPositions.RefreshData();
+                txtAccount.Text = LatamQuants.PrimaryAPI.RestAPI.m_account;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cmdPositionDetails_Click(object sender, EventArgs e)
@@ -41,6 +54,19 @@ namespace LQTrader
             pnlPositions.Dock = DockStyle.None;
             pnlPositionDetails.Visible = true;
             pnlPositionDetails.Dock = DockStyle.Fill;
+
+            // Load position details
+            try
+            {
+                grdPositions.DataSource = ModelViews.PositionDetail.GetPositionDetails();
+                grdPositions.Update();
+                grdvPositions.RefreshData();
+                txtAccount.Text = LatamQuants.PrimaryAPI.RestAPI.m_account;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
