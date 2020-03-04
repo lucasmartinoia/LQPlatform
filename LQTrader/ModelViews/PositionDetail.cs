@@ -7,24 +7,70 @@ using LatamQuants.PrimaryAPI;
 
 namespace LQTrader.ModelViews
 {
-    public class PositionDetail
+    public class PositionDetailMain
     {
-        public string SymbolReference { get; set; }
-        public string Symbol { get; set; }
-        public double BuyPrice { get; set; }
-        public double BuySize { get; set; }
-        public double SellPrice { get; set; }
-        public double SellSize { get; set; }
-        public double TotalDailyDiff { get; set; }
-        public double TotalDiff { get; set; }
-        public double OriginalBuyPrice { get; set; }
-        public double OriginalSellPrice { get; set; }
+        public DetailedPosition Details { get; set; }
+        public List<Position> Positions { get; set; }
+        public List<PositionDetail> PositionDetails { get; set; }
+        public List<PositionDetailDailyDifference> PositionDetailDailyDifferences { get; set; }
 
-        public static object GetPositionDetails()
+        public class Position
         {
-            ModelViews.PositionDetail oReturn = new ModelViews.PositionDetail();
+            public string SymbolReference { get; set; }
+            public double InitialSize { get; set; }
+            public double FilledSize { get; set; }
+            public double CurrentSize { get; set; }
+            public string ContractType { get; set; }
+            public double PriceConversionFactor { get; set; }
+            public double ContractSize { get; set; }
+            public double MarketPrice { get; set; }
+            public string Currency { get; set; }
+            public double ExchangeRate { get; set; }
+            public double ContractMultiplier { get; set; }
+        }
+
+        public class DetailedPosition
+        {
+            public string Account { get; set; }
+            public double TotalDailyDiffPlain { get; set; }
+            public double TotalMarketValue { get; set; }
+            public string LastCalculation { get; set; }
+        }
+
+        public class PositionDetail
+        {
+            public int Id { get; set; }
+            public string SymbolReference { get; set; }
+            public double TotalInitialSize { get; set; }
+            public double BuyInitialSize { get; set; }
+            public double SellInitialSize { get; set; }
+            public double BuyInitialPrice { get; set; }
+            public double SellInitialPrice { get; set; }
+            public double TotalFilledSize { get; set; }
+            public double BuyFilledSize { get; set; }
+            public double SellFilledSize { get; set; }
+            public double BuyFilledPrice { get; set; }
+            public double SellFilledPrice { get; set; }
+            public double TotalCurrentSize { get; set; }
+            public double BuyCurrentSize { get; set; }
+            public double SellCurrentSize { get; set; }
+        }
+
+        public class PositionDetailDailyDifference
+        {
+            public int Id { get; set; }
+            public string Item { get; set; }
+            public double Buy { get; set; }
+            public double Sell { get; set; }
+            public double Total { get; set; }
+        }
+
+        public static PositionDetailMain GetPositionDetails()
+        {
+            ModelViews.PositionDetailMain oReturn = new ModelViews.PositionDetailMain();
 
             LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.RootObject oPositionDetails=RestAPI.GetAccountPositionsDetails();
+
 
             //foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position oPosition in colPositions)
             //{
