@@ -14,7 +14,7 @@ namespace LatamQuants.PrimaryAPI.Models
             public double totalDailyDiffPlain { get; set; }
             public double totalMarketValue { get; set; }
             //public Report report { get; set; }
-            public long lastCalculation { get; set; }
+            public string lastCalculation { get; set; }
         }
 
         public class RootObject

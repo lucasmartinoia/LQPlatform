@@ -101,6 +101,41 @@ namespace LQTrader
                 .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.instrument.symbolReference))
                 .ForMember(dest => dest.TotalDailyDiff, opt => opt.MapFrom(o => o.totalDailyDiff))
                 .ForMember(dest => dest.TotalDiff, opt => opt.MapFrom(o => o.totalDiff));
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DetailedPosition, ModelViews.PositionDetailMain.DetailedPosition>()
+                .ForMember(dest => dest.Account, opt => opt.MapFrom(o => o.account))
+                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.lastCalculation) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()))
+                .ForMember(dest => dest.TotalDailyDiffPlain, opt => opt.MapFrom(o => o.totalDailyDiffPlain))
+                .ForMember(dest => dest.TotalMarketValue, opt => opt.MapFrom(o => o.totalMarketValue));
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position, ModelViews.PositionDetailMain.Position>()
+                .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.contractMultiplier))
+                .ForMember(dest => dest.ContractSize, opt => opt.MapFrom(o => o.contractSize))
+                .ForMember(dest => dest.ContractType, opt => opt.MapFrom(o => o.contractType))
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.currency))
+                .ForMember(dest => dest.CurrentSize, opt => opt.MapFrom(o => o.instrumentCurrentSize))
+                .ForMember(dest => dest.ExchangeRate, opt => opt.MapFrom(o => o.exchangeRate))
+                .ForMember(dest => dest.FilledSize, opt => opt.MapFrom(o => o.instrumentFilledSize))
+                .ForMember(dest => dest.InitialSize, opt => opt.MapFrom(o => o.instrumentInitialSize))
+                .ForMember(dest => dest.MarketPrice, opt => opt.MapFrom(o => o.marketPrice))
+                .ForMember(dest => dest.PriceConversionFactor, opt => opt.MapFrom(o => o.priceConversionFactor))
+                .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.symbolReference));
+
+            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails, ModelViews.PositionDetailMain.PositionDetail>()
+                .ForMember(dest => dest.BuyCurrentSize, opt => opt.MapFrom(o => o.buyCurrentSize))
+                .ForMember(dest => dest.BuyFilledPrice, opt => opt.MapFrom(o => o.buyFilledPrice))
+                .ForMember(dest => dest.BuyFilledSize, opt => opt.MapFrom(o => o.buyFilledSize))
+                .ForMember(dest => dest.BuyInitialPrice, opt => opt.MapFrom(o => o.buyInitialPrice))
+                .ForMember(dest => dest.BuyInitialSize, opt => opt.MapFrom(o => o.buyInitialSize))
+                .ForMember(dest => dest.SellCurrentSize, opt => opt.MapFrom(o => o.sellCurrentSize))
+                .ForMember(dest => dest.SellFilledPrice, opt => opt.MapFrom(o => o.sellFilledPrice))
+                .ForMember(dest => dest.SellFilledSize, opt => opt.MapFrom(o => o.sellFilledSize))
+                .ForMember(dest => dest.SellInitialPrice, opt => opt.MapFrom(o => o.sellInitialPrice))
+                .ForMember(dest => dest.SellInitialSize, opt => opt.MapFrom(o => o.sellInitialSize))
+                .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.symbolReference))
+                .ForMember(dest => dest.TotalCurrentSize, opt => opt.MapFrom(o => o.totalCurrentSize))
+                .ForMember(dest => dest.TotalFilledSize, opt => opt.MapFrom(o => o.totalFilledSize))
+                .ForMember(dest => dest.TotalInitialSize, opt => opt.MapFrom(o => o.totalInitialSize));
         }
     }
 }

@@ -71,6 +71,26 @@ namespace LQTrader.ModelViews
 
             LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.RootObject oPositionDetails=RestAPI.GetAccountPositionsDetails();
 
+            // Main info
+            oReturn.Details = new DetailedPosition();
+            Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DetailedPosition, ModelViews.PositionDetailMain.DetailedPosition>(oPositionDetails.detailedPosition, oReturn.Details);
+
+            // Positions
+            foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position oPosition in oPositionDetails.colPositions)
+            {
+                new 
+
+                // Position Details
+                foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails oPositionDetails2 in oPosition.colPositionDetails)
+                {
+                    // Position Detail Daily Difference
+                    
+
+                }
+
+            }
+
+
 
             //foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position oPosition in colPositions)
             //{
@@ -79,7 +99,7 @@ namespace LQTrader.ModelViews
             //    colReturn.Add(vPosition);
             //}
 
-            return oReturn;
+                return oReturn;
         }
     }
 }
