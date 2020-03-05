@@ -60,9 +60,18 @@ namespace LQTrader.ModelViews
         {
             public int Id { get; set; }
             public string Item { get; set; }
-            public double Buy { get; set; }
-            public double Sell { get; set; }
-            public double Total { get; set; }
+            public double? Buy { get; set; }
+            public double? Sell { get; set; }
+            public double? Total { get; set; }
+
+            public PositionDetailDailyDifference(int pId, string pItemName, double? pBuy, double? pSell, double? pTotal)
+            {
+                this.Id = pId;
+                this.Item = pItemName;
+                this.Buy = pBuy;
+                this.Sell = pSell;
+                this.Total = pTotal;
+            }
         }
 
         public static PositionDetailMain GetPositionDetails()
@@ -76,21 +85,38 @@ namespace LQTrader.ModelViews
             Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DetailedPosition, ModelViews.PositionDetailMain.DetailedPosition>(oPositionDetails.detailedPosition, oReturn.Details);
 
             // Positions
+            oReturn.Positions = new List<Position>();
+            oReturn.PositionDetails = new List<PositionDetail>();
+            oReturn.PositionDetailDailyDifferences = new List<PositionDetailDailyDifference>();
+            Position ovPosition = null;
+            PositionDetail ovPositionDetail = null;
+            PositionDetailDailyDifference ovPositionDetailDD = null;
+            int iCounter = 1;
+
             foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position oPosition in oPositionDetails.colPositions)
             {
-                new 
+                ovPosition = new Position();
+                Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position, ModelViews.PositionDetailMain.Position>(oPosition, ovPosition);
+                oReturn.Positions.Add(ovPosition);
 
                 // Position Details
-                foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails oPositionDetails2 in oPosition.colPositionDetails)
+                foreach (LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails oPositionDetails2 in oPosition.colPositionDetails)
                 {
+                    ovPositionDetail = new PositionDetail();
+                    Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails, ModelViews.PositionDetailMain.PositionDetail>(oPositionDetails2, ovPositionDetail);
+                    ovPositionDetail.Id = iCounter;
+                    oReturn.PositionDetails.Add(ovPositionDetail);
+
                     // Position Detail Daily Difference
-                    
+                    ovPositionDetailDD = new PositionDetailDailyDifference();
+                    ovPositionDetailDD.Id = iCounter;
+
+                    oPositionDetails2.detailedDailyDiff
+                    Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DailyDifference, ModelViews.PositionDetailMain.PositionDetailDailyDifference>(oPositionDetails2.detailedDailyDiff, ovPositionDetailDD);
 
                 }
 
             }
-
-
 
             //foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position oPosition in colPositions)
             //{
