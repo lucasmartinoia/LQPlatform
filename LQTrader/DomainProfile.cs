@@ -138,6 +138,18 @@ namespace LQTrader
                 .ForMember(dest => dest.TotalInitialSize, opt => opt.MapFrom(o => o.totalInitialSize))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
+            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountData, ModelViews.AccountReport.MainInfo>()
+                .ForMember(dest => dest.Account, opt => opt.MapFrom(o => o.accountName))
+                .ForMember(dest => dest.Cash, opt => opt.MapFrom(o => o.currentCash))
+                .ForMember(dest => dest.Collateral, opt => opt.MapFrom(o => o.collateral))
+                .ForMember(dest => dest.CollateralAvailable, opt => opt.MapFrom(o => o.availableToCollateral))
+                .ForMember(dest => dest.DailyDifference, opt => opt.MapFrom(o => o.dailyDiff))
+                .ForMember(dest => dest.Margin, opt => opt.MapFrom(o => o.margin))
+                .ForMember(dest => dest.MarginOrders, opt => opt.MapFrom(o => o.ordersMargin))
+                .ForMember(dest => dest.MarginUncovered, opt => opt.MapFrom(o => o.uncoveredMargin))
+                .ForMember(dest => dest.MarketMember, opt => opt.MapFrom(o => o.marketMember))
+                .ForMember(dest => dest.MarketMemberIdentity, opt => opt.MapFrom(o => o.marketMemberIdentity))
+                .ForMember(dest => dest.Portfolio, opt => opt.MapFrom(o => o.portfolio));
         }
     }
 }
