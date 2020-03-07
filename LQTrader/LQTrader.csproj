@@ -113,7 +113,7 @@
     <Compile Include="MarketDataUC.Designer.cs">
       <DependentUpon>MarketDataUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelViews\PositionDetail.cs" />
+    <Compile Include="ModelViews\PositionDetailMain.cs" />
     <Compile Include="ModelViews\Position.cs" />
     <Compile Include="ModelViews\MarketDataHistoric.cs" />
     <Compile Include="ModelViews\MarketDataRT.cs" />

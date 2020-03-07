@@ -135,7 +135,9 @@ namespace LQTrader
                 .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.symbolReference))
                 .ForMember(dest => dest.TotalCurrentSize, opt => opt.MapFrom(o => o.totalCurrentSize))
                 .ForMember(dest => dest.TotalFilledSize, opt => opt.MapFrom(o => o.totalFilledSize))
-                .ForMember(dest => dest.TotalInitialSize, opt => opt.MapFrom(o => o.totalInitialSize));
+                .ForMember(dest => dest.TotalInitialSize, opt => opt.MapFrom(o => o.totalInitialSize))
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
         }
     }
 }

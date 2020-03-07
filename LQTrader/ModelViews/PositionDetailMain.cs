@@ -108,24 +108,16 @@ namespace LQTrader.ModelViews
                     oReturn.PositionDetails.Add(ovPositionDetail);
 
                     // Position Detail Daily Difference
-                    ovPositionDetailDD = new PositionDetailDailyDifference();
-                    ovPositionDetailDD.Id = iCounter;
+                    oReturn.PositionDetailDailyDifferences.Add(new PositionDetailDailyDifference(iCounter, "Price PPP", oPositionDetails2.detailedDailyDiff.buyPricePPPDiff, oPositionDetails2.detailedDailyDiff.sellPricePPPDiff, null));
+                    oReturn.PositionDetailDailyDifferences.Add(new PositionDetailDailyDifference(iCounter, "Daily Difference", oPositionDetails2.detailedDailyDiff.buyDailyDiff, oPositionDetails2.detailedDailyDiff.sellDailyDiff, oPositionDetails2.detailedDailyDiff.totalDailyDiff));
+                    oReturn.PositionDetailDailyDifferences.Add(new PositionDetailDailyDifference(iCounter, "Daily Diff.Plain", oPositionDetails2.detailedDailyDiff.buyDailyDiffPlain, oPositionDetails2.detailedDailyDiff.sellDailyDiffPlain, oPositionDetails2.detailedDailyDiff.totalDailyDiffPlain));
 
-                    oPositionDetails2.detailedDailyDiff
-                    Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DailyDifference, ModelViews.PositionDetailMain.PositionDetailDailyDifference>(oPositionDetails2.detailedDailyDiff, ovPositionDetailDD);
-
+                    iCounter++;
                 }
 
             }
 
-            //foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position oPosition in colPositions)
-            //{
-            //    ModelViews.Position vPosition = new Position();
-            //    Service.mapper.Map<LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position, ModelViews.Position>(oPosition, vPosition);
-            //    colReturn.Add(vPosition);
-            //}
-
-                return oReturn;
+            return oReturn;
         }
     }
 }
