@@ -92,7 +92,7 @@ namespace LatamQuants.PrimaryAPI.Models
 
         public class AccountData
         {
-            public long lastCalculation { get; set; }
+            public string lastCalculation { get; set; }
             public string accountName { get; set; }
             public string marketMember { get; set; }
             public string marketMemberIdentity { get; set; }

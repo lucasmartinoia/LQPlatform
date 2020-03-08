@@ -41,6 +41,10 @@ namespace LQTrader
             PositionsUC oPositionsUC = new PositionsUC();
             oPositionsUC.Dock = DockStyle.Fill;
             this.dockPanel6_Container.Controls.Add(oPositionsUC);
+
+            AccountReportUC oAccountReportUC = new AccountReportUC();
+            oAccountReportUC.Dock = DockStyle.Fill;
+            this.controlContainer1.Controls.Add(oAccountReportUC);
         }
 
         // Assigning a required content for each auto generated Document
@@ -86,6 +90,11 @@ namespace LQTrader
             txtStatusBar.Caption = "DISCONNECTED";
             cmdConnect.Enabled = true;
             cmdDisconnect.Enabled = false;
+        }
+
+        private void hideContainerLeft_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

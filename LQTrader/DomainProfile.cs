@@ -149,7 +149,8 @@ namespace LQTrader
                 .ForMember(dest => dest.MarginUncovered, opt => opt.MapFrom(o => o.uncoveredMargin))
                 .ForMember(dest => dest.MarketMember, opt => opt.MapFrom(o => o.marketMember))
                 .ForMember(dest => dest.MarketMemberIdentity, opt => opt.MapFrom(o => o.marketMemberIdentity))
-                .ForMember(dest => dest.Portfolio, opt => opt.MapFrom(o => o.portfolio));
+                .ForMember(dest => dest.Portfolio, opt => opt.MapFrom(o => o.portfolio))
+                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.lastCalculation) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()));
         }
     }
 }

@@ -148,6 +148,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModelViews\Instrument.cs" />
     <Compile Include="ModelViews\InstrumentDetail.cs" />
+    <EmbeddedResource Include="AccountReportUC.resx">
+      <DependentUpon>AccountReportUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BlotterUC.resx">
       <DependentUpon>BlotterUC.cs</DependentUpon>
     </EmbeddedResource>

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.cmdPositionDetails = new System.Windows.Forms.Button();
             this.cmdPositions = new System.Windows.Forms.Button();
             this.txtAccount = new System.Windows.Forms.TextBox();
@@ -54,7 +55,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtTotalDailyDifference = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
             this.pnlPositions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPositions)).BeginInit();
@@ -84,6 +84,15 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(764, 37);
             this.pnlTop.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(423, 13);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(35, 13);
+            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Text = "label7";
             // 
             // cmdPositionDetails
             // 
@@ -329,22 +338,13 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Total Daily Difference";
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(423, 13);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(35, 13);
-            this.lblTitle.TabIndex = 4;
-            this.lblTitle.Text = "label7";
-            // 
             // PositionsUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlPositions);
             this.Controls.Add(this.pnlPositionDetails);
             this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.pnlPositions);
             this.Name = "PositionsUC";
             this.Size = new System.Drawing.Size(764, 539);
             this.Load += new System.EventHandler(this.PositionsUC_Load);

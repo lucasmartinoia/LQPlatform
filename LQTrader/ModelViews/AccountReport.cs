@@ -47,12 +47,12 @@ namespace LQTrader.ModelViews
                 this.Currency = pCurrency;
                 this.T0Available = pT0Available;
                 this.T0Consumed = pT0Consumed;
-                this.T1Available = pT0Available;
-                this.T1Consumed = pT0Consumed;
-                this.T2Available = pT0Available;
-                this.T2Consumed = pT0Consumed;
-                this.T3Available = pT0Available;
-                this.T3Consumed = pT0Consumed;
+                this.T1Available = pT1Available;
+                this.T1Consumed = pT1Consumed;
+                this.T2Available = pT2Available;
+                this.T2Consumed = pT2Consumed;
+                this.T3Available = pT3Available;
+                this.T3Consumed = pT3Consumed;
             }
         }
 
@@ -68,17 +68,17 @@ namespace LQTrader.ModelViews
             public double? T3Total { get; set; }
             public double? T3Available { get; set; }
 
-            public AccountValue(string pItem, double pT0Total, double pT0Available, double pT1Total, double pT1Available, double pT2Total, double pT2Available, double pT3Total, double pT3Available)
+            public AccountValue(string pItem, double? pT0Total, double? pT0Available, double? pT1Total, double? pT1Available, double? pT2Total, double? pT2Available, double? pT3Total, double? pT3Available)
             {
                 this.Item = pItem;
                 this.T0Available = pT0Available;
                 this.T0Total = pT0Total;
-                this.T1Available = pT0Available;
-                this.T1Total = pT0Total;
-                this.T2Available = pT0Available;
-                this.T2Total = pT0Total;
-                this.T3Available = pT0Available;
-                this.T3Total = pT0Total;
+                this.T1Available = pT1Available;
+                this.T1Total = pT1Total;
+                this.T2Available = pT2Available;
+                this.T2Total = pT2Total;
+                this.T3Available = pT3Available;
+                this.T3Total = pT3Total;
             }
         }
 
@@ -155,12 +155,28 @@ namespace LQTrader.ModelViews
 
             // Parse account values
 
-            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.Cash oCashT0 = oData.accountData?.detailedAccountReports?.CASH?.accountValue?.cash;
-            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.Cash oCashT1 = oData.accountData?.detailedAccountReports?.NEXT_DAY?.accountValue?.cash;
-            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.Cash oCashT2 = oData.accountData?.detailedAccountReports?.T_PLUS_2?.accountValue?.cash;
-            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.Cash oCashT3 = oData.accountData?.detailedAccountReports?.T_PLUS_3?.accountValue?.cash;
-            oReturn.AccountValues.Add(new AccountValue("Total Cash", oCashT0?.consumed, oCBT0?.available, oCBT1?.consumed, oCBT1?.available, oCBT2?.consumed, oCBT2?.available, oCBT3?.consumed, oCBT3?.available));
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT0AccValue = oData.accountData?.detailedAccountReports?.CASH?.accountValue;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT1AccValue = oData.accountData?.detailedAccountReports?.NEXT_DAY?.accountValue;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT2AccValue = oData.accountData?.detailedAccountReports?.T_PLUS_2?.accountValue;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT3AccValue = oData.accountData?.detailedAccountReports?.T_PLUS_3?.accountValue;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT0AccAvail = oData.accountData?.detailedAccountReports?.CASH?.availableToOperate;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT1AccAvail = oData.accountData?.detailedAccountReports?.NEXT_DAY?.availableToOperate;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT2AccAvail = oData.accountData?.detailedAccountReports?.T_PLUS_2?.availableToOperate;
+            LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountValue oT3AccAvail = oData.accountData?.detailedAccountReports?.T_PLUS_3?.availableToOperate;
 
+            oReturn.AccountValues.Add(new AccountValue("Total Cash", oT0AccValue?.cash?.totalCash, oT0AccAvail?.cash?.totalCash, oT1AccValue?.cash?.totalCash, oT1AccAvail?.cash?.totalCash, oT2AccValue?.cash?.totalCash, oT2AccAvail?.cash?.totalCash, oT3AccValue?.cash?.totalCash, oT3AccAvail?.cash?.totalCash));
+            oReturn.AccountValues.Add(new AccountValue("ARS", oT0AccValue?.cash?.detailedCash?.ARS, oT0AccAvail?.cash?.detailedCash?.ARS, oT1AccValue?.cash?.detailedCash?.ARS, oT1AccAvail?.cash?.detailedCash?.ARS, oT2AccValue?.cash?.detailedCash?.ARS, oT2AccAvail?.cash?.detailedCash?.ARS, oT3AccValue?.cash?.detailedCash?.ARS, oT3AccAvail?.cash?.detailedCash?.ARS));
+            oReturn.AccountValues.Add(new AccountValue("ARS BCRA", oT0AccValue?.cash?.detailedCash?.ARS_BCRA, oT0AccAvail?.cash?.detailedCash?.ARS_BCRA, oT1AccValue?.cash?.detailedCash?.ARS_BCRA, oT1AccAvail?.cash?.detailedCash?.ARS_BCRA, oT2AccValue?.cash?.detailedCash?.ARS_BCRA, oT2AccAvail?.cash?.detailedCash?.ARS_BCRA, oT3AccValue?.cash?.detailedCash?.ARS_BCRA, oT3AccAvail?.cash?.detailedCash?.ARS_BCRA));
+            oReturn.AccountValues.Add(new AccountValue("U$S", oT0AccValue?.cash?.detailedCash?.USS, oT0AccAvail?.cash?.detailedCash?.USS, oT1AccValue?.cash?.detailedCash?.USS, oT1AccAvail?.cash?.detailedCash?.USS, oT2AccValue?.cash?.detailedCash?.USS, oT2AccAvail?.cash?.detailedCash?.USS, oT3AccValue?.cash?.detailedCash?.USS, oT3AccAvail?.cash?.detailedCash?.USS));
+            oReturn.AccountValues.Add(new AccountValue("USD C", oT0AccValue?.cash?.detailedCash?.USD_C, oT0AccAvail?.cash?.detailedCash?.USD_C, oT1AccValue?.cash?.detailedCash?.USD_C, oT1AccAvail?.cash?.detailedCash?.USD_C, oT2AccValue?.cash?.detailedCash?.USD_C, oT2AccAvail?.cash?.detailedCash?.USD_C, oT3AccValue?.cash?.detailedCash?.USD_C, oT3AccAvail?.cash?.detailedCash?.USD_C));
+            oReturn.AccountValues.Add(new AccountValue("USD D", oT0AccValue?.cash?.detailedCash?.USD_D, oT0AccAvail?.cash?.detailedCash?.USD_D, oT1AccValue?.cash?.detailedCash?.USD_D, oT1AccAvail?.cash?.detailedCash?.USD_D, oT2AccValue?.cash?.detailedCash?.USD_D, oT2AccAvail?.cash?.detailedCash?.USD_D, oT3AccValue?.cash?.detailedCash?.USD_D, oT3AccAvail?.cash?.detailedCash?.USD_D));
+            oReturn.AccountValues.Add(new AccountValue("USD G", oT0AccValue?.cash?.detailedCash?.USD_G, oT0AccAvail?.cash?.detailedCash?.USD_G, oT1AccValue?.cash?.detailedCash?.USD_G, oT1AccAvail?.cash?.detailedCash?.USD_G, oT2AccValue?.cash?.detailedCash?.USD_G, oT2AccAvail?.cash?.detailedCash?.USD_G, oT3AccValue?.cash?.detailedCash?.USD_G, oT3AccAvail?.cash?.detailedCash?.USD_G));
+            oReturn.AccountValues.Add(new AccountValue("USD R", oT0AccValue?.cash?.detailedCash?.USD_R, oT0AccAvail?.cash?.detailedCash?.USD_R, oT1AccValue?.cash?.detailedCash?.USD_R, oT1AccAvail?.cash?.detailedCash?.USD_R, oT2AccValue?.cash?.detailedCash?.USD_R, oT2AccAvail?.cash?.detailedCash?.USD_R, oT3AccValue?.cash?.detailedCash?.USD_R, oT3AccAvail?.cash?.detailedCash?.USD_R));
+            oReturn.AccountValues.Add(new AccountValue("EUR", oT0AccValue?.cash?.detailedCash?.EUR, oT0AccAvail?.cash?.detailedCash?.EUR, oT1AccValue?.cash?.detailedCash?.EUR, oT1AccAvail?.cash?.detailedCash?.EUR, oT2AccValue?.cash?.detailedCash?.EUR, oT2AccAvail?.cash?.detailedCash?.EUR, oT3AccValue?.cash?.detailedCash?.EUR, oT3AccAvail?.cash?.detailedCash?.EUR));
+            oReturn.AccountValues.Add(new AccountValue("Movements", oT0AccValue?.movements, oT0AccAvail?.movements, oT1AccValue?.movements, oT1AccAvail?.movements, oT2AccValue?.movements, oT2AccAvail?.movements, oT3AccValue?.movements, oT3AccAvail?.movements));
+            oReturn.AccountValues.Add(new AccountValue("Pending Movements", oT0AccValue?.pendingMovements, oT0AccAvail?.pendingMovements, oT1AccValue?.pendingMovements, oT1AccAvail?.pendingMovements, oT2AccValue?.pendingMovements, oT2AccAvail?.pendingMovements, oT3AccValue?.pendingMovements, oT3AccAvail?.pendingMovements));
+            oReturn.AccountValues.Add(new AccountValue("Credit", oT0AccValue?.credit, oT0AccAvail?.credit, oT1AccValue?.credit, oT1AccAvail?.credit, oT2AccValue?.credit, oT2AccAvail?.credit, oT3AccValue?.credit, oT3AccAvail?.credit));
+            oReturn.AccountValues.Add(new AccountValue("Total", oT0AccValue?.total, oT0AccAvail?.total, oT1AccValue?.total, oT1AccAvail?.total, oT2AccValue?.total, oT2AccAvail?.total, oT3AccValue?.total, oT3AccAvail?.total));
 
             return oReturn;
         }
