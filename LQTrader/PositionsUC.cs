@@ -127,8 +127,11 @@ namespace LQTrader
             //if (pRowHandle == 0) return;
             // Filter Position details grid
             ModelViews.PositionDetailMain.Position oPosition = (ModelViews.PositionDetailMain.Position)grdvPositionsD.GetRow(pRowHandle);
-            grdvPositionDetails.ActiveFilterCriteria = new DevExpress.Data.Filtering.BinaryOperator("SymbolReference", oPosition.SymbolReference, BinaryOperatorType.Equal);
-            ShowPositionDailyDiff(grdvPositionDetails.TopRowIndex);
+            if (oPosition != null)
+            {
+                grdvPositionDetails.ActiveFilterCriteria = new DevExpress.Data.Filtering.BinaryOperator("SymbolReference", oPosition.SymbolReference, BinaryOperatorType.Equal);
+                ShowPositionDailyDiff(grdvPositionDetails.TopRowIndex);
+            }
         }
 
         private void ShowPositionDailyDiff(int pRowHandle)
