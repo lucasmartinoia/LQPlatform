@@ -492,7 +492,7 @@ namespace LatamQuants.PrimaryAPI
             Models.getAccountPositionsDetailsResponse.RootObject oReturn = null;
             bool bResult = false;
 
-            var client = new RestClient(m_baseURL + Models.EndPoint.getAccountPositions + m_account);
+            var client = new RestClient(m_baseURL + Models.EndPoint.getAccountPositionsDetails + m_account);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader(m_auth.TokenKey, m_auth.TokenValue);

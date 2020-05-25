@@ -86,7 +86,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(184, 20);
             this.txtUser.TabIndex = 4;
-            this.txtUser.Text = "lucasmartinoia1545";
+            this.txtUser.Text = "77590";
             // 
             // txtPassword
             // 
@@ -95,7 +95,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(184, 20);
             this.txtPassword.TabIndex = 5;
-            this.txtPassword.Text = "erwonZ2+";
+            this.txtPassword.Text = "Lucas20+";
             // 
             // txtAccount
             // 
@@ -103,7 +103,7 @@
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.Size = new System.Drawing.Size(184, 20);
             this.txtAccount.TabIndex = 6;
-            this.txtAccount.Text = "REM1545";
+            this.txtAccount.Text = "77590";
             // 
             // txtRestAPI
             // 
@@ -111,7 +111,7 @@
             this.txtRestAPI.Name = "txtRestAPI";
             this.txtRestAPI.Size = new System.Drawing.Size(184, 20);
             this.txtRestAPI.TabIndex = 7;
-            this.txtRestAPI.Text = "http://api.remarkets.primary.com.ar";
+            this.txtRestAPI.Text = "https://api.primary.com.ar/";
             // 
             // cmdOK
             // 

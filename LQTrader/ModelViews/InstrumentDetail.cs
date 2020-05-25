@@ -21,7 +21,7 @@ namespace LQTrader.ModelViews
         public double ContractMultiplier { get; set; }
         public double RoundLot { get; set; }
         public double PriceConvertionFactor { get; set; }
-        public DateTime MaturityDate { get; set; }
+        public DateTime? MaturityDate { get; set; }
         public string Currency { get; set; }
         public string OrderTypes { get; set; }
         public string TimesInForce { get; set; }

@@ -34,10 +34,10 @@ namespace LatamQuants.PrimaryAPI.Models
         public class AccountValue
         {
             public Cash cash { get; set; }
-            public double movements { get; set; }
-            public double credit { get; set; }
-            public double total { get; set; }
-            public int pendingMovements { get; set; }
+            public double? movements { get; set; }
+            public double? credit { get; set; }
+            public double? total { get; set; }
+            public double? pendingMovements { get; set; }
         }
 
         public class DetailedCurrencyBalance
