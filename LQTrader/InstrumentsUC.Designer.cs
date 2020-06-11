@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.btnDetails = new System.Windows.Forms.Button();
             this.cmdLoadList = new System.Windows.Forms.Button();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -40,7 +39,6 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.Controls.Add(this.btnDetails);
             this.pnlTop.Controls.Add(this.cmdLoadList);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
@@ -48,23 +46,13 @@
             this.pnlTop.Size = new System.Drawing.Size(910, 34);
             this.pnlTop.TabIndex = 0;
             // 
-            // btnDetails
-            // 
-            this.btnDetails.Location = new System.Drawing.Point(102, 6);
-            this.btnDetails.Name = "btnDetails";
-            this.btnDetails.Size = new System.Drawing.Size(75, 23);
-            this.btnDetails.TabIndex = 1;
-            this.btnDetails.Text = "Details";
-            this.btnDetails.UseVisualStyleBackColor = true;
-            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
-            // 
             // cmdLoadList
             // 
             this.cmdLoadList.Location = new System.Drawing.Point(10, 6);
             this.cmdLoadList.Name = "cmdLoadList";
             this.cmdLoadList.Size = new System.Drawing.Size(75, 23);
             this.cmdLoadList.TabIndex = 0;
-            this.cmdLoadList.Text = "List";
+            this.cmdLoadList.Text = "Refresh";
             this.cmdLoadList.UseVisualStyleBackColor = true;
             this.cmdLoadList.Click += new System.EventHandler(this.cmdLoadList_Click);
             // 
@@ -110,7 +98,6 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.Button btnDetails;
         private System.Windows.Forms.Button cmdLoadList;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;

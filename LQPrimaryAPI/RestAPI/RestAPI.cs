@@ -378,7 +378,7 @@ namespace LatamQuants.PrimaryAPI
             request.AddParameter("dateFrom", pDateFrom.ToString("yyyy-MM-dd"));
             request.AddParameter("dateTo", pDateTo.ToString("yyyy-MM-dd"));
             request.AddParameter("external", pExternal);
-            request.AddParameter("environment", pEnvironment);
+            //request.AddParameter("environment", pEnvironment);
 
             if (SandBoxMode == false)
             {

@@ -151,6 +151,30 @@ namespace LQTrader
                 .ForMember(dest => dest.MarketMemberIdentity, opt => opt.MapFrom(o => o.marketMemberIdentity))
                 .ForMember(dest => dest.Portfolio, opt => opt.MapFrom(o => o.portfolio))
                 .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.lastCalculation) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()));
+
+            CreateMap<ModelViews.InstrumentDetail, LatamQuants.Entities.Instrument>()
+                .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.CFICode))
+                .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.ContractMultiplier))
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.Currency))
+                .ForMember(dest => dest.HighLimitPrice, opt => opt.MapFrom(o => o.HighLimitPrice))
+                .ForMember(dest => dest.InstrumentPricePrecision, opt => opt.MapFrom(o => o.InstrumentPricePrecision))
+                .ForMember(dest => dest.InstrumentSizePrecision, opt => opt.MapFrom(o => o.InstrumentSizePrecision))
+                .ForMember(dest => dest.LowLimitPrice, opt => opt.MapFrom(o => o.LowLimitPrice))
+                .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.MarketID))
+                .ForMember(dest => dest.MaturityDate, opt => opt.MapFrom(o => o.MaturityDate))
+                .ForMember(dest => dest.MaxTradeVol, opt => opt.MapFrom(o => o.MaxTradeVol))
+                .ForMember(dest => dest.MinPriceIncrement, opt => opt.MapFrom(o => o.MinPriceIncrement))
+                .ForMember(dest => dest.MinTradeVol, opt => opt.MapFrom(o => o.MinTradeVol))
+                .ForMember(dest => dest.OrderTypes, opt => opt.MapFrom(o => o.OrderTypes))
+                .ForMember(dest => dest.PriceConvertionFactor, opt => opt.MapFrom(o => o.PriceConvertionFactor))
+                .ForMember(dest => dest.RoundLot, opt => opt.MapFrom(o => o.RoundLot))
+                .ForMember(dest => dest.SecurityType, opt => opt.MapFrom(o => o.SecurityType))
+                .ForMember(dest => dest.SegmentID, opt => opt.MapFrom(o => o.SegmentID))
+                .ForMember(dest => dest.SettlementType, opt => opt.MapFrom(o => o.SettlementType))
+                .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.Symbol))
+                .ForMember(dest => dest.TickSize, opt => opt.MapFrom(o => o.TickSize))
+                .ForMember(dest => dest.TimesInForce, opt => opt.MapFrom(o => o.TimesInForce))
+                .ForMember(dest => dest.InstrumentID, opt => opt.Ignore());
         }
     }
 }

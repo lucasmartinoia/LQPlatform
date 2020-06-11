@@ -18,6 +18,8 @@ namespace LQTrader
         public Login()
         {
             InitializeComponent();
+
+            cboEnvironment.SelectedIndex = 0;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -29,7 +31,14 @@ namespace LQTrader
                     bool bResult = RestAPI.Login(txtUser.Text, txtPassword.Text, txtAccount.Text, txtRestAPI.Text);
 
                     if (bResult == true)
+                    {
                         this.Connected = true;
+
+                        // Load instrument details.
+                        ModelViews.InstrumentDetail.colInstrumentDetails = ModelViews.InstrumentDetail.GetInstrumentsDetails();
+                        // Save in database
+                        ModelViews.InstrumentDetail.SaveInstruments();
+                    }
                     else
                         this.Connected = false;
                 }
@@ -54,6 +63,20 @@ namespace LQTrader
             }
 
             return bReturn;
+        }
+
+        private void cboEnvironment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboEnvironment.SelectedIndex==0)
+            {
+                txtRestAPI.Text = "https://api.primary.com.ar/";
+                txtWebsocket.Text = "wss://api.primary.com.ar/";
+            }
+            else
+            {
+                txtRestAPI.Text = "https://api.remarkets.primary.com.ar/";
+                txtWebsocket.Text = "wss://api.remarkets.primary.com.ar/";
+            }
         }
     }
 }

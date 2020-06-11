@@ -26,7 +26,7 @@ namespace LQTrader
         {
             try
             {
-                gridControl1.DataSource = ModelViews.Instrument.GetInstruments();
+                gridControl1.DataSource = ModelViews.InstrumentDetail.colInstrumentDetails;
                 gridControl1.Update();
                 gridView1.RefreshData();
             }

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LatamQuants.Entities
 {
@@ -29,5 +33,19 @@ namespace LatamQuants.Entities
         public int InstrumentPricePrecision { get; set; }
         public int InstrumentSizePrecision { get; set; }
         public string CFICode { get; set; }
+
+        public static void SaveList(List<Instrument> pcolInstruments)
+        {
+            using (var db = new DBContext())
+            {
+                List<Instrument> colInstruments = db.Instruments.ToList();
+
+                if(colInstruments.Count==0)
+                {
+                    db.Instruments.AddRange(pcolInstruments);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

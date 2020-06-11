@@ -9,6 +9,7 @@ namespace LQTrader.ModelViews
 {
     public class InstrumentDetail
     {
+        public static List<InstrumentDetail> colInstrumentDetails = null;
         public string Symbol { get; set; }
         public string MarketID { get; set; }
         public string SegmentID { get; set; }
@@ -45,6 +46,21 @@ namespace LQTrader.ModelViews
             }
 
             return colReturn;
+        }
+
+        public static void SaveInstruments()
+        {
+            List<LatamQuants.Entities.Instrument> colInstruments = new List<LatamQuants.Entities.Instrument>();
+            LatamQuants.Entities.Instrument oInstrument= null;
+
+            foreach (ModelViews.InstrumentDetail oInstrumentDetails in colInstrumentDetails)
+            {
+                oInstrument = new LatamQuants.Entities.Instrument();
+                Service.mapper.Map<ModelViews.InstrumentDetail ,LatamQuants.Entities.Instrument>(oInstrumentDetails,oInstrument);
+                colInstruments.Add(oInstrument);
+            }
+
+            LatamQuants.Entities.Instrument.SaveList(colInstruments);
         }
     }
 }

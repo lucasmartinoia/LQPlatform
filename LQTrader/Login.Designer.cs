@@ -38,13 +38,17 @@
             this.txtRestAPI = new System.Windows.Forms.TextBox();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtWebsocket = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboEnvironment = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(42, 160);
+            this.label1.Location = new System.Drawing.Point(42, 191);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 17);
             this.label1.TabIndex = 0;
@@ -107,7 +111,7 @@
             // 
             // txtRestAPI
             // 
-            this.txtRestAPI.Location = new System.Drawing.Point(110, 160);
+            this.txtRestAPI.Location = new System.Drawing.Point(110, 191);
             this.txtRestAPI.Name = "txtRestAPI";
             this.txtRestAPI.Size = new System.Drawing.Size(184, 20);
             this.txtRestAPI.TabIndex = 7;
@@ -116,7 +120,7 @@
             // cmdOK
             // 
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(48, 208);
+            this.cmdOK.Location = new System.Drawing.Point(48, 271);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -127,18 +131,62 @@
             // cmdCancel
             // 
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(210, 208);
+            this.cmdCancel.Location = new System.Drawing.Point(210, 271);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "CANCEL";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(26, 237);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 17);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Websocket";
+            // 
+            // txtWebsocket
+            // 
+            this.txtWebsocket.Location = new System.Drawing.Point(110, 236);
+            this.txtWebsocket.Name = "txtWebsocket";
+            this.txtWebsocket.Size = new System.Drawing.Size(184, 20);
+            this.txtWebsocket.TabIndex = 11;
+            this.txtWebsocket.Text = "https://api.primary.com.ar/";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(17, 154);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 17);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Environment";
+            // 
+            // cboEnvironment
+            // 
+            this.cboEnvironment.FormattingEnabled = true;
+            this.cboEnvironment.Items.AddRange(new object[] {
+            "PRODUCTION",
+            "TESTING"});
+            this.cboEnvironment.Location = new System.Drawing.Point(111, 152);
+            this.cboEnvironment.Name = "cboEnvironment";
+            this.cboEnvironment.Size = new System.Drawing.Size(183, 21);
+            this.cboEnvironment.TabIndex = 14;
+            this.cboEnvironment.SelectedIndexChanged += new System.EventHandler(this.cboEnvironment_SelectedIndexChanged);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 243);
+            this.ClientSize = new System.Drawing.Size(341, 305);
+            this.Controls.Add(this.cboEnvironment);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtWebsocket);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.txtRestAPI);
@@ -172,5 +220,9 @@
         private System.Windows.Forms.TextBox txtRestAPI;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtWebsocket;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboEnvironment;
     }
 }
