@@ -150,55 +150,62 @@ namespace LQTrader.Services
             const int STRATEGY_ID = 1;
             double dProfit = 0;
 
-            // Check instrument type
-            ModelViews.InstrumentDetail oInstrument=ModelViews.InstrumentDetail.colInstrumentDetails.Where(x => x.MarketID == pMarketData.Instrument.marketId && x.Symbol == pMarketData.Instrument.symbol).FirstOrDefault();
-        
-            if(oInstrument.CFICode == "ESXXXX") // EQUITIES
+            try
             {
-                // Get root symbol name and settlement period
-                int iLastMinus = oInstrument.Symbol.LastIndexOf("-");
-                string sSymbol = oInstrument.Symbol.Substring(0, iLastMinus-1).Trim();
+                // Check instrument type
+                ModelViews.InstrumentDetail oInstrument = ModelViews.InstrumentDetail.colInstrumentDetails.Where(x => x.MarketID == pMarketData.Instrument.marketId && x.Symbol == pMarketData.Instrument.symbol).FirstOrDefault();
 
-                // Get prices for T0,T1 and T2
-                List<LatamQuants.PrimaryAPI.Models.MarketData> colMDs = GetEqMDList(oInstrument.MarketID, sSymbol);
-
-                // Only run with almost 2 items
-                if (colMDs.Count > 2)
+                if (oInstrument.CFICode == "ESXXXX") // EQUITIES
                 {
-                    for (int i = 0; i < colMDs.Count - 1; i++)
-                    {
-                        for(int t = i+1; t<colMDs.Count; t++)
-                        {
-                            dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t]);
+                    // Get root symbol name and settlement period
+                    int iLastMinus = oInstrument.Symbol.LastIndexOf("-");
+                    string sSymbol = oInstrument.Symbol.Substring(0, iLastMinus - 1).Trim();
 
-                            if(dProfit>0)
+                    // Get prices for T0,T1 and T2
+                    List<LatamQuants.PrimaryAPI.Models.MarketData> colMDs = GetEqMDList(oInstrument.MarketID, sSymbol);
+
+                    // Only run with almost 2 items
+                    if (colMDs.Count > 1)
+                    {
+                        for (int i = 0; i < colMDs.Count - 1; i++)
+                        {
+                            for (int t = i + 1; t < colMDs.Count; t++)
                             {
-                                // Register opportunity.
-                                Opportunity oOpportunity = new Opportunity();
-                                oOpportunity.AmountMax = (decimal)Math.Min(colMDs[i].Data.Offers.FirstOrDefault().size, colMDs[t].Data.Bids.FirstOrDefault().size);
-                                oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * colMDs[i].Data.Offers.FirstOrDefault().price);
-                                oOpportunity.Currency = oInstrument.Currency;
-                                oOpportunity.BuyPrice1 = colMDs[i].Data.Offers.FirstOrDefault().price;
-                                oOpportunity.SellPrice2 = colMDs[t].Data.Bids.FirstOrDefault().price;
-                                oOpportunity.DateTime = DateTime.Now;
-                                oOpportunity.MarketID = oInstrument.MarketID;
-                                oOpportunity.ProfitRate = dProfit * 100 / oOpportunity.BuyPrice1;
-                                oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
-                                oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
-                                oOpportunity.StrategyID = STRATEGY_ID;
-                                oOpportunity.Save();
+                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t]);
+
+                                if (dProfit > 0)
+                                {
+                                    // Register opportunity.
+                                    Opportunity oOpportunity = new Opportunity();
+                                    oOpportunity.AmountMax = (decimal)Math.Min(colMDs[i].Data.Offers.FirstOrDefault().size, colMDs[t].Data.Bids.FirstOrDefault().size);
+                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * colMDs[i].Data.Offers.FirstOrDefault().price);
+                                    oOpportunity.Currency = oInstrument.Currency;
+                                    oOpportunity.BuyPrice1 = colMDs[i].Data.Offers.FirstOrDefault().price;
+                                    oOpportunity.SellPrice2 = colMDs[t].Data.Bids.FirstOrDefault().price;
+                                    oOpportunity.DateTime = DateTime.Now;
+                                    oOpportunity.MarketID = oInstrument.MarketID;
+                                    oOpportunity.ProfitRate = dProfit * 100 / oOpportunity.BuyPrice1;
+                                    oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
+                                    oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
+                                    oOpportunity.StrategyID = STRATEGY_ID;
+                                    oOpportunity.Save();
+                                }
                             }
                         }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex.Message);
             }
         }
 
         private double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2)
         {
             double dReturn = 0;
-            double dCom1 = 0.5;
-            double dCom2 = 0.131;
+            double dCom1 = 0.005;
+            double dCom2 = 0.00131;
 
             // Get prices
             double dPrice1 = pMD1.Data.Offers.First().price; // Buy price
@@ -223,23 +230,22 @@ namespace LQTrader.Services
             if (MarketDataMatrix.ContainsKey(sKey) == true)
             {
                 colReturn.Add(MarketDataMatrix[sKey]);
+            }
 
-                // Get 24hs
-                sKey = pMarketId + "|" + pSymbol + " - 24hs";
+            // Get 24hs
+            sKey = pMarketId + "|" + pSymbol + " - 24hs";
 
-                if (MarketDataMatrix.ContainsKey(sKey) == true)
-                {
-                    colReturn.Add(MarketDataMatrix[sKey]);
+            if (MarketDataMatrix.ContainsKey(sKey) == true)
+            {
+                colReturn.Add(MarketDataMatrix[sKey]);
+            }
 
-                    // Get 24hs
-                    sKey = pMarketId + "|" + pSymbol + " - 48hs";
+            // Get 24hs
+            sKey = pMarketId + "|" + pSymbol + " - 48hs";
 
-                    if (MarketDataMatrix.ContainsKey(sKey) == true)
-                    {
-                        colReturn.Add(MarketDataMatrix[sKey]);
-
-                    }
-                }
+            if (MarketDataMatrix.ContainsKey(sKey) == true)
+            {
+                colReturn.Add(MarketDataMatrix[sKey]);
             }
 
             return colReturn;

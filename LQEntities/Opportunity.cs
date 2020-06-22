@@ -30,6 +30,7 @@ namespace LatamQuants.Entities
             using (var db = new DBContext())
             {
                 db.Opportunities.Attach(this);
+                db.Entry(this).State = System.Data.Entity.EntityState.Added;
                 db.SaveChanges();
             }
         }
