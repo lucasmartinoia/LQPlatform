@@ -40,9 +40,23 @@ namespace LatamQuants.Entities
             {
                 List<Instrument> colInstruments = db.Instruments.ToList();
 
+                // First instruments table load.
                 if(colInstruments.Count==0)
                 {
                     db.Instruments.AddRange(pcolInstruments);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    // Add new instruments
+                    foreach(Instrument pInstrument in pcolInstruments)
+                    {
+                        if(colInstruments.Find(x=>x.MarketID==pInstrument.MarketID && x.Symbol==pInstrument.Symbol)==null)
+                        {
+                            db.Instruments.Add(pInstrument);
+                        }
+                    }
+
                     db.SaveChanges();
                 }
             }

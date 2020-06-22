@@ -70,12 +70,10 @@ namespace LQTrader
             if(cboEnvironment.SelectedIndex==0)
             {
                 txtRestAPI.Text = "https://api.primary.com.ar/";
-                txtWebsocket.Text = "wss://api.primary.com.ar/";
             }
             else
             {
                 txtRestAPI.Text = "https://api.remarkets.primary.com.ar/";
-                txtWebsocket.Text = "wss://api.remarkets.primary.com.ar/";
             }
         }
     }

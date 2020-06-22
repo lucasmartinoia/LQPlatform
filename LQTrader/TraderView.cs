@@ -65,6 +65,8 @@ namespace LQTrader
                 cmdConnect.Enabled = false;
                 cmdDisconnect.Enabled = true;
 
+                // Create Strategist.
+                Services.Strategist.Start();
            }
             else
             {

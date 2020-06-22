@@ -26,8 +26,18 @@ namespace LQTrader
 
                 if (frmInstrumentSelect.SelectedInstrument != null)
                 {
-                    txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
                     txtSymbol.Text = frmInstrumentSelect.SelectedInstrument.Symbol;
+
+                    if (txtSymbol.Text.StartsWith("MERV") == true)
+                    {
+                        txtMarketID.Text = "MERV";
+                        chkExternal.Checked = true;
+                    }
+                    else
+                    {
+                        txtMarketID.Text = frmInstrumentSelect.SelectedInstrument.MarketID;
+                        chkExternal.Checked = false;
+                    }
                 }
             }
             catch (Exception ex)

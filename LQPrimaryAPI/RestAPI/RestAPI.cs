@@ -13,7 +13,7 @@ namespace LatamQuants.PrimaryAPI
     {
         // Private variables
         public static Authentication m_auth=new Authentication();
-        private static string m_baseURL = Models.EndPoint.baseURL;
+        private static string m_baseURL = Models.EndPoint.baseURLProduction;
         public static string m_account = "";
         public static bool SandBoxMode = false;
 
@@ -30,6 +30,11 @@ namespace LatamQuants.PrimaryAPI
             m_auth.Password = pPassword;
             m_auth.TokenKey = "X-Auth-Token";
             m_auth.TokenValue = GetToken(m_auth.User, m_auth.Password);
+
+            // Pass parameters to WebSocketAPI
+            WebSocketAPI.baseUri = new Uri(m_baseURL);
+            WebSocketAPI.accessToken = m_auth.TokenValue;
+
             bResult = true;
 
             return bResult;

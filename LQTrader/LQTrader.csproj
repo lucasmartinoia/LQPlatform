@@ -147,6 +147,7 @@
       <DependentUpon>PositionsUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Service.cs" />
+    <Compile Include="Services\Strategist.cs" />
     <Compile Include="TraderView.cs">
       <SubType>Form</SubType>
     </Compile>

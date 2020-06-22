@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.chkExternal = new System.Windows.Forms.CheckBox();
+            this.txtEnvironment = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.cmdSearch = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdSelect = new System.Windows.Forms.Button();
@@ -36,12 +42,6 @@
             this.txtMarketID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtEnvironment = new System.Windows.Forms.TextBox();
-            this.chkExternal = new System.Windows.Forms.CheckBox();
             this.grdInfo = new DevExpress.XtraGrid.GridControl();
             this.grdvInfo = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pnlTop.SuspendLayout();
@@ -69,6 +69,61 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(423, 100);
             this.pnlTop.TabIndex = 1;
+            // 
+            // chkExternal
+            // 
+            this.chkExternal.AutoSize = true;
+            this.chkExternal.Location = new System.Drawing.Point(178, 69);
+            this.chkExternal.Name = "chkExternal";
+            this.chkExternal.Size = new System.Drawing.Size(64, 17);
+            this.chkExternal.TabIndex = 13;
+            this.chkExternal.Text = "External";
+            this.chkExternal.UseVisualStyleBackColor = true;
+            this.chkExternal.Visible = false;
+            // 
+            // txtEnvironment
+            // 
+            this.txtEnvironment.Location = new System.Drawing.Point(69, 67);
+            this.txtEnvironment.Name = "txtEnvironment";
+            this.txtEnvironment.Size = new System.Drawing.Size(100, 20);
+            this.txtEnvironment.TabIndex = 12;
+            this.txtEnvironment.Text = "REMARKETS";
+            this.txtEnvironment.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 70);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Environment";
+            this.label5.Visible = false;
+            // 
+            // dtTo
+            // 
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtTo.Location = new System.Drawing.Point(221, 35);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(100, 20);
+            this.dtTo.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(199, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "to";
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFrom.Location = new System.Drawing.Point(69, 36);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(100, 20);
+            this.dtFrom.TabIndex = 8;
             // 
             // cmdSearch
             // 
@@ -132,58 +187,6 @@
             this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Market ID";
-            // 
-            // dtFrom
-            // 
-            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFrom.Location = new System.Drawing.Point(69, 36);
-            this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(100, 20);
-            this.dtFrom.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(199, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "to";
-            // 
-            // dtTo
-            // 
-            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtTo.Location = new System.Drawing.Point(221, 35);
-            this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(100, 20);
-            this.dtTo.TabIndex = 10;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 70);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Environment";
-            // 
-            // txtEnvironment
-            // 
-            this.txtEnvironment.Location = new System.Drawing.Point(69, 67);
-            this.txtEnvironment.Name = "txtEnvironment";
-            this.txtEnvironment.Size = new System.Drawing.Size(100, 20);
-            this.txtEnvironment.TabIndex = 12;
-            this.txtEnvironment.Text = "REMARKETS";
-            // 
-            // chkExternal
-            // 
-            this.chkExternal.AutoSize = true;
-            this.chkExternal.Location = new System.Drawing.Point(178, 69);
-            this.chkExternal.Name = "chkExternal";
-            this.chkExternal.Size = new System.Drawing.Size(64, 17);
-            this.chkExternal.TabIndex = 13;
-            this.chkExternal.Text = "External";
-            this.chkExternal.UseVisualStyleBackColor = true;
             // 
             // grdInfo
             // 
