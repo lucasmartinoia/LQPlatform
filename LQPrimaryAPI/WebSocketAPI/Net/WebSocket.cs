@@ -109,7 +109,14 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
                     }
                     //OnData(data);
                 }
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException) 
+                { 
+                
+                }
+                catch(Exception ex)
+                {
+
+                }
 
                 if (CancelToken.IsCancellationRequested)
                 {
