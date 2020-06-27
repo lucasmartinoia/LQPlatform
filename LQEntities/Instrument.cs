@@ -33,6 +33,21 @@ namespace LatamQuants.Entities
         public int InstrumentPricePrecision { get; set; }
         public int InstrumentSizePrecision { get; set; }
         public string CFICode { get; set; }
+        public bool Active { get; set; }
+        public DateTime SetupDate { get; set; }
+        public DateTime LastUpdate { get; set; }
+
+        public static List<Instrument> GetList(bool bOnlyActive=false)
+        {
+            List<Instrument> colReturn = null;
+
+            using (var db = new DBContext())
+            {
+                colReturn = db.Instruments.Where(x=>(bOnlyActive == true && x.Active==true || bOnlyActive==false)).ToList();
+            }
+
+            return colReturn;
+        }
 
         public static void SaveList(List<Instrument> pcolInstruments)
         {
@@ -40,25 +55,67 @@ namespace LatamQuants.Entities
             {
                 List<Instrument> colInstruments = db.Instruments.ToList();
 
-                // First instruments table load.
-                if(colInstruments.Count==0)
-                {
-                    db.Instruments.AddRange(pcolInstruments);
-                    db.SaveChanges();
-                }
-                else
-                {
+                //// First instruments table load.
+                //if(colInstruments.Count==0)
+                //{
+                //    db.Instruments.AddRange(pcolInstruments);
+                //    db.SaveChanges();
+                //}
+                //else
+                //{
                     // Add new instruments
                     foreach(Instrument pInstrument in pcolInstruments)
                     {
-                        if(colInstruments.Find(x=>x.MarketID==pInstrument.MarketID && x.Symbol==pInstrument.Symbol)==null)
+                        // New instrument
+                        Instrument oDbInstrument = colInstruments.Find(x => x.MarketID == pInstrument.MarketID && x.Symbol == pInstrument.Symbol);
+
+                        if (oDbInstrument == null)
                         {
+                            pInstrument.Active = true;
+                            pInstrument.SetupDate = DateTime.Now;
+                            pInstrument.LastUpdate = pInstrument.SetupDate;
                             db.Instruments.Add(pInstrument);
+                        }
+                        else // Update maturity date instrument
+                        {
+                            oDbInstrument.Active = true;
+                            oDbInstrument.LastUpdate = DateTime.Now;
+                            oDbInstrument.MaturityDate = pInstrument.MaturityDate;
                         }
                     }
 
                     db.SaveChanges();
-                }
+
+                    // Desactive all instrument which have not were received from market or maturity date has ended.
+                    List<Instrument> colDBInstruments = db.Instruments.ToList();
+
+                    foreach(Instrument oDbInstrument in colDBInstruments)
+                    {
+                        bool bActive = true;
+
+                        // Check maturity date.
+                        if (oDbInstrument.MaturityDate!=null && oDbInstrument.MaturityDate.Value.Date < DateTime.Now.Date)
+                        {
+                            bActive = false;
+                        }
+                        else // Check if is not active in the market.
+                        {
+                            Instrument pInstrument = pcolInstruments.Find(x => x.MarketID == oDbInstrument.MarketID && x.Symbol == oDbInstrument.Symbol);
+
+                            if (pInstrument == null)
+                            {
+                                bActive = false;
+                            }
+                        }
+
+                        if(bActive==false)
+                        {
+                            oDbInstrument.Active = false;
+                            oDbInstrument.LastUpdate = DateTime.Now;
+                            db.SaveChanges();
+                        }
+                    }
+                //}
             }
         }
     }

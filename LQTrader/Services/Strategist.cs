@@ -177,11 +177,11 @@ namespace LQTrader.Services
                                 {
                                     // Register opportunity.
                                     Opportunity oOpportunity = new Opportunity();
-                                    oOpportunity.AmountMax = (decimal)Math.Min(colMDs[i].Data.Offers.FirstOrDefault().size, colMDs[t].Data.Bids.FirstOrDefault().size);
-                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * colMDs[i].Data.Offers.FirstOrDefault().price);
-                                    oOpportunity.Currency = oInstrument.Currency;
                                     oOpportunity.BuyPrice1 = colMDs[i].Data.Offers.FirstOrDefault().price;
                                     oOpportunity.SellPrice2 = colMDs[t].Data.Bids.FirstOrDefault().price;
+                                    oOpportunity.AmountMax = (decimal)(Math.Min(colMDs[i].Data.Offers.FirstOrDefault().size, colMDs[t].Data.Bids.FirstOrDefault().size)* oOpportunity.BuyPrice1);
+                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1);
+                                    oOpportunity.Currency = oInstrument.Currency;
                                     oOpportunity.DateTime = DateTime.Now;
                                     oOpportunity.MarketID = oInstrument.MarketID;
                                     oOpportunity.ProfitRate = dProfit * 100 / oOpportunity.BuyPrice1;

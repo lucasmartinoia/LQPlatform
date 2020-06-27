@@ -11,10 +11,11 @@ namespace LatamQuants.Entities
     public class InstrumentMonitor
     {
         [Key]
-        public int InstrumentID { get; set; }
+        public int InstrumentMonitorID { get; set; }
         public int Frequency { get; set; }
         public int Depth { get; set; }
         public virtual Instrument Instrument { get; set; }
+        public int InstrumentID { get; set; }
 
         public static List<InstrumentMonitor> GetList()
         {
@@ -26,6 +27,54 @@ namespace LatamQuants.Entities
             }
 
             return colReturn;
+        }
+
+        public void Save()
+        {
+            using (var db = new DBContext())
+            {
+                db.InstrumentsMonitor.Attach(this);
+                db.Entry(this).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete()
+        {
+            using (var db = new DBContext())
+            {
+                db.InstrumentsMonitor.Remove(this);
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdateAll()
+        {
+            // Get instruments for monitor
+            List<Instrument> colInstruments = Instrument.GetList(true);
+            List<InstrumentMonitor> colInstrumentMonitor = InstrumentMonitor.GetList();
+            List<MonitorSetting> colMonitor = MonitorSetting.GetList();
+
+            foreach (Instrument oInstrument in colInstruments)
+            {
+                MonitorSetting oMonitor = colMonitor.Where(x => oInstrument.CFICode == x.CFICodes && (x.Segments.Contains(oInstrument.SegmentID) || string.IsNullOrEmpty(x.Segments))).FirstOrDefault();
+                InstrumentMonitor oInstrumentMonitor = colInstrumentMonitor.Where(x => x.Instrument.MarketID == oInstrument.MarketID && x.Instrument.Symbol == oInstrument.Symbol).FirstOrDefault();
+
+                if(oMonitor!=null && oInstrumentMonitor==null)
+                {
+                    // Add to monitor
+                    oInstrumentMonitor = new InstrumentMonitor();
+                    oInstrumentMonitor.InstrumentID = oInstrument.InstrumentID;
+                    oInstrumentMonitor.Frequency = 1;
+                    oInstrumentMonitor.Depth = 1;
+                    oInstrumentMonitor.Save();
+                }
+                else if(oMonitor==null && oInstrumentMonitor!=null)
+                {
+                    // Remove from monitor
+                    oInstrumentMonitor.Delete();
+                }
+            }
         }
     }
 }

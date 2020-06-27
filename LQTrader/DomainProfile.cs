@@ -174,7 +174,10 @@ namespace LQTrader
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.Symbol))
                 .ForMember(dest => dest.TickSize, opt => opt.MapFrom(o => o.TickSize))
                 .ForMember(dest => dest.TimesInForce, opt => opt.MapFrom(o => o.TimesInForce))
-                .ForMember(dest => dest.InstrumentID, opt => opt.Ignore());
+                .ForMember(dest => dest.InstrumentID, opt => opt.Ignore())
+                .ForMember(dest => dest.Active, opt => opt.Ignore())
+                .ForMember(dest => dest.SetupDate, opt => opt.Ignore())
+                .ForMember(dest => dest.LastUpdate, opt => opt.Ignore());
 
             CreateMap<LatamQuants.Entities.Instrument, LatamQuants.PrimaryAPI.Models.InstrumentId>()
                 .ForMember(dest => dest.marketId, opt => opt.MapFrom(o => o.MarketID))

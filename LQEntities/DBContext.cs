@@ -15,6 +15,7 @@ namespace LatamQuants.Entities
         public DbSet<Strategy> Strategies { get; set; }
         public DbSet<StrategyInstrument> StrategyInstruments { get; set; }
         public DbSet<Opportunity> Opportunities { get; set; }
+        public DbSet<MonitorSetting> MonitorSettings { get; set; }
 
         public DBContext() : base("LQConnectionString")
         {

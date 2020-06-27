@@ -61,6 +61,7 @@ namespace LQTrader.ModelViews
             }
 
             LatamQuants.Entities.Instrument.SaveList(colInstruments);
+            LatamQuants.Entities.InstrumentMonitor.UpdateAll();
         }
     }
 }
