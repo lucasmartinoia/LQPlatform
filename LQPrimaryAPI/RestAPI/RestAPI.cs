@@ -17,12 +17,14 @@ namespace LatamQuants.PrimaryAPI
         public static string m_account = "";
         public static bool SandBoxMode = false;
 
-        public static bool Login(string pUser, string pPassword, string pAccount, string pBaseURL = null)
+        public static bool Login(string pUser, string pPassword, string pAccount, int AccountType)
         {
             bool bResult = false;
 
-            if (pBaseURL != null)
-                m_baseURL = pBaseURL;
+            if (AccountType == 0)
+                m_baseURL = Models.EndPoint.baseURLProduction;
+            else
+                m_baseURL = Models.EndPoint.baseURLDemo;
 
             m_account = pAccount;
 

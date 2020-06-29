@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LatamQuants.PrimaryAPI.WebSocket.Net;
+using System.Windows.Forms;
 
 namespace LQTrader.Services
 {
@@ -14,8 +15,36 @@ namespace LQTrader.Services
     {
         private static Task task;
         private static CancellationTokenSource cts;
-        private static Strategist _strategist;
         private static Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData> MarketDataMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData>();
+
+        public static Strategist Instance = new Strategist();
+
+        public delegate void OnOpportunityReceivedEventHandler(Object sender, OnOpportunityReceivedArgs e);
+        public event OnOpportunityReceivedEventHandler OnOpportunityReceived;
+
+        public static Dictionary<string, AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, AcceptedOpportunity>();
+        public static List<Strategy> colStrategies = null;
+
+        public static decimal CashAvailable = 50000;
+        public static decimal CashReserved = 0;
+
+        public class OnOpportunityReceivedArgs : EventArgs
+        {
+            public object opportunity;
+            public bool accepted;
+
+            public OnOpportunityReceivedArgs(object pOpportunity, bool pAccepted)
+            {
+                opportunity = pOpportunity;
+                accepted = pAccepted;
+            }
+        }
+
+        public Strategist()
+        {
+            // Load strategy list.
+            colStrategies = Strategy.GetList();
+        }
 
         public static Entry[] AllEntries = {
             Entry.Bids,
@@ -42,9 +71,7 @@ namespace LQTrader.Services
             {
                 // Create new task
                 cts = new CancellationTokenSource();
-                _strategist = new Strategist();
-
-                task = new Task(() => _strategist.Execute(cts), cts.Token, TaskCreationOptions.LongRunning);
+                task = new Task(() => Instance.Execute(cts), cts.Token, TaskCreationOptions.LongRunning);
 
                 // Start it
                 task.Start();
@@ -57,7 +84,7 @@ namespace LQTrader.Services
 
         private async Task Execute(CancellationTokenSource tokenSource)
         {
-            const int INSTRUMENT_LOT = 300;
+            const int INSTRUMENT_LOT = 600;
             const int DEPTH = 2;
             const int FREQUENCY = 1;
 
@@ -89,7 +116,16 @@ namespace LQTrader.Services
                     {
                         colSocket.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstrumentIds.GetRange(i*INSTRUMENT_LOT, INSTRUMENT_LOT), AllEntries, FREQUENCY, DEPTH));
                         colSocket[i].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnDataReceived);
-                        await colSocket[i].Start();
+
+                        try
+                        {
+                            await colSocket[i].Start();
+                        }
+                        catch(Exception ex)
+                        {
+                            // Websocket error
+                            MessageBox.Show("Strategist.Execute() error subscribing " + i + " time.\n" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
 
                     if (iRest>0)
@@ -149,13 +185,14 @@ namespace LQTrader.Services
         {
             const int STRATEGY_ID = 1;
             double dProfit = 0;
+            string CfiCodes = "|ESXXXX|DBXXXX|DTXXXX|DYXTXR|EMXXXX|MXXXXX|";
 
             try
             {
                 // Check instrument type
                 ModelViews.InstrumentDetail oInstrument = ModelViews.InstrumentDetail.colInstrumentDetails.Where(x => x.MarketID == pMarketData.Instrument.marketId && x.Symbol == pMarketData.Instrument.symbol).FirstOrDefault();
 
-                if (oInstrument.CFICode == "ESXXXX") // EQUITIES
+                if (CfiCodes.Contains(oInstrument.CFICode)==true) 
                 {
                     // Get root symbol name and settlement period
                     int iLastMinus = oInstrument.Symbol.LastIndexOf("-");
@@ -189,6 +226,19 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
                                     oOpportunity.Save();
+
+                                    OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
+
+                                    //// Check for Auto Trade option.
+                                    //Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
+
+                                    //if (oStrategy != null)
+                                    //{
+                                    //    if (oStrategy.AutoTrade == true && oStrategy.Active == true)
+                                    //    {
+
+                                    //    }
+                                    //}
                                 }
                             }
                         }

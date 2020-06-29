@@ -33,6 +33,7 @@
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar2 = new DevExpress.XtraBars.Bar();
@@ -57,17 +58,20 @@
             this.dockPanel6_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dpBlotter = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel7_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.dpAccountReport = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.dpOrder = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
-            this.dpAccountReport = new DevExpress.XtraBars.Docking.DockPanel();
-            this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.dpQuantMonitor = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.document4 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -78,17 +82,19 @@
             this.dpMarketDataHistoric.SuspendLayout();
             this.dpPositions.SuspendLayout();
             this.dpBlotter.SuspendLayout();
+            this.dpAccountReport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.hideContainerRight.SuspendLayout();
-            this.dpAccountReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
+            this.dpQuantMonitor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.document4)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
             // 
             this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
             this.document1,
-            this.document2});
+            this.document2,
+            this.document4});
             // 
             // document1
             // 
@@ -99,6 +105,16 @@
             this.document1.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
             this.document1.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
             this.document1.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
+            // 
+            // document2
+            // 
+            this.document2.Caption = "Account Report";
+            this.document2.ControlName = "dpAccountReport";
+            this.document2.FloatLocation = new System.Drawing.Point(421, 165);
+            this.document2.FloatSize = new System.Drawing.Size(200, 200);
+            this.document2.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
+            this.document2.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document2.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // documentManager1
             // 
@@ -221,7 +237,8 @@
             this.dockManager1.MenuManager = this.barManager1;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
             this.dpBlotter,
-            this.dpAccountReport});
+            this.dpAccountReport,
+            this.dpQuantMonitor});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
             "DevExpress.XtraBars.StandaloneBarDockControl",
@@ -358,6 +375,24 @@
             this.dockPanel7_Container.Size = new System.Drawing.Size(1030, 455);
             this.dockPanel7_Container.TabIndex = 0;
             // 
+            // dpAccountReport
+            // 
+            this.dpAccountReport.Controls.Add(this.controlContainer1);
+            this.dpAccountReport.DockedAsTabbedDocument = true;
+            this.dpAccountReport.ID = new System.Guid("2abbe7e8-4893-47bc-850b-7775b8785ca9");
+            this.dpAccountReport.Name = "dpAccountReport";
+            this.dpAccountReport.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dpAccountReport.SavedIndex = 1;
+            this.dpAccountReport.SavedMdiDocument = true;
+            this.dpAccountReport.Text = "Account Report";
+            // 
+            // controlContainer1
+            // 
+            this.controlContainer1.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer1.Name = "controlContainer1";
+            this.controlContainer1.Size = new System.Drawing.Size(1030, 455);
+            this.controlContainer1.TabIndex = 0;
+            // 
             // barSubItem1
             // 
             this.barSubItem1.Caption = "barSubItem1";
@@ -370,7 +405,8 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1,
-            this.document2});
+            this.document2,
+            this.document4});
             this.tabbedView1.Orientation = System.Windows.Forms.Orientation.Vertical;
             dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
@@ -413,31 +449,31 @@
             this.hideContainerRight.Name = "hideContainerRight";
             this.hideContainerRight.Size = new System.Drawing.Size(21, 484);
             // 
-            // dpAccountReport
+            // dpQuantMonitor
             // 
-            this.dpAccountReport.Controls.Add(this.controlContainer1);
-            this.dpAccountReport.DockedAsTabbedDocument = true;
-            this.dpAccountReport.ID = new System.Guid("2abbe7e8-4893-47bc-850b-7775b8785ca9");
-            this.dpAccountReport.Name = "dpAccountReport";
-            this.dpAccountReport.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dpAccountReport.Text = "Account Report";
+            this.dpQuantMonitor.Controls.Add(this.controlContainer2);
+            this.dpQuantMonitor.DockedAsTabbedDocument = true;
+            this.dpQuantMonitor.ID = new System.Guid("0f6faa3c-b0a2-46e7-8d0a-9b587679b11d");
+            this.dpQuantMonitor.Name = "dpQuantMonitor";
+            this.dpQuantMonitor.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dpQuantMonitor.Text = "Quant Monitor";
             // 
-            // controlContainer1
+            // controlContainer2
             // 
-            this.controlContainer1.Location = new System.Drawing.Point(0, 0);
-            this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(1030, 455);
-            this.controlContainer1.TabIndex = 0;
+            this.controlContainer2.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer2.Name = "controlContainer2";
+            this.controlContainer2.Size = new System.Drawing.Size(1030, 455);
+            this.controlContainer2.TabIndex = 0;
             // 
-            // document2
+            // document4
             // 
-            this.document2.Caption = "Account Report";
-            this.document2.ControlName = "dpAccountReport";
-            this.document2.FloatLocation = new System.Drawing.Point(0, 0);
-            this.document2.FloatSize = new System.Drawing.Size(200, 200);
-            this.document2.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
-            this.document2.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
-            this.document2.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
+            this.document4.Caption = "Quant Monitor";
+            this.document4.ControlName = "dpQuantMonitor";
+            this.document4.FloatLocation = new System.Drawing.Point(0, 0);
+            this.document4.FloatSize = new System.Drawing.Size(200, 200);
+            this.document4.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
+            this.document4.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document4.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // TraderView
             // 
@@ -457,6 +493,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
@@ -467,10 +504,11 @@
             this.dpMarketDataHistoric.ResumeLayout(false);
             this.dpPositions.ResumeLayout(false);
             this.dpBlotter.ResumeLayout(false);
+            this.dpAccountReport.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.hideContainerRight.ResumeLayout(false);
-            this.dpAccountReport.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
+            this.dpQuantMonitor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.document4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -513,6 +551,9 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document2;
         private DevExpress.XtraBars.Docking.DockPanel dpAccountReport;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document4;
+        private DevExpress.XtraBars.Docking.DockPanel dpQuantMonitor;
+        private DevExpress.XtraBars.Docking.ControlContainer controlContainer2;
     }
 }
 

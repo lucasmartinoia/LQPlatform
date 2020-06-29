@@ -14,12 +14,30 @@ namespace LQTrader
     public partial class Login : Form
     {
         public bool Connected { get; set; }
-
+        
         public Login()
         {
             InitializeComponent();
 
-            cboEnvironment.SelectedIndex = 0;
+            LoadCombos();
+        }
+
+        private void LoadCombos()
+        {
+            // Accounts
+            cboAccounts.Items.Clear();
+            List<LatamQuants.Entities.Account> colAccounts=LatamQuants.Entities.Account.GetList();
+
+            if (colAccounts.Count > 0)
+            {
+                foreach (LatamQuants.Entities.Account oAcc in colAccounts)
+                {
+                    cboAccounts.Items.Add(oAcc);
+                }
+
+                cboAccounts.ValueMember = "AccountName";
+                cboAccounts.SelectedIndex = 0;
+            }
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -28,7 +46,8 @@ namespace LQTrader
             {
                 if (InputValidate() == true)
                 {
-                    bool bResult = RestAPI.Login(txtUser.Text, txtPassword.Text, txtAccount.Text, txtRestAPI.Text);
+                    LatamQuants.Entities.Account oSelAccount = (LatamQuants.Entities.Account)cboAccounts.SelectedItem;
+                    bool bResult = RestAPI.Login(oSelAccount.User, oSelAccount.Password, oSelAccount.CustodyAccount, (int)oSelAccount.AccountType);
 
                     if (bResult == true)
                     {
@@ -53,9 +72,9 @@ namespace LQTrader
         {
             bool bReturn = false;
 
-            if(txtUser.Text=="" || txtPassword.Text=="" || txtAccount.Text == "" || txtRestAPI.Text == "")
+            if(cboAccounts.SelectedIndex<0)
             {
-                MessageBox.Show("Please complete all fields");
+                MessageBox.Show("Please select an account");
             }
             else
             {
@@ -63,18 +82,6 @@ namespace LQTrader
             }
 
             return bReturn;
-        }
-
-        private void cboEnvironment_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(cboEnvironment.SelectedIndex==0)
-            {
-                txtRestAPI.Text = "https://api.primary.com.ar/";
-            }
-            else
-            {
-                txtRestAPI.Text = "https://api.remarkets.primary.com.ar/";
-            }
         }
     }
 }

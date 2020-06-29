@@ -43,6 +43,7 @@ namespace LatamQuants.Entities
         {
             using (var db = new DBContext())
             {
+                db.InstrumentsMonitor.Attach(this);
                 db.InstrumentsMonitor.Remove(this);
                 db.SaveChanges();
             }
@@ -72,6 +73,7 @@ namespace LatamQuants.Entities
                 else if(oMonitor==null && oInstrumentMonitor!=null)
                 {
                     // Remove from monitor
+                    colInstrumentMonitor.Remove(oInstrumentMonitor);
                     oInstrumentMonitor.Delete();
                 }
             }

@@ -13,9 +13,10 @@ namespace LatamQuants.Entities
         public DbSet<MarketData> MarketDataSet { get; set; }
         public DbSet<MarketDataDepth> MarketDataDepthSet { get; set; }
         public DbSet<Strategy> Strategies { get; set; }
-        public DbSet<StrategyInstrument> StrategyInstruments { get; set; }
         public DbSet<Opportunity> Opportunities { get; set; }
         public DbSet<MonitorSetting> MonitorSettings { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<AcceptedOpportunity> AcceptedOpportunities { get; set; }
 
         public DBContext() : base("LQConnectionString")
         {

@@ -44,12 +44,9 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
             await _client.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancelToken);
 
             // Receive
-            var socketTask = Task.Factory.StartNew(ProcessSocketData, CancelToken,
-                                                   TaskCreationOptions.LongRunning,
-                                                   TaskScheduler.Default
-            );
+            var socketTask = Task.Factory.StartNew(ProcessSocketData, CancelToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
 
-            return socketTask.Unwrap();
+            return socketTask.Unwrap(); 
         }
         
         public bool IsRunning { get; private set; }
@@ -81,7 +78,7 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
             
             // Buffers for received data
             var receivedMessage = new List<byte>();
-            var buffer = new byte[4096];
+            var buffer = new byte[16384]; // original 4096 - New is 4X
 
             while (true)
             {
@@ -107,7 +104,6 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
                     {
                         OnDataReceived(this, new OnDataReceivedArgs(data));
                     }
-                    //OnData(data);
                 }
                 catch (OperationCanceledException) 
                 { 

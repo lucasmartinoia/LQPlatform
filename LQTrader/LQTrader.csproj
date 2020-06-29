@@ -128,11 +128,11 @@
     <Compile Include="ModelViews\MarketDataHistoric.cs" />
     <Compile Include="ModelViews\MarketDataRT.cs" />
     <Compile Include="ModelViews\Order.cs" />
-    <Compile Include="OpportunitiesUC.cs">
+    <Compile Include="QuantMonitorUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OpportunitiesUC.Designer.cs">
-      <DependentUpon>OpportunitiesUC.cs</DependentUpon>
+    <Compile Include="QuantMonitorUC.Designer.cs">
+      <DependentUpon>QuantMonitorUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
       <SubType>Form</SubType>
@@ -199,6 +199,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QuantMonitorUC.resx">
+      <DependentUpon>QuantMonitorUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TraderView.resx">
       <DependentUpon>TraderView.cs</DependentUpon>
     </EmbeddedResource>

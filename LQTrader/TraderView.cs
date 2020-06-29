@@ -13,6 +13,8 @@ namespace LQTrader
 {
     public partial class TraderView : Form
     {
+        private QuantMonitorUC _quantMonitorUC = new QuantMonitorUC();
+
         public TraderView()
         {
             InitializeComponent();
@@ -45,6 +47,9 @@ namespace LQTrader
             AccountReportUC oAccountReportUC = new AccountReportUC();
             oAccountReportUC.Dock = DockStyle.Fill;
             this.controlContainer1.Controls.Add(oAccountReportUC);
+
+            _quantMonitorUC.Dock = DockStyle.Fill;
+            this.controlContainer2.Controls.Add(_quantMonitorUC);
         }
 
         // Assigning a required content for each auto generated Document
@@ -67,6 +72,9 @@ namespace LQTrader
 
                 // Create Strategist.
                 Services.Strategist.Start();
+
+                // Start Quant Monitor.
+                this._quantMonitorUC.Start();
            }
             else
             {
