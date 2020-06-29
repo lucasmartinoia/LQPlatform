@@ -16,6 +16,8 @@ namespace LQTrader
         private List<Opportunity> _opportunities;
         private List<AcceptedOpportunity> _acceptedOpportunities;
         private List<Strategy> _strategies;
+        private static DevExpress.XtraGrid.GridControl _gridOpportunities;
+        private static DevExpress.XtraGrid.Views.Grid.GridView _gridvOpportunities;
 
         public QuantMonitorUC()
         {
@@ -24,6 +26,9 @@ namespace LQTrader
 
         public void Start()
         {
+            _gridOpportunities = gridOpportunities;
+            _gridvOpportunities = gridvOpportunities;
+
             // Initialize variables.
             _opportunities = new List<Opportunity>();
             _acceptedOpportunities = new List<AcceptedOpportunity>();
@@ -35,9 +40,9 @@ namespace LQTrader
             gridvStrategies.RefreshData();
 
             // Load Opportunities
-            gridOpportunities.DataSource = _opportunities;
-            gridOpportunities.Update();
-            gridvOpportunities.RefreshData();
+            _gridOpportunities.DataSource = _opportunities;
+            _gridOpportunities.Update();
+            _gridvOpportunities.RefreshData();
 
             // Load Accepted Opportunities
             gridAcceptedOpportunities.DataSource = _acceptedOpportunities;
@@ -80,9 +85,9 @@ namespace LQTrader
 
                 _opportunities.Add(oOpportunity);
 
-                gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.DateTime);
-                gridOpportunities.Update();
-                gridvOpportunities.RefreshData();
+                //_gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.DateTime);
+                //_gridOpportunities.Update();
+                //_gridvOpportunities.RefreshData();
             }
         }
     }
