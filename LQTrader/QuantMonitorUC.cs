@@ -75,15 +75,15 @@ namespace LQTrader
             else
             {
                 // Update Opportunities grid.
-                Opportunity oOpportunity = (Opportunity)e.opportunity;
-                Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
+                //Opportunity oOpportunity = (Opportunity)e.opportunity;
+                //Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
 
-                if(gOpportunity!=null)
-                {
-                    _opportunities.Remove(gOpportunity);
-                }
+                //if(gOpportunity!=null)
+                //{
+                //    _opportunities.Remove(gOpportunity);
+                //}
 
-                _opportunities.Add(oOpportunity);
+                //_opportunities.Add(oOpportunity);
 
                 //_gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.DateTime);
                 //_gridOpportunities.Update();
