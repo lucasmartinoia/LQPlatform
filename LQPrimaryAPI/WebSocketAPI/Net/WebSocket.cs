@@ -104,6 +104,10 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
                     {
                         OnDataReceived(this, new OnDataReceivedArgs(data));
                     }
+                    else
+                    {
+
+                    }
                 }
                 catch (OperationCanceledException) 
                 { 

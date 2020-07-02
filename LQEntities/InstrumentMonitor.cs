@@ -52,7 +52,7 @@ namespace LatamQuants.Entities
         public static void UpdateAll()
         {
             // Get instruments for monitor
-            List<Instrument> colInstruments = Instrument.GetList(true);
+            List<Instrument> colInstruments = Instrument.GetList();
             List<InstrumentMonitor> colInstrumentMonitor = InstrumentMonitor.GetList();
             List<MonitorSetting> colMonitor = MonitorSetting.GetList();
 
@@ -61,7 +61,7 @@ namespace LatamQuants.Entities
                 MonitorSetting oMonitor = colMonitor.Where(x => oInstrument.CFICode == x.CFICodes && (x.Segments.Contains(oInstrument.SegmentID) || string.IsNullOrEmpty(x.Segments))).FirstOrDefault();
                 InstrumentMonitor oInstrumentMonitor = colInstrumentMonitor.Where(x => x.Instrument.MarketID == oInstrument.MarketID && x.Instrument.Symbol == oInstrument.Symbol).FirstOrDefault();
 
-                if(oMonitor!=null && oInstrumentMonitor==null)
+                if(oMonitor!=null && oInstrumentMonitor==null && oInstrument.Active==true)
                 {
                     // Add to monitor
                     oInstrumentMonitor = new InstrumentMonitor();
@@ -70,7 +70,7 @@ namespace LatamQuants.Entities
                     oInstrumentMonitor.Depth = 1;
                     oInstrumentMonitor.Save();
                 }
-                else if(oMonitor==null && oInstrumentMonitor!=null)
+                else if(oInstrumentMonitor != null && (oMonitor == null || oInstrument.Active==false))
                 {
                     // Remove from monitor
                     colInstrumentMonitor.Remove(oInstrumentMonitor);

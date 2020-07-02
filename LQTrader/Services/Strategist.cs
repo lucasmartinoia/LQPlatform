@@ -99,6 +99,7 @@ namespace LQTrader.Services
                 {
                     // Create instrumentIds list
                     List<LatamQuants.PrimaryAPI.Models.InstrumentId> colInstrumentIds = new List<InstrumentId>();
+                    List<LatamQuants.PrimaryAPI.Models.InstrumentId> colInstruments2Send;
 
                     foreach (LatamQuants.Entities.Instrument oInstrument in colInstruments)
                     {
@@ -114,7 +115,8 @@ namespace LQTrader.Services
                     
                     for(int i=0;i<iCountMax;i++)
                     {
-                        colSocket.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstrumentIds.GetRange(i*INSTRUMENT_LOT, INSTRUMENT_LOT), AllEntries, FREQUENCY, DEPTH));
+                        colInstruments2Send = colInstrumentIds.GetRange(i * INSTRUMENT_LOT, INSTRUMENT_LOT);
+                        colSocket.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstruments2Send, AllEntries, FREQUENCY, DEPTH));
                         colSocket[i].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnDataReceived);
 
                         try
@@ -150,22 +152,40 @@ namespace LQTrader.Services
         {
             LatamQuants.PrimaryAPI.Models.MarketData oNewMarketData = (LatamQuants.PrimaryAPI.Models.MarketData)e.oResponse;
 
-//            if (oNewMarketData != null && oNewMarketData.Data != null && oNewMarketData.Instrument != null)
-            if (oNewMarketData != null && oNewMarketData.Data != null &&
-                oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
-                oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
+            if (oNewMarketData.Status == "ERROR")
             {
-                // Update data market matrix
-                Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
-                t1.Start();
+                MessageBox.Show("OnDataReceived ERROR: " + oNewMarketData.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                // Save md in db
-                Task t3 = new Task(() => this.SaveMarketData(oNewMarketData));
-                t3.Start();
+                // Desactive instrument and remove from monitor.
+                string sSymbol = oNewMarketData.Description.Substring(8, oNewMarketData.Description.Length - 8 - 17);
+                LatamQuants.Entities.Instrument oInstrument=LatamQuants.Entities.Instrument.GetBySymbol(sSymbol);
 
-                // Check for opportunities
-                Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
-                t2.Start();
+                if (oInstrument != null)
+                {
+                    oInstrument.Active = false;
+                    oInstrument.Update();
+                    InstrumentMonitor.UpdateAll();
+                }
+            }
+            else
+            {
+                //            if (oNewMarketData != null && oNewMarketData.Data != null && oNewMarketData.Instrument != null)
+                if (oNewMarketData != null && oNewMarketData.Data != null &&
+                    oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
+                    oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
+                {
+                    // Update data market matrix
+                    Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
+                    t1.Start();
+
+                    // Save md in db
+                    Task t3 = new Task(() => this.SaveMarketData(oNewMarketData));
+                    t3.Start();
+
+                    // Check for opportunities
+                    Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
+                    t2.Start();
+                }
             }
         }
 

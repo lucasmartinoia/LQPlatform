@@ -58,6 +58,11 @@ namespace LatamQuants.PrimaryAPI.Models
         [JsonProperty("marketData")]
         public Entries Data { get; set; }
 
+        [JsonProperty("status")]
+        public string Status { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
         public class Entries
         {
             [JsonProperty("BI")] public IEnumerable<Trade> Bids { get; set; }

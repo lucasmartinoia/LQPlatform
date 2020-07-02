@@ -49,6 +49,28 @@ namespace LatamQuants.Entities
             return colReturn;
         }
 
+        public static Instrument GetBySymbol(string pSymbol)
+        {
+            Instrument oReturn = null;
+
+            using (var db = new DBContext())
+            {
+                oReturn = db.Instruments.Where(x => x.Symbol==pSymbol).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        public void Update()
+        {
+            using (var db = new DBContext())
+            {
+                db.Instruments.Attach(this);
+                db.Entry(this).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
         public static void SaveList(List<Instrument> pcolInstruments)
         {
             using (var db = new DBContext())
