@@ -77,67 +77,68 @@ namespace LatamQuants.Entities
             {
                 List<Instrument> colInstruments = db.Instruments.ToList();
 
-                //// First instruments table load.
-                //if(colInstruments.Count==0)
-                //{
-                //    db.Instruments.AddRange(pcolInstruments);
-                //    db.SaveChanges();
-                //}
-                //else
-                //{
-                    // Add new instruments
-                    foreach(Instrument pInstrument in pcolInstruments)
-                    {
-                        // New instrument
-                        Instrument oDbInstrument = colInstruments.Find(x => x.MarketID == pInstrument.MarketID && x.Symbol == pInstrument.Symbol);
+                // Add new instruments
+                foreach(Instrument pInstrument in pcolInstruments)
+                {
+                    // New instrument
+                    Instrument oDbInstrument = colInstruments.Find(x => x.MarketID == pInstrument.MarketID && x.Symbol == pInstrument.Symbol);
 
-                        if (oDbInstrument == null)
-                        {
-                            pInstrument.Active = true;
-                            pInstrument.SetupDate = DateTime.Now;
-                            pInstrument.LastUpdate = pInstrument.SetupDate;
-                            db.Instruments.Add(pInstrument);
-                        }
-                        else // Update maturity date instrument
-                        {
-                            oDbInstrument.Active = true;
-                            oDbInstrument.LastUpdate = DateTime.Now;
-                            oDbInstrument.MaturityDate = pInstrument.MaturityDate;
-                        }
+                    if (oDbInstrument == null && 
+                        (pInstrument.MaturityDate == null || 
+                            (pInstrument.MaturityDate != null && pInstrument.MaturityDate >= DateTime.Now.Date)))
+                    {
+                        pInstrument.Active = true;
+                        pInstrument.SetupDate = DateTime.Now;
+                        pInstrument.LastUpdate = pInstrument.SetupDate;
+                        db.Instruments.Add(pInstrument);
                     }
-
-                    db.SaveChanges();
-
-                    // Desactive all instrument which have not were received from market or maturity date has ended.
-                    List<Instrument> colDBInstruments = db.Instruments.ToList();
-
-                    foreach(Instrument oDbInstrument in colDBInstruments)
+                    else if(pInstrument.MaturityDate != null && pInstrument.MaturityDate >= DateTime.Now.Date)// Update maturity date instrument
                     {
-                        bool bActive = true;
+                        oDbInstrument.Active = true;
+                        oDbInstrument.LastUpdate = DateTime.Now;
+                        oDbInstrument.MaturityDate = pInstrument.MaturityDate;
+                    }
+                    else if(pInstrument.MaturityDate != null && pInstrument.MaturityDate < DateTime.Now.Date)
+                    {
+                        // Instrument with invalid Maturity Date.
+                    }
+                    else
+                    { 
+                        // Instrument to analyze
+                    }
+                }
 
-                        // Check maturity date.
-                        if (oDbInstrument.MaturityDate!=null && oDbInstrument.MaturityDate.Value.Date < DateTime.Now.Date)
+                db.SaveChanges();
+
+                // Desactive all instrument which have not were received from market or maturity date has ended.
+                List<Instrument> colDBInstruments = db.Instruments.ToList();
+
+                foreach(Instrument oDbInstrument in colDBInstruments)
+                {
+                    bool bActive = true;
+
+                    // Check maturity date.
+                    if (oDbInstrument.MaturityDate!=null && oDbInstrument.MaturityDate.Value.Date < DateTime.Now.Date)
+                    {
+                        bActive = false;
+                    }
+                    else // Check if is not active in the market.
+                    {
+                        Instrument pInstrument = pcolInstruments.Find(x => x.MarketID == oDbInstrument.MarketID && x.Symbol == oDbInstrument.Symbol);
+
+                        if (pInstrument == null)
                         {
                             bActive = false;
                         }
-                        else // Check if is not active in the market.
-                        {
-                            Instrument pInstrument = pcolInstruments.Find(x => x.MarketID == oDbInstrument.MarketID && x.Symbol == oDbInstrument.Symbol);
-
-                            if (pInstrument == null)
-                            {
-                                bActive = false;
-                            }
-                        }
-
-                        if(bActive==false)
-                        {
-                            oDbInstrument.Active = false;
-                            oDbInstrument.LastUpdate = DateTime.Now;
-                            db.SaveChanges();
-                        }
                     }
-                //}
+
+                    if(bActive==false)
+                    {
+                        oDbInstrument.Active = false;
+                        oDbInstrument.LastUpdate = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                }
             }
         }
     }
