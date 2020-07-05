@@ -24,6 +24,15 @@ namespace LatamQuants.Entities
         public string StartTime { get; set; }
         public string EndTime { get; set; }
 
+        [NotMapped]
+        public int OrdersOfDay { get; set; }
+
+        // Private properties
+        [NotMapped]
+        private DateTime _startTime;
+        [NotMapped]
+        private DateTime _endTime;
+
         public static List<Strategy> GetList(bool bOnlyActive = false)
         {
             List<Strategy> colReturn = null;
@@ -33,7 +42,40 @@ namespace LatamQuants.Entities
                 colReturn = db.Strategies.Where(x => (bOnlyActive == true && x.Active == true || bOnlyActive == false)).ToList();
             }
 
+            foreach(Strategy oStrategy in colReturn)
+            {
+                oStrategy.Initialize();
+            }
+
             return colReturn;
+        }
+
+        private void Initialize()
+        {
+            _startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(this.StartTime.Substring(0, 2)), int.Parse(this.StartTime.Substring(3, 2)), 0);
+            _endTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(this.EndTime.Substring(0, 2)), int.Parse(this.EndTime.Substring(3, 2)), 0);
+
+            // Get opportunities of the day.
+            List<AcceptedOpportunity> colOrders = AcceptedOpportunity.GetList(this.StrategyID, DateTime.Now.Date, "Thanks");
+            this.OrdersOfDay = colOrders.Count();
+        }
+
+        /// <summary>
+        /// Check if the strategy is available to be executed.
+        /// </summary>
+        /// <returns></returns>
+        public bool Executable()
+        {
+            bool bReturn = this.AutoTrade;
+
+            // Check quantity of max orders at day
+            if(bReturn==true && this.OrdersOfDay<this.MaxOrdersPerDay)
+            {
+                // Check time.
+                bReturn = (DateTime.Now >= _startTime && DateTime.Now <= _endTime);
+            }
+
+            return bReturn;
         }
     }
 }

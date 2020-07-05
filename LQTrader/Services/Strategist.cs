@@ -25,8 +25,9 @@ namespace LQTrader.Services
         public static Dictionary<string, AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, AcceptedOpportunity>();
         public static List<Strategy> colStrategies = null;
 
-        public static decimal CashAvailable = 50000;
+        public static decimal CashAvailable = 0;
         public static decimal CashReserved = 0;
+        public static decimal AccountMarginAmount = 0;
 
         public class OnOpportunityReceivedArgs : EventArgs
         {
@@ -44,6 +45,17 @@ namespace LQTrader.Services
         {
             // Load strategy list.
             colStrategies = Strategy.GetList();
+
+            // Update initial amounts.
+            AccountMarginAmount = LatamQuants.Entities.Account.CurrentAccount.CashMarginAmount;
+
+            // Get current ARS T0 available.
+            ModelViews.AccountReport oAccReport=ModelViews.AccountReport.GetAccountReport();
+
+            if(oAccReport!=null)
+            {
+                CashAvailable = Decimal.Parse(oAccReport.CurrencyBalances.Where(x => x.Currency == "ARS").FirstOrDefault().T0Available.ToString());
+            }
         }
 
         public static Entry[] AllEntries = {
@@ -249,16 +261,17 @@ namespace LQTrader.Services
 
                                     OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
 
-                                    //// Check for Auto Trade option.
-                                    //Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
+                                    // Check for Auto Trade option.
+                                    Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
 
-                                    //if (oStrategy != null)
-                                    //{
-                                    //    if (oStrategy.AutoTrade == true && oStrategy.Active == true)
-                                    //    {
+                                    if (oStrategy != null)
+                                    {
+                                        if (oStrategy.Executable()==true)
+                                        {
+                                            // Check for opportunity.
 
-                                    //    }
-                                    //}
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -46,5 +46,17 @@ namespace LatamQuants.Entities
                 db.SaveChanges();
             }
         }
+
+        public static List<AcceptedOpportunity> GetList(int pStrategyID=0, DateTime? pDateTime = null, string pStatus = "")
+        {
+            List<AcceptedOpportunity> colReturn=null;
+
+            using (var db = new DBContext())
+            {
+                colReturn=db.AcceptedOpportunities.Include("Opportunity").Where(x => (pStrategyID == 0 || x.Opportunity.StrategyID == pStrategyID) && (pDateTime == null || x.AcceptedDateTime.Date == pDateTime) && (pStatus == "" || pStatus == x.Status)).ToList();
+            }
+
+            return colReturn;
+        }
     }
 }
