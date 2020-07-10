@@ -91,6 +91,8 @@ namespace LQTrader
             try
             {
                 bool bResult = RestAPI.RemoveToken();
+
+                Services.Strategist.Stop();
             }
             catch (Exception ex)
             {

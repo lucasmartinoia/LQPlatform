@@ -19,6 +19,12 @@ namespace LatamQuants.PrimaryAPI.WebSocket
     {
         [JsonProperty("orderReport")]
         public OrderStatus OrderReport;
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 
     public class OrderDataWebSocket : WebSocket<Request, Response>

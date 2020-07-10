@@ -77,5 +77,25 @@ namespace LatamQuants.Entities
 
             return bReturn;
         }
+
+        /// <summary>
+        /// Calculate available amount for this strategy.
+        /// </summary>
+        /// <param name="pCashAvailable"></param>
+        /// <returns></returns>
+        public double GetAmountAvailable(double pCashAvailable)
+        {
+            double oReturn = 0;
+
+            if(this.TradeAmountMax>0)
+            {
+                oReturn = (double)this.TradeAmountMax;
+            }
+            else if(this.TradeCashPerc>0)
+            {
+                oReturn = pCashAvailable * this.TradeCashPerc / 100;
+            }
+            return oReturn;
+        }
     }
 }

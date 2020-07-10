@@ -52,6 +52,7 @@ namespace LQTrader
                     if (bResult == true)
                     {
                         this.Connected = true;
+                        LatamQuants.Entities.Account.CurrentAccount = oSelAccount;
 
                         // Load instrument details.
                         ModelViews.InstrumentDetail.colInstrumentDetails = ModelViews.InstrumentDetail.GetInstrumentsDetails();

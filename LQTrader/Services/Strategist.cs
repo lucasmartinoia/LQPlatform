@@ -22,12 +22,21 @@ namespace LQTrader.Services
         public delegate void OnOpportunityReceivedEventHandler(Object sender, OnOpportunityReceivedArgs e);
         public event OnOpportunityReceivedEventHandler OnOpportunityReceived;
 
-        public static Dictionary<string, AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, AcceptedOpportunity>();
+        // Store on going opportunities. Key = Symbol1+|+Symbol2.
+        public static Dictionary<string, ModelViews.AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, ModelViews.AcceptedOpportunity>();
         public static List<Strategy> colStrategies = null;
 
-        public static decimal CashAvailable = 0;
-        public static decimal CashReserved = 0;
-        public static decimal AccountMarginAmount = 0;
+        // Store order updates. Key = clOrdId.
+        public static Dictionary<string, LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus> OrderUpdateMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus>();
+
+        // Cash management.
+        public static decimal CashAvailable = 0; // Account cash available -  account margin amount
+        public static decimal CashReserved = 0; // Reserved cash
+        public static decimal AccountMarginAmount = 0; // Not available amount to trade.
+
+        // Websocket connections.
+        public static List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket> colWSMarketData;
+        public static LatamQuants.PrimaryAPI.WebSocket.OrderDataWebSocket oWSOrderUpdates;
 
         public class OnOpportunityReceivedArgs : EventArgs
         {
@@ -52,9 +61,23 @@ namespace LQTrader.Services
             // Get current ARS T0 available.
             ModelViews.AccountReport oAccReport=ModelViews.AccountReport.GetAccountReport();
 
-            if(oAccReport!=null)
+            if(oAccReport!=null && oAccReport.CurrencyBalances!=null)
             {
-                CashAvailable = Decimal.Parse(oAccReport.CurrencyBalances.Where(x => x.Currency == "ARS").FirstOrDefault().T0Available.ToString());
+                ModelViews.AccountReport.CurrencyBalance oCurrBalance = oAccReport.CurrencyBalances.Where(x => x.Currency == "ARS").FirstOrDefault();
+
+                if (oCurrBalance.T0Available != null)
+                {
+                    CashAvailable = Convert.ToDecimal(oCurrBalance.T0Available);
+                    CashAvailable -= AccountMarginAmount;
+                }
+                else
+                {
+                    MessageBox.Show("There is not possible to get the account amount", "Market is closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("There is not possible to get the account information", "Account Report", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -94,6 +117,12 @@ namespace LQTrader.Services
             }
         }
 
+        public static void Stop()
+        {
+            // Close websocket connections and finalize threads.
+            cts.Cancel();
+        }
+
         private async Task Execute(CancellationTokenSource tokenSource)
         {
             const int INSTRUMENT_LOT = 600;
@@ -102,9 +131,12 @@ namespace LQTrader.Services
 
             try
             {
-                LatamQuants.PrimaryAPI.Models.InstrumentId oInstrumentId = null;
+                // Start listening WS order updates.
+                oWSOrderUpdates = LatamQuants.PrimaryAPI.WebSocketAPI.CreateOrderDataSocket(new[] { Account.CurrentAccount.CustodyAccount });
+                oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
 
                 // Load instruments to monitor.
+                LatamQuants.PrimaryAPI.Models.InstrumentId oInstrumentId = null;
                 List<LatamQuants.Entities.Instrument> colInstruments = InstrumentMonitor.GetList().Select(x=>x.Instrument).ToList<LatamQuants.Entities.Instrument>();
 
                 if (colInstruments.Count > 0)
@@ -121,19 +153,19 @@ namespace LQTrader.Services
                     }
 
                     // Subscribe to all entries
-                    List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket> colSocket = new List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket>();
+                    colWSMarketData = new List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket>();
                     int iRest = colInstrumentIds.Count % INSTRUMENT_LOT;
                     int iCountMax = (colInstrumentIds.Count - iRest)/ INSTRUMENT_LOT;
                     
                     for(int i=0;i<iCountMax;i++)
                     {
                         colInstruments2Send = colInstrumentIds.GetRange(i * INSTRUMENT_LOT, INSTRUMENT_LOT);
-                        colSocket.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstruments2Send, AllEntries, FREQUENCY, DEPTH));
-                        colSocket[i].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnDataReceived);
+                        colWSMarketData.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstruments2Send, AllEntries, FREQUENCY, DEPTH, tokenSource.Token));
+                        colWSMarketData[i].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnMarketDataReceived);
 
                         try
                         {
-                            await colSocket[i].Start();
+                            await colWSMarketData[i].Start();
                         }
                         catch(Exception ex)
                         {
@@ -144,9 +176,9 @@ namespace LQTrader.Services
 
                     if (iRest>0)
                     {
-                        colSocket.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstrumentIds.GetRange(iCountMax* INSTRUMENT_LOT, iRest), AllEntries, FREQUENCY, DEPTH));
-                        colSocket[iCountMax].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnDataReceived);
-                        await colSocket[iCountMax].Start();
+                        colWSMarketData.Add(LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstrumentIds.GetRange(iCountMax* INSTRUMENT_LOT, iRest), AllEntries, FREQUENCY, DEPTH, tokenSource.Token));
+                        colWSMarketData[iCountMax].OnDataReceived += new WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedEventHandler(OnMarketDataReceived);
+                        await colWSMarketData[iCountMax].Start();
                     }
 
                     //LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket socket = LatamQuants.PrimaryAPI.WebSocketAPI.CreateMarketDataSocket(colInstrumentIds.GetRange(0, 300), AllEntries, 1, 2);
@@ -160,13 +192,13 @@ namespace LQTrader.Services
             }
         }
 
-        private void OnDataReceived(Object sender, WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedArgs e)
+        private void OnMarketDataReceived(Object sender, WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedArgs e)
         {
             LatamQuants.PrimaryAPI.Models.MarketData oNewMarketData = (LatamQuants.PrimaryAPI.Models.MarketData)e.oResponse;
 
             if (oNewMarketData.Status == "ERROR")
             {
-                MessageBox.Show("OnDataReceived ERROR: " + oNewMarketData.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("OnMarketDataReceived ERROR: " + oNewMarketData.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // Desactive instrument and remove from monitor.
                 string sSymbol = oNewMarketData.Description.Substring(8, oNewMarketData.Description.Length - 8 - 17);
@@ -181,7 +213,7 @@ namespace LQTrader.Services
             }
             else
             {
-                //            if (oNewMarketData != null && oNewMarketData.Data != null && oNewMarketData.Instrument != null)
+                // TODO: Should I consider also market data without bids or without offers ??
                 if (oNewMarketData != null && oNewMarketData.Data != null &&
                     oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
                     oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
@@ -197,6 +229,30 @@ namespace LQTrader.Services
                     // Check for opportunities
                     Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
                     t2.Start();
+                }
+            }
+        }
+
+        private void OnOrderUpdateReceived(Object sender, WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedArgs e)
+        {
+            LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
+
+            if (oOrderUpdate.Status == "ERROR")
+            {
+                MessageBox.Show("OnOrderUpdateReceived ERROR: " + oOrderUpdate.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                // Save order update.
+                string sKey = oOrderUpdate.OrderReport.ClientOrderId.ToString();
+
+                if (OrderUpdateMatrix.ContainsKey(sKey) ==true)
+                {
+                    OrderUpdateMatrix[sKey] = oOrderUpdate.OrderReport;
+                }
+                else
+                {
+                    OrderUpdateMatrix.Add(sKey, oOrderUpdate.OrderReport);
                 }
             }
         }
@@ -218,6 +274,9 @@ namespace LQTrader.Services
             const int STRATEGY_ID = 1;
             double dProfit = 0;
             string CfiCodes = "|ESXXXX|DBXXXX|DTXXXX|DYXTXR|EMXXXX|MXXXXX|";
+            string Currencies = "|ARS|";
+            double feeIntradayEquities = 0.00296; // per trade
+            double feeIntradayBonds = 0.00255; // per trade
 
             try
             {
@@ -262,14 +321,59 @@ namespace LQTrader.Services
                                     OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
 
                                     // Check for Auto Trade option.
-                                    Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
-
-                                    if (oStrategy != null)
+                                    if (Currencies.Contains(oOpportunity.Currency) == true)
                                     {
-                                        if (oStrategy.Executable()==true)
-                                        {
-                                            // Check for opportunity.
+                                        Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
 
+                                        if (oStrategy != null)
+                                        {
+                                            if (oStrategy.Executable() == true)
+                                            {
+                                                string sKey = oOpportunity.Symbol1 + "|" + oOpportunity.Symbol2;
+                                                bool bContinue = true;
+                                                double cash4Opportunity = 0;
+
+                                                // Check for opportunity.
+                                                bContinue = (AcceptedOpportunityMatrix.ContainsKey(sKey) == false);
+
+                                                // Filter of profit rate.
+                                                if (bContinue == true)
+                                                {
+                                                    if (oOpportunity.Symbol2.EndsWith("24hs") == true && oOpportunity.ProfitRate < oStrategy.OppMinRate1)
+                                                    {
+                                                        bContinue = false;
+                                                    }
+                                                    else if (oOpportunity.Symbol2.EndsWith("48hs") == true && oOpportunity.ProfitRate < oStrategy.OppMinRate2)
+                                                    {
+                                                        bContinue = false;
+                                                    }
+                                                }
+
+                                                // Amount available
+                                                if (bContinue == true)
+                                                {
+                                                    double cashAvailable = Convert.ToDouble(CashAvailable - CashReserved);
+                                                    cash4Opportunity = oStrategy.GetAmountAvailable(cashAvailable)*(1-feeIntradayEquities*2);
+
+                                                    if (cash4Opportunity > 0)
+                                                    {
+                                                        // Check if it's enough to enter.
+                                                        bContinue = cash4Opportunity >= Convert.ToDouble(oOpportunity.AmountMin);
+                                                    }
+                                                    else
+                                                    {
+                                                        bContinue = false;
+                                                    }
+                                                }
+
+                                                // READY TO ACCEPT THE OPPORTUNITY
+                                                if (bContinue == true)
+                                                {
+                                                    CashReserved += Convert.ToDecimal(cash4Opportunity);
+                                                    ModelViews.AcceptedOpportunity oAccepted = new ModelViews.AcceptedOpportunity(oStrategy, oOpportunity, cash4Opportunity,true);
+                                                    AcceptedOpportunityMatrix.Add(oAccepted.Key, oAccepted);
+                                                }
+                                            }
                                         }
                                     }
                                 }

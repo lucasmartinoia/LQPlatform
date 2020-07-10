@@ -123,6 +123,7 @@
       <DependentUpon>MarketDataUC.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelViews\AccountReport.cs" />
+    <Compile Include="ModelViews\AcceptedOpportunity.cs" />
     <Compile Include="ModelViews\PositionDetailMain.cs" />
     <Compile Include="ModelViews\Position.cs" />
     <Compile Include="ModelViews\MarketDataHistoric.cs" />

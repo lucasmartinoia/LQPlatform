@@ -18,7 +18,7 @@ namespace PrimaryAPI.Tests
             string Password = "Lucas20+";
             string Account = "77590";
 
-            RestAPI.Login(Username, Password, Account);
+            RestAPI.Login(Username, Password, Account,1);
         }
 
         //[Test]

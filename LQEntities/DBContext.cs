@@ -20,6 +20,8 @@ namespace LatamQuants.Entities
 
         public DBContext() : base("LQConnectionString")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DBContext, Migrations.Configuration>(useSuppliedContext: true));
+            Database.SetInitializer(new DBInitializer());
         }
     }
 }

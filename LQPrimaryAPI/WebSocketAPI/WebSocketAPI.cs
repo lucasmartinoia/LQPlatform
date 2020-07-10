@@ -26,22 +26,6 @@ namespace LatamQuants.PrimaryAPI
         /// <param name="entries">Market data entries to watch.</param>
         /// <param name="level"></param>
         /// <param name="depth">Depth of the book.</param>
-        /// <returns>The market data web socket.</returns>
-        public static MarketDataWebSocket CreateMarketDataSocket(IEnumerable<Models.InstrumentId> instruments,
-                                                          IEnumerable<Entry> entries,
-                                                          uint level, uint depth
-        )
-        {
-            return CreateMarketDataSocket(instruments, entries, level, depth, new CancellationToken());
-        }
-
-        /// <summary>
-        /// Create a Market Data web socket to receive real-time market data.
-        /// </summary>
-        /// <param name="instruments">Instruments to watch.</param>
-        /// <param name="entries">Market data entries to watch.</param>
-        /// <param name="level"></param>
-        /// <param name="depth">Depth of the book.</param>
         /// <param name="cancellationToken">Custom cancellation token to end the socket task.</param>
         /// <returns>The market data web socket.</returns>
         public static MarketDataWebSocket CreateMarketDataSocket(IEnumerable<Models.InstrumentId> instruments,

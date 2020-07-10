@@ -30,9 +30,10 @@ namespace PrimaryAPI.Tests
             // Get a dollar future
             List<Instrument> instruments = RestAPI.GetInstruments().instruments;
             Instrument instrument = instruments.Last( i => i.instrumentId.symbol == Build.DollarFutureSymbol() );
+            CancellationTokenSource cts = new CancellationTokenSource();
 
             // Subscribe to all entries
-            using var socket = WebSocketAPI.CreateMarketDataSocket(new[] { instrument.instrumentId }, AllEntries, 1, 1);
+            using var socket = WebSocketAPI.CreateMarketDataSocket(new[] { instrument.instrumentId }, AllEntries, 1, 1,cts.Token);
             socket.OnDataReceived += new WebSocket<MarketDataInfo, MarketData>.OnDataReceivedEventHandler(OnDataReceived);
 
             //MarketData retrievedData = null;

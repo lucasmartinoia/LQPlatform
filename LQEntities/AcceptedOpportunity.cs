@@ -21,14 +21,14 @@ namespace LatamQuants.Entities
         /// </summary>
         public string Status { get; set; } 
 
-        public int OrderID1{ get; set; }
+        public string OrderID1{ get; set; }
 
-        public int OrderID2 { get; set; }
+        public string OrderID2 { get; set; }
 
         /// <summary>
         /// To reverse first order.
         /// </summary>
-        public int OrderID3 { get; set; }
+        public string OrderID3 { get; set; }
 
         /// <summary>
         /// True = order input by robot; False = order input by me.
@@ -36,6 +36,10 @@ namespace LatamQuants.Entities
         public bool AutoTrade { get; set; }
 
         public decimal CashReserved { get; set; }
+
+        public DateTime LastUpdate { get; set; }
+
+        public string ErrorDescription { get; set; }
 
         public void Save()
         {
@@ -53,10 +57,20 @@ namespace LatamQuants.Entities
 
             using (var db = new DBContext())
             {
-                colReturn=db.AcceptedOpportunities.Include("Opportunity").Where(x => (pStrategyID == 0 || x.Opportunity.StrategyID == pStrategyID) && (pDateTime == null || x.AcceptedDateTime.Date == pDateTime) && (pStatus == "" || pStatus == x.Status)).ToList();
+                colReturn=db.AcceptedOpportunities.Include("Opportunity").Where(x => (pStrategyID == 0 || x.Opportunity.StrategyID == pStrategyID) && (pDateTime == null || x.AcceptedDateTime >= pDateTime) && (pStatus == "" || pStatus == x.Status)).ToList();
             }
 
             return colReturn;
+        }
+
+        public void Update()
+        {
+            using (var db = new DBContext())
+            {
+                db.AcceptedOpportunities.Attach(this);
+                db.Entry(this).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
         }
     }
 }
