@@ -34,5 +34,10 @@ namespace LatamQuants.Entities
                 db.SaveChanges();
             }
         }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }

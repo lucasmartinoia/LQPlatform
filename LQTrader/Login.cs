@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LatamQuants.PrimaryAPI;
+using LatamQuants.Support;
 
 namespace LQTrader
 {
@@ -51,6 +52,7 @@ namespace LQTrader
 
                     if (bResult == true)
                     {
+                        LoggingService.Save(EnumLogType.Information, "Login OK");
                         this.Connected = true;
                         LatamQuants.Entities.Account.CurrentAccount = oSelAccount;
 
@@ -60,11 +62,17 @@ namespace LQTrader
                         ModelViews.InstrumentDetail.SaveInstruments();
                     }
                     else
+                    {
+                        LoggingService.Save(EnumLogType.Error, "Not logged");
                         this.Connected = false;
+                    }
                 }
             }
             catch(Exception ex)
             {
+                string sError = "LQTrader.Login.cmdOK_Click()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
+
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK);
             }
         }

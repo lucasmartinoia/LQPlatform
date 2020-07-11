@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LatamQuants.Entities;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace LQTrader
 {
@@ -18,6 +19,8 @@ namespace LQTrader
         private List<Strategy> _strategies;
         private static DevExpress.XtraGrid.GridControl _gridOpportunities;
         private static DevExpress.XtraGrid.Views.Grid.GridView _gridvOpportunities;
+
+        public static bool bStrategiesRefreshing = true; // Avoid cell changed events.
 
         public QuantMonitorUC()
         {
@@ -51,6 +54,8 @@ namespace LQTrader
 
             // Start receiving opportunities.
             Services.Strategist.Instance.OnOpportunityReceived += new Services.Strategist.OnOpportunityReceivedEventHandler(OnOpportunityReceived);
+
+            bStrategiesRefreshing = false;
         }
 
         public void OnOpportunityReceived(Object sender, Services.Strategist.OnOpportunityReceivedArgs e)
@@ -88,6 +93,26 @@ namespace LQTrader
                 //_gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.DateTime);
                 //_gridOpportunities.Update();
                 //_gridvOpportunities.RefreshData();
+            }
+        }
+
+        private void gridvStrategies_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            if(bStrategiesRefreshing==false)
+            {
+                // Update strategy.
+                GridView view = sender as GridView;
+                int dataSourceRowIndex = view.GetDataSourceRowIndex(e.RowHandle);
+
+                if (dataSourceRowIndex > -1)
+                {
+                    // Update db.
+                    Strategy oStrategy = _strategies[dataSourceRowIndex];
+                    oStrategy.Update();
+
+                    // Update Strategy in collection.
+                    Services.Strategist.Instance.colStrategies[oStrategy.StrategyID - 1] = oStrategy;
+                }
             }
         }
     }

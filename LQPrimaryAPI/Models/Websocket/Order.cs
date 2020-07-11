@@ -48,5 +48,10 @@ namespace LatamQuants.PrimaryAPI.Models.Websocket
         /// <remarks>Only valid when `Expiration` is `GoodTillDate`.</remarks>
         [JsonProperty("expireDate")]
         public DateTime ExpirationDate { get; set; }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }

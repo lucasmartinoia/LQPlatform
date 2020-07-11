@@ -53,5 +53,10 @@ namespace LatamQuants.PrimaryAPI.Models.Websocket
         /// <summary>More information about the order status.</summary>
         [JsonProperty("text")]
         public string StatusText { get; set; }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }

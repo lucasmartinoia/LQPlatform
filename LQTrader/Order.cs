@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LatamQuants.Support;
 
 namespace LQTrader
 {
@@ -198,6 +199,9 @@ namespace LQTrader
             }
             catch(Exception ex)
             {
+                string sError = "LQTrader.Order.cmd_Send_Click()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
+
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

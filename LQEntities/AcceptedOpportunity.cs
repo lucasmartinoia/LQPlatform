@@ -40,6 +40,7 @@ namespace LatamQuants.Entities
         public DateTime LastUpdate { get; set; }
 
         public string ErrorDescription { get; set; }
+        public bool Simulation { get; set; }
 
         public void Save()
         {
@@ -71,6 +72,11 @@ namespace LatamQuants.Entities
                 db.Entry(this).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
+        }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
     }
 }

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LQEntities", "LQEntities\LQ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LQTests", "LQTests\LQTests.csproj", "{2BD1FF34-57EE-45FD-98DA-3162B1BC803C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LQSupport", "LQSupport\LQSupport.csproj", "{702D0AB1-4D20-4FEC-805F-6670A3297155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ClickOnce Debug|Any CPU = ClickOnce Debug|Any CPU
@@ -127,6 +129,26 @@ Global
 		{2BD1FF34-57EE-45FD-98DA-3162B1BC803C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BD1FF34-57EE-45FD-98DA-3162B1BC803C}.Release|x86.ActiveCfg = Release|Any CPU
 		{2BD1FF34-57EE-45FD-98DA-3162B1BC803C}.Release|x86.Build.0 = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Debug|x86.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Debug|x86.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Release|Any CPU.Build.0 = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Release|x86.ActiveCfg = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.ClickOnce Release|x86.Build.0 = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Debug|x86.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.DebugTest|Any CPU.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.DebugTest|x86.ActiveCfg = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.DebugTest|x86.Build.0 = Debug|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Release|x86.ActiveCfg = Release|Any CPU
+		{702D0AB1-4D20-4FEC-805F-6670A3297155}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

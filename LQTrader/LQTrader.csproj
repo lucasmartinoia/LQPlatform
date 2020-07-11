@@ -59,6 +59,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -228,6 +231,10 @@
     <ProjectReference Include="..\LQPrimaryAPI\LQPrimaryAPI.csproj">
       <Project>{08517306-9a14-4d42-9c49-db0aea157a6c}</Project>
       <Name>LQPrimaryAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LQSupport\LQSupport.csproj">
+      <Project>{702d0ab1-4d20-4fec-805f-6670a3297155}</Project>
+      <Name>LQSupport</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using LatamQuants.Support;
 
 namespace LatamQuants.PrimaryAPI.WebSocket.Net
 {
@@ -33,20 +34,37 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
         
         public async Task<Task> Start()
         {
-            _client.Options.SetRequestHeader("X-Auth-Token", _accessToken);
+            Task<Task> socketTask = null;
 
-            await _client.ConnectAsync(_url, CancelToken);
+            try
+            {
+                _client.Options.SetRequestHeader("X-Auth-Token", _accessToken);
 
-            // Send data to request
-            var jsonRequest = JsonConvert.SerializeObject(_request);
+                await _client.ConnectAsync(_url, CancelToken);
 
-            var outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(jsonRequest));
-            await _client.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancelToken);
+                // Send data to request
+                var jsonRequest = JsonConvert.SerializeObject(_request);
 
-            // Receive
-            var socketTask = Task.Factory.StartNew(ProcessSocketData, CancelToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                var outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(jsonRequest));
+                await _client.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancelToken);
 
-            return socketTask.Unwrap(); 
+                // Receive
+                socketTask = Task.Factory.StartNew(ProcessSocketData, CancelToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            }
+            catch (Exception ex)
+            {
+                string sError = "LQPrimaryAPI.WebSocket.Start()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
+            }
+
+            if (socketTask != null)
+            {
+                return socketTask.Unwrap();
+            }
+            else
+            {
+                return null;
+            }
         }
         
         public bool IsRunning { get; private set; }
@@ -75,7 +93,8 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
         private async Task ProcessSocketData()
         {
             IsRunning = true;
-            
+            string messageJson="";
+
             // Buffers for received data
             var receivedMessage = new List<byte>();
             var buffer = new byte[16384]; // original 4096 - New is 4X
@@ -95,7 +114,7 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
 
                     // Decode the message
                     //var messageJson = (new ASCIIEncoding()).GetString(buffer).Substring(0, receivedMessage.Count);
-                    var messageJson = (new ASCIIEncoding()).GetString(receivedMessage.ToArray());
+                    messageJson = (new ASCIIEncoding()).GetString(receivedMessage.ToArray());
                     var data = JsonConvert.DeserializeObject<TResponse>(messageJson);
                     receivedMessage.Clear();
 
@@ -106,7 +125,8 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
                     }
                     else
                     {
-
+                        string sMessage = "LQPrimaryAPI.WebSocket.ProcessSocketData() Not Data Parsed" + System.Environment.NewLine + messageJson;
+                        LoggingService.Save(EnumLogType.Error, sMessage);
                     }
                 }
                 catch (OperationCanceledException) 
@@ -115,7 +135,8 @@ namespace LatamQuants.PrimaryAPI.WebSocket.Net
                 }
                 catch(Exception ex)
                 {
-
+                    string sError = "LQPrimaryAPI.WebSocket.ProcessSocketData()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace + System.Environment.NewLine + messageJson;
+                    LoggingService.Save(EnumLogType.Error, sError);
                 }
 
                 if (CancelToken.IsCancellationRequested)

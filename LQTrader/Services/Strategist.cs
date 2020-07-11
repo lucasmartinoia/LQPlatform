@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LatamQuants.PrimaryAPI.WebSocket.Net;
 using System.Windows.Forms;
+using LatamQuants.Support;
 
 namespace LQTrader.Services
 {
@@ -23,8 +24,10 @@ namespace LQTrader.Services
         public event OnOpportunityReceivedEventHandler OnOpportunityReceived;
 
         // Store on going opportunities. Key = Symbol1+|+Symbol2.
-        public static Dictionary<string, ModelViews.AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, ModelViews.AcceptedOpportunity>();
-        public static List<Strategy> colStrategies = null;
+        //public static Dictionary<string, ModelViews.AcceptedOpportunity> AcceptedOpportunityMatrix = new Dictionary<string, ModelViews.AcceptedOpportunity>();
+        
+        public static List<ModelViews.AcceptedOpportunity> colAcceptedOpportunities = new List<ModelViews.AcceptedOpportunity>();
+        public List<Strategy> colStrategies = null;
 
         // Store order updates. Key = clOrdId.
         public static Dictionary<string, LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus> OrderUpdateMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus>();
@@ -104,6 +107,8 @@ namespace LQTrader.Services
         {
             try
             {
+                LoggingService.Save("Started","Strategist");
+
                 // Create new task
                 cts = new CancellationTokenSource();
                 task = new Task(() => Instance.Execute(cts), cts.Token, TaskCreationOptions.LongRunning);
@@ -113,7 +118,8 @@ namespace LQTrader.Services
             }
             catch(Exception ex)
             {
-                //TODO
+                string sError = "LQTrader.Strategist.Start()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
         }
 
@@ -170,7 +176,9 @@ namespace LQTrader.Services
                         catch(Exception ex)
                         {
                             // Websocket error
-                            MessageBox.Show("Strategist.Execute() error subscribing " + i + " time.\n" + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            string sError = "LQTrader.Strategist.Execute() subscribing " + i + " time.\n" + ex.Message;
+                            LoggingService.Save(EnumLogType.Error, sError);
+                            MessageBox.Show(sError, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
 
@@ -188,72 +196,92 @@ namespace LQTrader.Services
             }
             catch (Exception ex)
             {
-                //TODO
+                if (tokenSource.IsCancellationRequested != true)
+                {
+                    string sError = "Strategist.Execute() error" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                    LoggingService.Save(EnumLogType.Error, sError);
+                }
             }
         }
 
         private void OnMarketDataReceived(Object sender, WebSocket<MarketDataInfo, LatamQuants.PrimaryAPI.Models.MarketData>.OnDataReceivedArgs e)
         {
-            LatamQuants.PrimaryAPI.Models.MarketData oNewMarketData = (LatamQuants.PrimaryAPI.Models.MarketData)e.oResponse;
-
-            if (oNewMarketData.Status == "ERROR")
+            try
             {
-                MessageBox.Show("OnMarketDataReceived ERROR: " + oNewMarketData.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LatamQuants.PrimaryAPI.Models.MarketData oNewMarketData = (LatamQuants.PrimaryAPI.Models.MarketData)e.oResponse;
 
-                // Desactive instrument and remove from monitor.
-                string sSymbol = oNewMarketData.Description.Substring(8, oNewMarketData.Description.Length - 8 - 17);
-                LatamQuants.Entities.Instrument oInstrument=LatamQuants.Entities.Instrument.GetBySymbol(sSymbol);
-
-                if (oInstrument != null)
+                if (oNewMarketData.Status == "ERROR")
                 {
-                    oInstrument.Active = false;
-                    oInstrument.Update();
-                    InstrumentMonitor.UpdateAll();
+                    MessageBox.Show("OnMarketDataReceived ERROR: " + oNewMarketData.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // Desactive instrument and remove from monitor.
+                    string sSymbol = oNewMarketData.Description.Substring(8, oNewMarketData.Description.Length - 8 - 17);
+                    LatamQuants.Entities.Instrument oInstrument = LatamQuants.Entities.Instrument.GetBySymbol(sSymbol);
+
+                    if (oInstrument != null)
+                    {
+                        oInstrument.Active = false;
+                        oInstrument.Update();
+                        InstrumentMonitor.UpdateAll();
+                    }
+                }
+                else
+                {
+                    // TODO: Should I consider also market data without bids or without offers ??
+                    if (oNewMarketData != null && oNewMarketData.Data != null &&
+                        oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
+                        oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
+                    {
+                        // Update data market matrix
+                        Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
+                        t1.Start();
+
+                        // Save md in db
+                        Task t3 = new Task(() => this.SaveMarketData(oNewMarketData));
+                        t3.Start();
+
+                        // Check for opportunities
+                        Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
+                        t2.Start();
+                    }
                 }
             }
-            else
+            catch(Exception ex)
             {
-                // TODO: Should I consider also market data without bids or without offers ??
-                if (oNewMarketData != null && oNewMarketData.Data != null &&
-                    oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
-                    oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
-                {
-                    // Update data market matrix
-                    Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
-                    t1.Start();
-
-                    // Save md in db
-                    Task t3 = new Task(() => this.SaveMarketData(oNewMarketData));
-                    t3.Start();
-
-                    // Check for opportunities
-                    Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
-                    t2.Start();
-                }
+                string sError = "LQTrader.Services.Strategist.OnMarketReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
         }
 
         private void OnOrderUpdateReceived(Object sender, WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedArgs e)
         {
-            LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
-
-            if (oOrderUpdate.Status == "ERROR")
+            try
             {
-                MessageBox.Show("OnOrderUpdateReceived ERROR: " + oOrderUpdate.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                // Save order update.
-                string sKey = oOrderUpdate.OrderReport.ClientOrderId.ToString();
+                LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
 
-                if (OrderUpdateMatrix.ContainsKey(sKey) ==true)
+                if (oOrderUpdate.Status == "ERROR")
                 {
-                    OrderUpdateMatrix[sKey] = oOrderUpdate.OrderReport;
+                    MessageBox.Show("OnOrderUpdateReceived ERROR: " + oOrderUpdate.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    OrderUpdateMatrix.Add(sKey, oOrderUpdate.OrderReport);
+                    // Save order update.
+                    string sKey = oOrderUpdate.OrderReport.ClientOrderId.ToString();
+
+                    if (OrderUpdateMatrix.ContainsKey(sKey) == true)
+                    {
+                        OrderUpdateMatrix[sKey] = oOrderUpdate.OrderReport;
+                    }
+                    else
+                    {
+                        OrderUpdateMatrix.Add(sKey, oOrderUpdate.OrderReport);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                string sError = "LQTrader.Services.Strategist.OnOrderUpdateReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
         }
 
@@ -329,12 +357,11 @@ namespace LQTrader.Services
                                         {
                                             if (oStrategy.Executable() == true)
                                             {
-                                                string sKey = oOpportunity.Symbol1 + "|" + oOpportunity.Symbol2;
                                                 bool bContinue = true;
                                                 double cash4Opportunity = 0;
 
-                                                // Check for opportunity.
-                                                bContinue = (AcceptedOpportunityMatrix.ContainsKey(sKey) == false);
+                                                // Check for same opportunity in progress.
+                                                bContinue=colAcceptedOpportunities.Where(x => x.Opportunity.Symbol1 == oOpportunity.Symbol1 && x.Opportunity.Symbol2 == oOpportunity.Symbol2 && (x.Data.Status == "In Progress" || x.Data.Status =="Accepted")).Count()==0;
 
                                                 // Filter of profit rate.
                                                 if (bContinue == true)
@@ -344,6 +371,10 @@ namespace LQTrader.Services
                                                         bContinue = false;
                                                     }
                                                     else if (oOpportunity.Symbol2.EndsWith("48hs") == true && oOpportunity.ProfitRate < oStrategy.OppMinRate2)
+                                                    {
+                                                        bContinue = false;
+                                                    }
+                                                    else if(oOpportunity.Symbol1.EndsWith("CI")==false)
                                                     {
                                                         bContinue = false;
                                                     }
@@ -371,7 +402,7 @@ namespace LQTrader.Services
                                                 {
                                                     CashReserved += Convert.ToDecimal(cash4Opportunity);
                                                     ModelViews.AcceptedOpportunity oAccepted = new ModelViews.AcceptedOpportunity(oStrategy, oOpportunity, cash4Opportunity,true);
-                                                    AcceptedOpportunityMatrix.Add(oAccepted.Key, oAccepted);
+                                                    colAcceptedOpportunities.Add(oAccepted);
                                                 }
                                             }
                                         }
@@ -384,7 +415,8 @@ namespace LQTrader.Services
             }
             catch(Exception ex)
             {
-                Console.WriteLine("ERROR: " + ex.Message);
+                string sError = "LQTrader.StrategistArbEquities()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
         }
 
@@ -411,28 +443,36 @@ namespace LQTrader.Services
         {
             List<LatamQuants.PrimaryAPI.Models.MarketData> colReturn = new List<LatamQuants.PrimaryAPI.Models.MarketData>();
 
-            // Get CI
-            string sKey = pMarketId + "|" + pSymbol + " - CI";
-
-            if (MarketDataMatrix.ContainsKey(sKey) == true)
+            try
             {
-                colReturn.Add(MarketDataMatrix[sKey]);
+                // Get CI
+                string sKey = pMarketId + "|" + pSymbol + " - CI";
+
+                if (MarketDataMatrix.ContainsKey(sKey) == true)
+                {
+                    colReturn.Add(MarketDataMatrix[sKey]);
+                }
+
+                // Get 24hs
+                sKey = pMarketId + "|" + pSymbol + " - 24hs";
+
+                if (MarketDataMatrix.ContainsKey(sKey) == true)
+                {
+                    colReturn.Add(MarketDataMatrix[sKey]);
+                }
+
+                // Get 24hs
+                sKey = pMarketId + "|" + pSymbol + " - 48hs";
+
+                if (MarketDataMatrix.ContainsKey(sKey) == true)
+                {
+                    colReturn.Add(MarketDataMatrix[sKey]);
+                }
             }
-
-            // Get 24hs
-            sKey = pMarketId + "|" + pSymbol + " - 24hs";
-
-            if (MarketDataMatrix.ContainsKey(sKey) == true)
+            catch (Exception ex)
             {
-                colReturn.Add(MarketDataMatrix[sKey]);
-            }
-
-            // Get 24hs
-            sKey = pMarketId + "|" + pSymbol + " - 48hs";
-
-            if (MarketDataMatrix.ContainsKey(sKey) == true)
-            {
-                colReturn.Add(MarketDataMatrix[sKey]);
+                string sError = "LQTrader.Services.Strategist.GetEqMDList()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
 
             return colReturn;
@@ -440,69 +480,77 @@ namespace LQTrader.Services
 
         private void SaveMarketData(LatamQuants.PrimaryAPI.Models.MarketData pMarketData)
         {
-            if (pMarketData != null && pMarketData.Data != null &&
-                pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 0 &&
-                pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 0)
+            try
             {
-                // Update MD
-                string sql1 = "INSERT INTO[dbo].[MarketDatas] " +
-                          "([Timestamp]" +
-                          ",[MarketID]" +
-                          ",[Symbol]" +
-                          ",[OfferPrice]" +
-                          ",[OfferSize]" +
-                          ",[BidPrice]" +
-                          ",[BidSize]" +
-                          ",[NominalVolume]" +
-                          ",[TradeVolume]" +
-                          ",[IndexValue]" +
-                          ",[OpenInterestSize]" +
-                          ",[OpenInterestDate]" +
-                          ",[TradeEffectiveVolume]" +
-                          ",[DateTime]) " +
-                    "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" + pMarketData.Instrument.symbol + "'" +
-                          "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0") +
-                          "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0") +
-                          "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0") +
-                          "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0") +
-                          "," + (pMarketData.Data.NominalVolume == null ? "0" : pMarketData.Data.NominalVolume.ToString()) +
-                          "," + (pMarketData.Data.Volume == null ? "0" : pMarketData.Data.Volume.ToString()) +
-                          "," + (pMarketData.Data.IndexValue == null ? "0" : pMarketData.Data.IndexValue.ToString()) +
-                          "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.size.ToString()) +
-                          "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.datetime ?? "0") +
-                          "," + (pMarketData.Data.EffectiveVolume == null ? "0" : pMarketData.Data.EffectiveVolume.ToString()) + 
-                          ", GETDATE());";
-
-                // Update Depths
-                if (pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 1)
+                if (pMarketData != null && pMarketData.Data != null &&
+                    pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 0 &&
+                    pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 0)
                 {
-                    foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Bids)
+                    // Update MD
+                    string sql1 = "INSERT INTO[dbo].[MarketDatas] " +
+                              "([Timestamp]" +
+                              ",[MarketID]" +
+                              ",[Symbol]" +
+                              ",[OfferPrice]" +
+                              ",[OfferSize]" +
+                              ",[BidPrice]" +
+                              ",[BidSize]" +
+                              ",[NominalVolume]" +
+                              ",[TradeVolume]" +
+                              ",[IndexValue]" +
+                              ",[OpenInterestSize]" +
+                              ",[OpenInterestDate]" +
+                              ",[TradeEffectiveVolume]" +
+                              ",[DateTime]) " +
+                        "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" + pMarketData.Instrument.symbol + "'" +
+                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0") +
+                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0") +
+                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0") +
+                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0") +
+                              "," + (pMarketData.Data.NominalVolume == null ? "0" : pMarketData.Data.NominalVolume.ToString()) +
+                              "," + (pMarketData.Data.Volume == null ? "0" : pMarketData.Data.Volume.ToString()) +
+                              "," + (pMarketData.Data.IndexValue == null ? "0" : pMarketData.Data.IndexValue.ToString()) +
+                              "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.size.ToString()) +
+                              "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.datetime ?? "0") +
+                              "," + (pMarketData.Data.EffectiveVolume == null ? "0" : pMarketData.Data.EffectiveVolume.ToString()) +
+                              ", GETDATE());";
+
+                    // Update Depths
+                    if (pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 1)
                     {
-                        sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
-                                        "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
-                                     "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
-                                           pMarketData.Instrument.symbol + "',1," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
+                        foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Bids)
+                        {
+                            sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
+                                            "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
+                                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
+                                               pMarketData.Instrument.symbol + "',1," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
+                        }
+                    }
+
+                    if (pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 1)
+                    {
+                        foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Offers)
+                        {
+                            sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
+                                            "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
+                                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
+                                               pMarketData.Instrument.symbol + "',0," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
+                        }
+                    }
+
+                    // Impact database.
+                    string sql = "BEGIN TRANSACTION " + sql1 + " COMMIT TRANSACTION;";
+
+                    using (var ctx = new DBContext())
+                    {
+                        int iResult = ctx.Database.ExecuteSqlCommand(sql);
                     }
                 }
-
-                if (pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 1)
-                {
-                    foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Offers)
-                    {
-                        sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
-                                        "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
-                                     "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
-                                           pMarketData.Instrument.symbol + "',0," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
-                    }
-                }
-
-                // Impact database.
-                string sql = "BEGIN TRANSACTION " + sql1 + " COMMIT TRANSACTION;";
-
-                using (var ctx = new DBContext())
-                {
-                    int iResult = ctx.Database.ExecuteSqlCommand(sql);
-                }
+            }
+            catch (Exception ex)
+            {
+                string sError = "LQTrader.Services.Strategist.SaveMarketData()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                LoggingService.Save(EnumLogType.Error, sError);
             }
         }
     }

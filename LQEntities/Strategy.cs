@@ -23,6 +23,7 @@ namespace LatamQuants.Entities
         public bool AutoTrade { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public bool Simulation { get; set; }
 
         [NotMapped]
         public int OrdersOfDay { get; set; }
@@ -96,6 +97,23 @@ namespace LatamQuants.Entities
                 oReturn = pCashAvailable * this.TradeCashPerc / 100;
             }
             return oReturn;
+        }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+
+        public void Update()
+        {
+            using (var db = new DBContext())
+            {
+                db.Strategies.Attach(this);
+                db.Entry(this).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            this.Initialize();
         }
     }
 }

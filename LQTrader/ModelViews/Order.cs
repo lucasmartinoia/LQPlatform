@@ -320,5 +320,10 @@ namespace LQTrader.ModelViews
 
             return sReturn;
         }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }
