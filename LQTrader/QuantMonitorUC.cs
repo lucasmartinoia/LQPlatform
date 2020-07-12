@@ -17,10 +17,11 @@ namespace LQTrader
         private List<Opportunity> _opportunities;
         private List<AcceptedOpportunity> _acceptedOpportunities;
         private List<Strategy> _strategies;
-        private static DevExpress.XtraGrid.GridControl _gridOpportunities;
-        private static DevExpress.XtraGrid.Views.Grid.GridView _gridvOpportunities;
-
         public static bool bStrategiesRefreshing = true; // Avoid cell changed events.
+
+        private bool _refreshOpportunities = false;
+        private bool _refreshAcceptedOpportunities = false;
+        private Timer _timer;
 
         public QuantMonitorUC()
         {
@@ -29,9 +30,6 @@ namespace LQTrader
 
         public void Start()
         {
-            _gridOpportunities = gridOpportunities;
-            _gridvOpportunities = gridvOpportunities;
-
             // Initialize variables.
             _opportunities = new List<Opportunity>();
             _acceptedOpportunities = new List<AcceptedOpportunity>();
@@ -43,24 +41,54 @@ namespace LQTrader
             gridvStrategies.RefreshData();
 
             // Load Opportunities
-            _gridOpportunities.DataSource = _opportunities;
-            _gridOpportunities.Update();
-            _gridvOpportunities.RefreshData();
+            LoadOpportunities();
 
             // Load Accepted Opportunities
-            gridAcceptedOpportunities.DataSource = _acceptedOpportunities;
-            gridAcceptedOpportunities.Update();
-            gridvAcceptedOpportunities.RefreshData();
+            LoadAcceptedOpportunities();
 
             // Start receiving opportunities.
             Services.Strategist.Instance.OnOpportunityReceived += new Services.Strategist.OnOpportunityReceivedEventHandler(OnOpportunityReceived);
-
             bStrategiesRefreshing = false;
+
+            ResetTimer();
+        }
+
+        private void LoadOpportunities()
+        {
+            gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.OpportunityID);
+            gridOpportunities.Update();
+            gridvOpportunities.RefreshData();
+        }
+
+        private void LoadAcceptedOpportunities()
+        {
+            gridAcceptedOpportunities.DataSource = _acceptedOpportunities.OrderByDescending(x => x.AcceptedOpportunityID);
+            gridAcceptedOpportunities.Update();
+            gridvAcceptedOpportunities.RefreshData();
+        }
+
+        private void ResetTimer()
+        {
+            if (_timer != null)
+            {
+                _timer.Stop();
+            }
+            else
+            {
+                _timer = new Timer();
+                _timer.Tick += new EventHandler(tmrRefresh_Tick);
+            }
+
+            if(dunRefreshSecs.Value>0)
+            {
+                _timer.Interval = (Convert.ToInt32(dunRefreshSecs.Value) * 1000); 
+                _timer.Start();
+            }
         }
 
         public void OnOpportunityReceived(Object sender, Services.Strategist.OnOpportunityReceivedArgs e)
         {
-            if(e.accepted==true)
+            if (e.accepted == true)
             {
                 // Update Accepted Opportunities grid.
                 AcceptedOpportunity oAOpportunity = (AcceptedOpportunity)e.opportunity;
@@ -72,27 +100,22 @@ namespace LQTrader
                 }
 
                 _acceptedOpportunities.Add(oAOpportunity);
-
-                gridAcceptedOpportunities.DataSource = _acceptedOpportunities.OrderByDescending(x=>x.AcceptedDateTime);
-                gridAcceptedOpportunities.Update();
-                gridvAcceptedOpportunities.RefreshData();
+                _refreshOpportunities = true;
             }
             else
             {
-                // Update Opportunities grid.
-                //Opportunity oOpportunity = (Opportunity)e.opportunity;
-                //Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
 
-                //if(gOpportunity!=null)
-                //{
-                //    _opportunities.Remove(gOpportunity);
-                //}
+               // Update Opportunities grid.
+                Opportunity oOpportunity = (Opportunity)e.opportunity;
+                Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
 
-                //_opportunities.Add(oOpportunity);
+                if (gOpportunity != null)
+                {
+                    _opportunities.Remove(gOpportunity);
+                }
 
-                //_gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.DateTime);
-                //_gridOpportunities.Update();
-                //_gridvOpportunities.RefreshData();
+                _opportunities.Add(oOpportunity);
+                _refreshAcceptedOpportunities = true;
             }
         }
 
@@ -114,6 +137,26 @@ namespace LQTrader
                     Services.Strategist.Instance.colStrategies[oStrategy.StrategyID - 1] = oStrategy;
                 }
             }
+        }
+
+        private void tmrRefresh_Tick(object sender, EventArgs e)
+        {
+            if (_refreshOpportunities == true)
+            {
+                _refreshOpportunities = false;
+                LoadOpportunities();
+            }
+
+            if (_refreshAcceptedOpportunities == true)
+            {
+                _refreshAcceptedOpportunities = false;
+                LoadAcceptedOpportunities();
+            }
+        }
+
+        private void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            ResetTimer();
         }
     }
 }

@@ -90,6 +90,9 @@ namespace LQTrader.ModelViews
 
         private void ProcessOrderUpdateStrategy1(LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus oOrderUpdate)
         {
+            double feeIntradayEquities = 0.00296; // per trade
+            double feeIntradayBonds = 0.00255; // per trade
+
             try
             {
                 string sClientOrderID = oOrderUpdate.ClientOrderId.ToString();
@@ -153,6 +156,10 @@ namespace LQTrader.ModelViews
                                 // Log.
                                 string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
                                 LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+
+                                // Update reserved amount.
+                                double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
+                                Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
                             }
                         }
                         else if (sFailOrderStatus.Contains(sStatus))
@@ -192,7 +199,13 @@ namespace LQTrader.ModelViews
 
                             // Log.
                             string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                            LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                            sInfo += System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oUpdatedOrder.ToString();
+                            LoggingService.Save(sInfo, "==ACCEPTED OPPORTUNITY ERROR==");
+
+                            // Update reserved amount.
+                            Order oOrder2 = colOrders[1];
+                            double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
+                            Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
 
                             // Sell first order?
                         }

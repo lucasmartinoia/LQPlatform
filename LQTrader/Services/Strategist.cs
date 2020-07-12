@@ -297,6 +297,61 @@ namespace LQTrader.Services
             t1.Start();
         }
 
+        private bool CheckOpportunityStrategy1(Opportunity pOpp, out string pErrorDesc)
+        {
+            bool bReturn = false;
+            pErrorDesc = "";
+
+            // Buy order.
+            ModelViews.MarketDataRT oMD1 = ModelViews.MarketDataRT.GetMarketDataRT(pOpp.MarketID, pOpp.Symbol1, 2);
+
+            if (oMD1 != null && oMD1.Offers != null && oMD1.Offers.Count > 0)
+            {
+                if (pOpp.BuyPrice1 != oMD1.Offers[0].Price)
+                {
+                    pErrorDesc = pErrorDesc + "BuyPrice differs: expected " + pOpp.BuyPrice1 + " found " + oMD1.Offers[0].Price + System.Environment.NewLine;
+                }
+                if(pOpp.Size1 != oMD1.Offers[0].Size)
+                {
+                    pErrorDesc = pErrorDesc + "Buy Size differs: expected " + pOpp.Size1 + " found " + oMD1.Offers[0].Size + System.Environment.NewLine;
+                }
+            }
+            else
+            {
+                pErrorDesc = "MD not found for " + pOpp.Symbol1 + System.Environment.NewLine; ;
+            }
+
+            // Sell order.
+            ModelViews.MarketDataRT oMD2 = ModelViews.MarketDataRT.GetMarketDataRT(pOpp.MarketID, pOpp.Symbol2, 2);
+
+            if (oMD2 != null && oMD2.Bids != null && oMD2.Bids.Count > 0)
+            {
+                if (pOpp.SellPrice2 != oMD2.Bids[0].Price)
+                {
+                    pErrorDesc = pErrorDesc + "Sell Price differs: expected " + pOpp.SellPrice2 + " found " + oMD2.Bids[0].Price + System.Environment.NewLine;
+                }
+                if (pOpp.Size2 != oMD2.Bids[0].Size)
+                {
+                    pErrorDesc = pErrorDesc + "Sell Size differs: expected " + pOpp.Size2 + " found " + oMD2.Bids[0].Size + System.Environment.NewLine;
+                }
+            }
+            else
+            {
+                pErrorDesc = pErrorDesc + "MD not found for " + pOpp.Symbol2 + System.Environment.NewLine; ;
+            }
+
+            if (pErrorDesc != "")
+            {
+                bReturn = false;
+            }
+            else
+            {
+                bReturn = true;
+            }
+
+            return bReturn;
+        }
+
         private void StrategyArbEquities(LatamQuants.PrimaryAPI.Models.MarketData pMarketData)
         {
             const int STRATEGY_ID = 1;
@@ -305,6 +360,7 @@ namespace LQTrader.Services
             string Currencies = "|ARS|";
             double feeIntradayEquities = 0.00296; // per trade
             double feeIntradayBonds = 0.00255; // per trade
+            Strategy oStrategy = colStrategies[STRATEGY_ID-1];
 
             try
             {
@@ -334,8 +390,13 @@ namespace LQTrader.Services
                                     // Register opportunity.
                                     Opportunity oOpportunity = new Opportunity();
                                     oOpportunity.BuyPrice1 = colMDs[i].Data.Offers.FirstOrDefault().price;
+                                    oOpportunity.Size1 = colMDs[i].Data.Offers.FirstOrDefault().size;
+                                    oOpportunity.Timestamp1 = colMDs[i].Timestamp;
                                     oOpportunity.SellPrice2 = colMDs[t].Data.Bids.FirstOrDefault().price;
-                                    oOpportunity.AmountMax = (decimal)(Math.Min(colMDs[i].Data.Offers.FirstOrDefault().size, colMDs[t].Data.Bids.FirstOrDefault().size)* oOpportunity.BuyPrice1);
+                                    oOpportunity.Size2 = colMDs[t].Data.Bids.FirstOrDefault().size;
+                                    oOpportunity.Timestamp2 = colMDs[t].Timestamp;
+                                    oOpportunity.Checked = oStrategy.CheckOpportunity;
+                                    oOpportunity.AmountMax = (decimal)(Math.Min(oOpportunity.Size1, oOpportunity.Size2) * oOpportunity.BuyPrice1);
                                     oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1);
                                     oOpportunity.Currency = oInstrument.Currency;
                                     oOpportunity.DateTime = DateTime.Now;
@@ -344,6 +405,16 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
+
+                                    // Check prices and sizes
+                                    if (oOpportunity.Checked==true)
+                                    {
+                                        string sErrorDesc = "";
+                                        bool bResult = CheckOpportunityStrategy1(oOpportunity, out sErrorDesc);
+                                        oOpportunity.CheckPassed = bResult;
+                                        oOpportunity.CheckError = sErrorDesc;
+                                    }
+
                                     oOpportunity.Save();
 
                                     OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
@@ -351,8 +422,6 @@ namespace LQTrader.Services
                                     // Check for Auto Trade option.
                                     if (Currencies.Contains(oOpportunity.Currency) == true)
                                     {
-                                        Strategy oStrategy = colStrategies.Where(x => x.StrategyID == STRATEGY_ID).FirstOrDefault();
-
                                         if (oStrategy != null)
                                         {
                                             if (oStrategy.Executable() == true)
@@ -390,6 +459,12 @@ namespace LQTrader.Services
                                                     {
                                                         // Check if it's enough to enter.
                                                         bContinue = cash4Opportunity >= Convert.ToDouble(oOpportunity.AmountMin);
+
+                                                        if(bContinue==false)
+                                                        {
+                                                            // Log information.
+                                                            LoggingService.Save(EnumLogType.Information, "OPPORTUNITY NOT ACCEPTED: minimum amount, available " + cash4Opportunity.ToString() + System.Environment.NewLine + oOpportunity.ToString());
+                                                        }
                                                     }
                                                     else
                                                     {

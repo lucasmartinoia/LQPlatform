@@ -24,6 +24,8 @@ namespace LatamQuants.Entities
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public bool Simulation { get; set; }
+        public bool CheckOpportunity { get; set; }
+        public bool CheckEntries { get; set; }
 
         [NotMapped]
         public int OrdersOfDay { get; set; }

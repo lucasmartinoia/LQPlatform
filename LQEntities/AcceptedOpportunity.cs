@@ -42,6 +42,9 @@ namespace LatamQuants.Entities
         public string ErrorDescription { get; set; }
         public bool Simulation { get; set; }
 
+        // Indicates if price/size were validated just before send each order.
+        public bool EntriesChecked { get; set; }
+
         public void Save()
         {
             using (var db = new DBContext())

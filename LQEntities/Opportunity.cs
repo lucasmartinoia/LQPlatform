@@ -23,7 +23,20 @@ namespace LatamQuants.Entities
         public string Symbol2 { get; set; }
         public double BuyPrice1 { get; set; }
         public double SellPrice2 { get; set; }
+        public long Timestamp1 { get; set; }
+        public long Timestamp2 { get; set; }
+
+        public double Size1 { get; set; }
+        public double Size2 { get; set; }
+
         public string Currency { get; set; }
+        // Indicates if strategy required a price / size validation to the market.
+        public bool Checked { get; set; }
+        // Result of the check process.
+        public bool CheckPassed { get; set; }
+        // Check error description.
+        public string CheckError { get; set; }
+
 
         public void Save()
         {

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pMain = new System.Windows.Forms.Panel();
             this.pAcceptedOpportunities = new System.Windows.Forms.Panel();
             this.gridAcceptedOpportunities = new DevExpress.XtraGrid.GridControl();
@@ -39,12 +40,17 @@
             this.gridvOpportunities = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pOpportunitiesTop = new System.Windows.Forms.Panel();
             this.lblOpportunities = new System.Windows.Forms.Label();
+            this.pOpportunitiesTopRight = new System.Windows.Forms.Panel();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dunRefreshSecs = new System.Windows.Forms.NumericUpDown();
             this.pBottom = new System.Windows.Forms.Panel();
             this.pStrategies = new System.Windows.Forms.Panel();
             this.gridStrategies = new DevExpress.XtraGrid.GridControl();
             this.gridvStrategies = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pStrategiesTop = new System.Windows.Forms.Panel();
             this.lblStrategies = new System.Windows.Forms.Label();
+            this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.pMain.SuspendLayout();
             this.pAcceptedOpportunities.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAcceptedOpportunities)).BeginInit();
@@ -54,6 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridOpportunities)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridvOpportunities)).BeginInit();
             this.pOpportunitiesTop.SuspendLayout();
+            this.pOpportunitiesTopRight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dunRefreshSecs)).BeginInit();
             this.pStrategies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridStrategies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridvStrategies)).BeginInit();
@@ -131,10 +139,10 @@
             // gridOpportunities
             // 
             this.gridOpportunities.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridOpportunities.Location = new System.Drawing.Point(0, 33);
+            this.gridOpportunities.Location = new System.Drawing.Point(0, 32);
             this.gridOpportunities.MainView = this.gridvOpportunities;
             this.gridOpportunities.Name = "gridOpportunities";
-            this.gridOpportunities.Size = new System.Drawing.Size(861, 394);
+            this.gridOpportunities.Size = new System.Drawing.Size(861, 395);
             this.gridOpportunities.TabIndex = 1;
             this.gridOpportunities.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridvOpportunities});
@@ -147,10 +155,11 @@
             // pOpportunitiesTop
             // 
             this.pOpportunitiesTop.Controls.Add(this.lblOpportunities);
+            this.pOpportunitiesTop.Controls.Add(this.pOpportunitiesTopRight);
             this.pOpportunitiesTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pOpportunitiesTop.Location = new System.Drawing.Point(0, 0);
             this.pOpportunitiesTop.Name = "pOpportunitiesTop";
-            this.pOpportunitiesTop.Size = new System.Drawing.Size(861, 33);
+            this.pOpportunitiesTop.Size = new System.Drawing.Size(861, 32);
             this.pOpportunitiesTop.TabIndex = 0;
             // 
             // lblOpportunities
@@ -159,10 +168,53 @@
             this.lblOpportunities.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpportunities.Location = new System.Drawing.Point(0, 0);
             this.lblOpportunities.Name = "lblOpportunities";
-            this.lblOpportunities.Size = new System.Drawing.Size(861, 33);
-            this.lblOpportunities.TabIndex = 1;
-            this.lblOpportunities.Text = "Opportunities";
+            this.lblOpportunities.Size = new System.Drawing.Size(654, 32);
+            this.lblOpportunities.TabIndex = 2;
+            this.lblOpportunities.Text = "                                                    Opportunities";
             this.lblOpportunities.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pOpportunitiesTopRight
+            // 
+            this.pOpportunitiesTopRight.Controls.Add(this.cmdRefresh);
+            this.pOpportunitiesTopRight.Controls.Add(this.label1);
+            this.pOpportunitiesTopRight.Controls.Add(this.dunRefreshSecs);
+            this.pOpportunitiesTopRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pOpportunitiesTopRight.Location = new System.Drawing.Point(654, 0);
+            this.pOpportunitiesTopRight.Name = "pOpportunitiesTopRight";
+            this.pOpportunitiesTopRight.Size = new System.Drawing.Size(207, 32);
+            this.pOpportunitiesTopRight.TabIndex = 0;
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.Location = new System.Drawing.Point(155, 7);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(45, 23);
+            this.cmdRefresh.TabIndex = 2;
+            this.cmdRefresh.Text = "Appy";
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Refresh seconds";
+            // 
+            // dunRefreshSecs
+            // 
+            this.dunRefreshSecs.Location = new System.Drawing.Point(92, 8);
+            this.dunRefreshSecs.Name = "dunRefreshSecs";
+            this.dunRefreshSecs.Size = new System.Drawing.Size(57, 20);
+            this.dunRefreshSecs.TabIndex = 0;
+            this.dunRefreshSecs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dunRefreshSecs.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // pBottom
             // 
@@ -219,6 +271,10 @@
             this.lblStrategies.Text = "Strategies";
             this.lblStrategies.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tmrRefresh
+            // 
+            this.tmrRefresh.Tick += new System.EventHandler(this.tmrRefresh_Tick);
+            // 
             // QuantMonitorUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,6 +291,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridOpportunities)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridvOpportunities)).EndInit();
             this.pOpportunitiesTop.ResumeLayout(false);
+            this.pOpportunitiesTopRight.ResumeLayout(false);
+            this.pOpportunitiesTopRight.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dunRefreshSecs)).EndInit();
             this.pStrategies.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridStrategies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridvStrategies)).EndInit();
@@ -254,7 +313,6 @@
         private DevExpress.XtraGrid.GridControl gridOpportunities;
         private DevExpress.XtraGrid.Views.Grid.GridView gridvOpportunities;
         private System.Windows.Forms.Panel pOpportunitiesTop;
-        private System.Windows.Forms.Label lblOpportunities;
         private DevExpress.XtraGrid.GridControl gridStrategies;
         private DevExpress.XtraGrid.Views.Grid.GridView gridvStrategies;
         private System.Windows.Forms.Panel pAcceptedOpportunities;
@@ -262,5 +320,11 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridvAcceptedOpportunities;
         private System.Windows.Forms.Panel pAcceptedOpportunitiesTop;
         private System.Windows.Forms.Label lblAcceptedOpportunities;
+        private System.Windows.Forms.Label lblOpportunities;
+        private System.Windows.Forms.Panel pOpportunitiesTopRight;
+        private System.Windows.Forms.Button cmdRefresh;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown dunRefreshSecs;
+        private System.Windows.Forms.Timer tmrRefresh;
     }
 }
