@@ -1,18 +1,15 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LatamQuants.Entities;
 
-namespace LatamQuants.Entities
+namespace LQTrader.ModelViews
 {
-    public class Opportunity
+    public class ViewOpportunity
     {
-        [Key]
         public int OpportunityID { get; set; }
-        public virtual Strategy Strategy { get; set; }
         public int StrategyID { get; set; }
         public DateTime DateTime { get; set; }
         public double ProfitRate { get; set; }
@@ -25,41 +22,33 @@ namespace LatamQuants.Entities
         public double SellPrice2 { get; set; }
         public long Timestamp1 { get; set; }
         public long Timestamp2 { get; set; }
-
         public double Size1 { get; set; }
         public double Size2 { get; set; }
-
         public string Currency { get; set; }
-        // Indicates if strategy required a price / size validation to the market.
         public bool Checked { get; set; }
-        // Result of the check process.
         public bool CheckPassed { get; set; }
-        // Check error description.
         public string CheckError { get; set; }
 
-
-        public void Save()
+        public ViewOpportunity()
         {
-            using (var db = new DBContext())
-            {
-                db.Opportunities.Attach(this);
-                db.Entry(this).State = System.Data.Entity.EntityState.Added;
-                db.SaveChanges();
-            }
+
         }
 
-        public override string ToString()
+        public ViewOpportunity(Opportunity pOpportunity)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            Service.mapper.Map<Opportunity, ModelViews.ViewOpportunity>(pOpportunity, this);
         }
 
-        public static List<Opportunity> GetList(DateTime? pDateTime = null)
+        public static List<ViewOpportunity> GetList(System.DateTime pDate)
         {
-            List<Opportunity> colReturn = null;
+            List<ViewOpportunity> colReturn = new List<ViewOpportunity>();
 
-            using (var db = new DBContext())
+            List<Opportunity> colOpps = Opportunity.GetList(pDate);
+
+            foreach(Opportunity op in colOpps)
             {
-                colReturn = db.Opportunities.Where(x => (pDateTime == null || x.DateTime >= pDateTime)).OrderByDescending(x=>x.OpportunityID).ToList();
+                ViewOpportunity vop = new ViewOpportunity(op);
+                colReturn.Add(vop);
             }
 
             return colReturn;

@@ -18,9 +18,9 @@ namespace LatamQuants.Entities
         [MaxLength(50)]
         public string Symbol { get; set; }
         public float OfferPrice { get; set; }
-        public decimal OfferSize { get; set; }
+        public double OfferSize { get; set; }
         public float BidPrice { get; set; }
-        public decimal BidSize { get; set; }
+        public double BidSize { get; set; }
         public decimal NominalVolume { get; set; }
         public decimal TradeVolume { get; set; }
         public float IndexValue { get; set; }

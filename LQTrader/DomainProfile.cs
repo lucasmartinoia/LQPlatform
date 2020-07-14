@@ -210,6 +210,43 @@ namespace LQTrader
             CreateMap<LatamQuants.Entities.Instrument, LatamQuants.PrimaryAPI.Models.InstrumentId>()
                 .ForMember(dest => dest.marketId, opt => opt.MapFrom(o => o.MarketID))
                 .ForMember(dest => dest.symbol, opt => opt.MapFrom(o => o.Symbol));
+
+            CreateMap<LatamQuants.Entities.Opportunity, ModelViews.ViewOpportunity>()
+                .ForMember(dest => dest.AmountMax, opt => opt.MapFrom(o => o.AmountMax))
+                .ForMember(dest => dest.AmountMin, opt => opt.MapFrom(o => o.AmountMin))
+                .ForMember(dest => dest.BuyPrice1, opt => opt.MapFrom(o => o.BuyPrice1))
+                .ForMember(dest => dest.Checked, opt => opt.MapFrom(o => o.Checked))
+                .ForMember(dest => dest.CheckError, opt => opt.MapFrom(o => o.CheckError))
+                .ForMember(dest => dest.CheckPassed, opt => opt.MapFrom(o => o.CheckPassed))
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.Currency))
+                .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.DateTime))
+                .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.MarketID))
+                .ForMember(dest => dest.OpportunityID, opt => opt.MapFrom(o => o.OpportunityID))
+                .ForMember(dest => dest.ProfitRate, opt => opt.MapFrom(o => Math.Round(o.ProfitRate,2)))
+                .ForMember(dest => dest.SellPrice2, opt => opt.MapFrom(o => o.SellPrice2))
+                .ForMember(dest => dest.Size1, opt => opt.MapFrom(o => o.Size1))
+                .ForMember(dest => dest.Size2, opt => opt.MapFrom(o => o.Size2))
+                .ForMember(dest => dest.StrategyID, opt => opt.MapFrom(o => o.StrategyID))
+                .ForMember(dest => dest.Symbol1, opt => opt.MapFrom(o => o.Symbol1))
+                .ForMember(dest => dest.Symbol2, opt => opt.MapFrom(o => o.Symbol2))
+                .ForMember(dest => dest.Timestamp1, opt => opt.MapFrom(o => o.Timestamp1))
+                .ForMember(dest => dest.Timestamp2, opt => opt.MapFrom(o => o.Timestamp2));
+
+            CreateMap<LatamQuants.Entities.AcceptedOpportunity, ModelViews.ViewAcceptedOpportunity>()
+                .ForMember(dest => dest.AcceptedDateTime, opt => opt.MapFrom(o => o.AcceptedDateTime))
+                .ForMember(dest => dest.AcceptedOpportunityID, opt => opt.MapFrom(o => o.AcceptedOpportunityID))
+                .ForMember(dest => dest.AutoTrade, opt => opt.MapFrom(o => o.AutoTrade))
+                .ForMember(dest => dest.CashReserved, opt => opt.MapFrom(o => o.CashReserved))
+                .ForMember(dest => dest.EntriesChecked, opt => opt.MapFrom(o => o.EntriesChecked))
+                .ForMember(dest => dest.ErrorDescription, opt => opt.MapFrom(o => o.ErrorDescription))
+                .ForMember(dest => dest.LastUpdate, opt => opt.MapFrom(o => o.LastUpdate))
+                .ForMember(dest => dest.OpportunityID, opt => opt.MapFrom(o => o.OpportunityID))
+                .ForMember(dest => dest.OrderID1, opt => opt.MapFrom(o => o.OrderID1))
+                .ForMember(dest => dest.OrderID2, opt => opt.MapFrom(o => o.OrderID2))
+                .ForMember(dest => dest.OrderID3, opt => opt.MapFrom(o => o.OrderID3))
+                .ForMember(dest => dest.Simulation, opt => opt.MapFrom(o => o.Simulation))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(o => o.Status));
+
         }
     }
 }

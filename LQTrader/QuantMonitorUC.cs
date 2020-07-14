@@ -14,13 +14,13 @@ namespace LQTrader
 {
     public partial class QuantMonitorUC : UserControl
     {
-        private List<Opportunity> _opportunities;
-        private List<AcceptedOpportunity> _acceptedOpportunities;
+        private List<ModelViews.ViewOpportunity> _opportunities;
+        private List<ModelViews.ViewAcceptedOpportunity> _acceptedOpportunities;
         private List<Strategy> _strategies;
         public static bool bStrategiesRefreshing = true; // Avoid cell changed events.
 
-        private bool _refreshOpportunities = false;
-        private bool _refreshAcceptedOpportunities = false;
+        private bool _refreshOpportunities = true;
+        private bool _refreshAcceptedOpportunities = true;
         private Timer _timer;
 
         public QuantMonitorUC()
@@ -31,8 +31,8 @@ namespace LQTrader
         public void Start()
         {
             // Initialize variables.
-            _opportunities = new List<Opportunity>();
-            _acceptedOpportunities = new List<AcceptedOpportunity>();
+            _opportunities = ModelViews.ViewOpportunity.GetList(System.DateTime.Now.Date);
+            _acceptedOpportunities = ModelViews.ViewAcceptedOpportunity.GetList(0, System.DateTime.Now.Date);
             _strategies = Strategy.GetList();
 
             // Load strategies.
@@ -55,14 +55,16 @@ namespace LQTrader
 
         private void LoadOpportunities()
         {
-            gridOpportunities.DataSource = _opportunities.OrderByDescending(x=>x.OpportunityID);
+            //gridOpportunities.DataSource = null;
+            gridOpportunities.DataSource = _opportunities;
             gridOpportunities.Update();
             gridvOpportunities.RefreshData();
         }
 
         private void LoadAcceptedOpportunities()
         {
-            gridAcceptedOpportunities.DataSource = _acceptedOpportunities.OrderByDescending(x => x.AcceptedOpportunityID);
+            //gridAcceptedOpportunities.DataSource = null;
+            gridAcceptedOpportunities.DataSource = _acceptedOpportunities;
             gridAcceptedOpportunities.Update();
             gridvAcceptedOpportunities.RefreshData();
         }
@@ -92,29 +94,29 @@ namespace LQTrader
             {
                 // Update Accepted Opportunities grid.
                 AcceptedOpportunity oAOpportunity = (AcceptedOpportunity)e.opportunity;
-                AcceptedOpportunity gAOpportunity = _acceptedOpportunities.Where(x => x.AcceptedOpportunityID == oAOpportunity.AcceptedOpportunityID).FirstOrDefault();
+                ModelViews.ViewAcceptedOpportunity gAOpportunity = _acceptedOpportunities.Where(x => x.AcceptedOpportunityID == oAOpportunity.AcceptedOpportunityID).FirstOrDefault();
 
                 if (gAOpportunity != null)
                 {
                     _acceptedOpportunities.Remove(gAOpportunity);
                 }
 
-                _acceptedOpportunities.Add(oAOpportunity);
+                _acceptedOpportunities.Add(new ModelViews.ViewAcceptedOpportunity(oAOpportunity));
                 _refreshOpportunities = true;
             }
             else
             {
 
-               // Update Opportunities grid.
+                // Update Opportunities grid.
                 Opportunity oOpportunity = (Opportunity)e.opportunity;
-                Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
+                ModelViews.ViewOpportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
 
                 if (gOpportunity != null)
                 {
                     _opportunities.Remove(gOpportunity);
                 }
 
-                _opportunities.Add(oOpportunity);
+                _opportunities.Add(new ModelViews.ViewOpportunity(oOpportunity));
                 _refreshAcceptedOpportunities = true;
             }
         }
@@ -143,13 +145,13 @@ namespace LQTrader
         {
             if (_refreshOpportunities == true)
             {
-                _refreshOpportunities = false;
+                //_refreshOpportunities = false;
                 LoadOpportunities();
             }
 
             if (_refreshAcceptedOpportunities == true)
             {
-                _refreshAcceptedOpportunities = false;
+                //_refreshAcceptedOpportunities = false;
                 LoadAcceptedOpportunities();
             }
         }
@@ -157,6 +159,8 @@ namespace LQTrader
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             ResetTimer();
+            //LoadOpportunities();
+            //LoadAcceptedOpportunities();
         }
     }
 }

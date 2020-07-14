@@ -478,6 +478,7 @@ namespace LQTrader.Services
                                                     CashReserved += Convert.ToDecimal(cash4Opportunity);
                                                     ModelViews.AcceptedOpportunity oAccepted = new ModelViews.AcceptedOpportunity(oStrategy, oOpportunity, cash4Opportunity,true);
                                                     colAcceptedOpportunities.Add(oAccepted);
+                                                    OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oAccepted, true));
                                                 }
                                             }
                                         }

@@ -261,7 +261,7 @@ namespace LQTrader.ModelViews
 
                         // Supposing first order was well, send second one.
                         Order oSimulateOrder= CreateOrderStrategy1(2,oOrder.Quantity);
-                        LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder.ToString());
+                        LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oSimulateOrder.ToString());
 
                         Thread.Sleep(100);
 
@@ -347,7 +347,7 @@ namespace LQTrader.ModelViews
                 oReturn.Type = "Limit";
                 oReturn.Price = dPrice;
                 oReturn.Quantity = dQuantity;
-                oReturn.TimeInForce = "IOC";
+                oReturn.TimeInForce = "FOK";
                 oReturn.Iceberg = false;
 
                 //--------------- Status section
