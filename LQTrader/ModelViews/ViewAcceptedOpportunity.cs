@@ -32,11 +32,11 @@ namespace LQTrader.ModelViews
             Service.mapper.Map<LatamQuants.Entities.AcceptedOpportunity, ModelViews.ViewAcceptedOpportunity>(pAcceptedOpportunity, this);
         }
 
-        public static List<ViewAcceptedOpportunity> GetList(int pStrategyID, System.DateTime pDate)
+        public static List<ViewAcceptedOpportunity> GetList(int pStrategyID, System.DateTime pDate, int pLastID=0)
         {
             List<ViewAcceptedOpportunity> colReturn = new List<ViewAcceptedOpportunity>();
 
-            List<LatamQuants.Entities.AcceptedOpportunity> colAcceptedOpps = LatamQuants.Entities.AcceptedOpportunity.GetList(0,pDate);
+            List<LatamQuants.Entities.AcceptedOpportunity> colAcceptedOpps = LatamQuants.Entities.AcceptedOpportunity.GetList(0,pDate, null, pLastID);
 
             foreach (LatamQuants.Entities.AcceptedOpportunity op in colAcceptedOpps)
             {

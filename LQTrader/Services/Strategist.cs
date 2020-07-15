@@ -16,7 +16,7 @@ namespace LQTrader.Services
     {
         private static Task task;
         private static CancellationTokenSource cts;
-        private static Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData> MarketDataMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData>();
+        public static Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData> MarketDataMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData>();
 
         public static Strategist Instance = new Strategist();
 
@@ -318,7 +318,7 @@ namespace LQTrader.Services
             }
             else
             {
-                pErrorDesc = "MD not found for " + pOpp.Symbol1 + System.Environment.NewLine; ;
+                pErrorDesc = "MD not found for " + pOpp.Symbol1 + System.Environment.NewLine;
             }
 
             // Sell order.
@@ -337,7 +337,7 @@ namespace LQTrader.Services
             }
             else
             {
-                pErrorDesc = pErrorDesc + "MD not found for " + pOpp.Symbol2 + System.Environment.NewLine; ;
+                pErrorDesc = pErrorDesc + "MD not found for " + pOpp.Symbol2 + System.Environment.NewLine;
             }
 
             if (pErrorDesc != "")
@@ -406,18 +406,18 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
 
-                                    // Check prices and sizes
-                                    if (oOpportunity.Checked==true)
-                                    {
-                                        string sErrorDesc = "";
-                                        bool bResult = CheckOpportunityStrategy1(oOpportunity, out sErrorDesc);
-                                        oOpportunity.CheckPassed = bResult;
-                                        oOpportunity.CheckError = sErrorDesc;
-                                    }
+                                    //// Check prices and sizes
+                                    //if (oOpportunity.Checked==true)
+                                    //{
+                                    //    string sErrorDesc = "";
+                                    //    bool bResult = CheckOpportunityStrategy1(oOpportunity, out sErrorDesc);
+                                    //    oOpportunity.CheckPassed = bResult;
+                                    //    oOpportunity.CheckError = sErrorDesc;
+                                    //}
 
                                     oOpportunity.Save();
 
-                                    OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
+                                    //OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
 
                                     // Check for Auto Trade option.
                                     if (Currencies.Contains(oOpportunity.Currency) == true)
@@ -478,7 +478,7 @@ namespace LQTrader.Services
                                                     CashReserved += Convert.ToDecimal(cash4Opportunity);
                                                     ModelViews.AcceptedOpportunity oAccepted = new ModelViews.AcceptedOpportunity(oStrategy, oOpportunity, cash4Opportunity,true);
                                                     colAcceptedOpportunities.Add(oAccepted);
-                                                    OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oAccepted, true));
+                                                    //OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oAccepted, true));
                                                 }
                                             }
                                         }

@@ -55,13 +55,17 @@ namespace LatamQuants.Entities
             }
         }
 
-        public static List<AcceptedOpportunity> GetList(int pStrategyID=0, DateTime? pDateTime = null, string pStatus = "")
+        public static List<AcceptedOpportunity> GetList(int pStrategyID=0, DateTime? pDateTime = null, string pStatus = "",int pLastID=0)
         {
             List<AcceptedOpportunity> colReturn=null;
 
             using (var db = new DBContext())
             {
-                colReturn=db.AcceptedOpportunities.Where(x => (pStrategyID == 0 || x.Opportunity.StrategyID == pStrategyID) && (pDateTime == null || x.AcceptedDateTime >= pDateTime) && (pStatus == "" || pStatus == x.Status)).OrderByDescending(x=>x.AcceptedOpportunityID).ToList();
+                colReturn=db.AcceptedOpportunities.Include("Opportunity").
+                    Where(x => (pStrategyID == 0 || x.Opportunity.StrategyID == pStrategyID) && 
+                        (pDateTime == null || x.AcceptedDateTime >= pDateTime) && 
+                        (pStatus == "" || pStatus == x.Status) && (pLastID==0 || (pLastID>0 && x.AcceptedOpportunityID>pLastID)))
+                    .OrderByDescending(x=>x.AcceptedOpportunityID).ToList();
             }
 
             return colReturn;

@@ -39,11 +39,11 @@ namespace LQTrader.ModelViews
             Service.mapper.Map<Opportunity, ModelViews.ViewOpportunity>(pOpportunity, this);
         }
 
-        public static List<ViewOpportunity> GetList(System.DateTime pDate)
+        public static List<ViewOpportunity> GetList(System.DateTime pDate, int pLastOpportunityID=0)
         {
             List<ViewOpportunity> colReturn = new List<ViewOpportunity>();
 
-            List<Opportunity> colOpps = Opportunity.GetList(pDate);
+            List<Opportunity> colOpps = Opportunity.GetList(pDate, pLastOpportunityID);
 
             foreach(Opportunity op in colOpps)
             {

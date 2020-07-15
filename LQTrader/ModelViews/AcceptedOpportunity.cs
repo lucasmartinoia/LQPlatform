@@ -95,9 +95,11 @@ namespace LQTrader.ModelViews
 
             try
             {
+                string sInfo = System.Environment.NewLine + "[ACCEPTED OPPORTUNITY]" + System.Environment.NewLine + this.ToString();
+                sInfo = sInfo + System.Environment.NewLine + "[ORDER UPDATED]" + System.Environment.NewLine + oOrderUpdate.ToString();
+                LoggingService.Save(EnumLogType.Information, "==ORDER UPDATED RECEIVE FOR ACCEPTED OPPORTUNITY==" + sInfo);
+
                 string sClientOrderID = oOrderUpdate.ClientOrderId.ToString();
-                string sFailOrderStatus = "|CANCELED|CANCELLED|REJECTED|EXPIRED|";
-                bool bResult = false;
 
                 Order oOrder = colOrders.Where(x => x.ClientOrderID == sClientOrderID).FirstOrDefault();
 
@@ -105,6 +107,7 @@ namespace LQTrader.ModelViews
                 {
                     Order oUpdatedOrder = new Order();
                     Service.mapper.Map<LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus, ModelViews.Order>(oOrderUpdate, oUpdatedOrder);
+                    colOrders[colOrders.IndexOf(oOrder)] = oUpdatedOrder;
 
                     // Get order status.
                     string sStatus = Order.GetBlotterStatus(oUpdatedOrder);
@@ -112,103 +115,12 @@ namespace LQTrader.ModelViews
                     // First order.
                     if (colOrders.IndexOf(oOrder) == 0)
                     {
-                        if (sStatus == "FILLED")
-                        {
-                            // Order 2
-                            Order oOrder2 = CreateOrderStrategy1(2, oUpdatedOrder.Quantity);
-                            colOrders.Add(oOrder2);
-
-                            // Log order.
-                            LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString());
-
-                            // Send Order 2
-                            try
-                            {
-                                bResult = oOrder2.Send();
-
-                                if (bResult == true)
-                                {
-                                    // Update order 2.
-                                    colOrders[1] = oOrder2;
-
-                                    // Update accepted opportunity.
-                                    Data.LastUpdate = DateTime.Now;
-                                    Data.OrderID2 = oOrder2.ClientOrderID;
-                                    Data.Update();
-
-                                    // Log
-                                    string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                                    LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                // Log error.
-                                string sError = "LQTrader.ModelViews.AcceptedOpportunity.ProcessOrderUpdateStrategy1()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                                LoggingService.Save(EnumLogType.Error, sError);
-
-                                // Update accepted opportunity.
-                                Data.LastUpdate = DateTime.Now;
-                                Data.ErrorDescription = ex.Message;
-                                Data.Status = "Error";
-                                Data.Update();
-
-                                // Log.
-                                string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                                LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
-
-                                // Update reserved amount.
-                                double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
-                                Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
-                            }
-                        }
-                        else if (sFailOrderStatus.Contains(sStatus))
-                        {
-                            // Update accepted opportunity.
-                            Data.LastUpdate = DateTime.Now;
-                            Data.ErrorDescription = oUpdatedOrder.Text;
-                            Data.Status = "Error";
-                            Data.Update();
-
-                            // Log.
-                            string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                            LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
-                        }
+                        OrderManagementStrategy1(1);
                     }
                     // Second order.
                     else
                     {
-                        if (sStatus == "FILLED")
-                        {
-                            // Update accepted opportunity.
-                            Data.LastUpdate = DateTime.Now;
-                            Data.Status = "Thanks";
-                            Data.Update();
-
-                            // Log.
-                            string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                            LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
-                        }
-                        else if (sFailOrderStatus.Contains(sStatus))
-                        {
-                            // Update accepted opportunity.
-                            Data.LastUpdate = DateTime.Now;
-                            Data.ErrorDescription = oUpdatedOrder.Text;
-                            Data.Status = "Error";
-                            Data.Update();
-
-                            // Log.
-                            string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                            sInfo += System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oUpdatedOrder.ToString();
-                            LoggingService.Save(sInfo, "==ACCEPTED OPPORTUNITY ERROR==");
-
-                            // Update reserved amount.
-                            Order oOrder2 = colOrders[1];
-                            double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
-                            Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
-
-                            // Sell first order?
-                        }
+                        OrderManagementStrategy1(2);
                     }
                 }
             }
@@ -223,6 +135,8 @@ namespace LQTrader.ModelViews
         {
             Order oOrder = null;
             bool bResult = false;
+            DateTime dtStartAt = DateTime.Now;
+            const int EXPIRATION_MINUTES = 120;
 
             try
             {
@@ -274,6 +188,23 @@ namespace LQTrader.ModelViews
                     while (Data.Status == "In Progress")
                     {
                         Thread.Sleep(1000); // 1 second
+
+                        if (Data.Status == "In Progress")
+                        {
+                            // Check expiration time.
+                            if (Strategy.Executable() == false || dtStartAt.AddMinutes(EXPIRATION_MINUTES) >= DateTime.Now)
+                            {
+                                if (colOrders.Count > 1)
+                                {
+                                    // Update second order.
+                                    ModelViews.Order oOrder2 = colOrders[1].Clone();
+                                    oOrder2.Update(null, oOrder2.ClientOrderID, null);
+                                    colOrders[1] = oOrder2;
+
+                                    OrderManagementStrategy1(2, true);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -292,6 +223,172 @@ namespace LQTrader.ModelViews
             }
         }
 
+        private void OrderManagementStrategy1(int pOrderNo, bool pSellPosition=false)
+        {
+            string sFailOrderStatus = "|CANCELED|CANCELLED|REJECTED|EXPIRED|";
+            double feeIntradayEquities = 0.00296; // per trade
+            double feeIntradayBonds = 0.00255; // per trade
+            bool bResult = false;
+            string sStatus = colOrders[pOrderNo - 1].Status;
+
+            // FIRST ORDER
+            if (pOrderNo == 1)
+            {
+                if (sStatus == "FILLED")
+                {
+                    // Order 2
+                    Order oOrder2 = CreateOrderStrategy1(2, colOrders[pOrderNo - 1].Quantity);
+                    colOrders.Add(oOrder2);
+
+                    // Log order.
+                    LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString());
+
+                    // Send Order 2
+                    try
+                    {
+                        bResult = oOrder2.Send();
+
+                        if (bResult == true)
+                        {
+                            // Update order 2.
+                            colOrders[1] = oOrder2;
+
+                            // Update accepted opportunity.
+                            Data.LastUpdate = DateTime.Now;
+                            Data.OrderID2 = oOrder2.ClientOrderID;
+                            Data.Update();
+
+                            // Log
+                            string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+                            LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log error.
+                        string sError = "LQTrader.ModelViews.AcceptedOpportunity.ProcessOrderUpdateStrategy1()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
+                        LoggingService.Save(EnumLogType.Error, sError);
+
+                        // Update accepted opportunity.
+                        Data.LastUpdate = DateTime.Now;
+                        Data.ErrorDescription = ex.Message;
+                        Data.Status = "Error";
+                        Data.Update();
+
+                        // Log.
+                        string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+                        LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+
+                        // Update reserved amount.
+                        double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
+                        Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
+                    }
+                }
+                else if (sFailOrderStatus.Contains(sStatus))
+                {
+                    // Update accepted opportunity.
+                    Data.LastUpdate = DateTime.Now;
+                    Data.ErrorDescription = colOrders[pOrderNo - 1].Text;
+                    Data.Status = "Error";
+                    Data.Update();
+
+                    // Log.
+                    string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+                    LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                }
+            }
+            // SECOND ORDER
+            else if (pOrderNo == 2)
+            {
+                if (pSellPosition == false)
+                {
+                    if (sStatus == "FILLED")
+                    {
+                        // Update accepted opportunity.
+                        Data.LastUpdate = DateTime.Now;
+                        Data.Status = "Thanks";
+                        Data.Update();
+
+                        // Log.
+                        string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+                        LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                    }
+                    else if (sFailOrderStatus.Contains(sStatus))
+                    {
+                        // Update accepted opportunity.
+                        Data.LastUpdate = DateTime.Now;
+                        Data.ErrorDescription = colOrders[pOrderNo - 1].Text;
+                        Data.Status = "Error";
+                        Data.Update();
+
+                        // Log.
+                        string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+                        sInfo += System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + colOrders[pOrderNo - 1].ToString();
+                        LoggingService.Save(sInfo, "==ACCEPTED OPPORTUNITY ERROR==");
+
+                        // Update reserved amount.
+                        Order oOrder2 = colOrders[1];
+                        double dAmount = (double)oOrder2.Price * oOrder2.Quantity;
+                        Services.Strategist.CashReserved = Services.Strategist.CashReserved - Convert.ToDecimal(dAmount + feeIntradayEquities * dAmount);
+
+                        // Sell position.
+                        pSellPosition = true;
+                    }
+                }
+
+                if(pSellPosition==true)
+                {
+                    Order oOrder = colOrders[pOrderNo - 1].Clone();
+
+                    // Get current price for quantity.
+                    LatamQuants.PrimaryAPI.Models.MarketData oMD = Services.Strategist.MarketDataMatrix[oOrder.MarketID + "|" + oOrder.Symbol];
+                    double dblPrice = 0;
+
+                    if (oMD.Data.Bids != null && oMD.Data.Bids.Count() > 0)
+                    {
+                        foreach (LatamQuants.PrimaryAPI.Models.Trade oBid in oMD.Data.Bids)
+                        {
+                            if (oBid.size >= oOrder.Quantity)
+                            {
+                                dblPrice = (double)oOrder.Price;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (dblPrice > 0)
+                    {
+                        if (sFailOrderStatus.Contains(sStatus))
+                        {
+                            // Create a new order to sell position.
+                            bResult = oOrder.Send();
+
+                            if (bResult == true)
+                            {
+                                colOrders[1] = oOrder;
+                                LoggingService.Save(EnumLogType.Information, "NEW REPLACEMENT ORDER SENT " + oOrder.ClientOrderID);
+                            }
+                            else
+                            {
+                                LoggingService.Save(EnumLogType.Error, "ERROR SENDING REPLACEMENT ORDER FOR " + colOrders[pOrderNo - 1].ClientOrderID);
+                            }
+                        }
+                        else if (sStatus == "PENDING")
+                        {
+                            // Modify order.
+                            ModelViews.Order oNewOrder = oOrder.Replace(dblPrice, oOrder.Quantity);
+                            colOrders[1] = oNewOrder; // Replace second order in collection.
+                            LoggingService.Save(EnumLogType.Information, "REPLACEMENT ORDER SENT " + oNewOrder.ClientOrderID);
+                        }
+                    }
+                    else
+                    {
+                        LoggingService.Save(EnumLogType.Information, "NOT PRICE FOR REPLACEMENT ORDER " + colOrders[pOrderNo - 1].ClientOrderID);
+                    }
+                }
+            }
+        }
+
         private Order CreateOrderStrategy1(int pOrderNo, double pQuantity=0)
         {
             Order oReturn = new Order();
@@ -302,6 +399,7 @@ namespace LQTrader.ModelViews
             double dQuantity = 0;
             double feeIntradayEquities = 0.00296; // per trade
             double feeIntradayBonds = 0.00255; // per trade
+            string timeInForce = "";
 
             try
             {
@@ -321,6 +419,7 @@ namespace LQTrader.ModelViews
                     sSymbol = Opportunity.Symbol1;
                     dPrice = Opportunity.BuyPrice1;
                     sSide = "Buy";
+                    timeInForce = "FOK";
 
                     if (pQuantity > 0)
                         dQuantity = pQuantity;
@@ -332,6 +431,7 @@ namespace LQTrader.ModelViews
                     sSymbol = Opportunity.Symbol2;
                     dPrice = Opportunity.SellPrice2;
                     sSide = "Sell";
+                    timeInForce = "Day";
 
                     if (pQuantity > 0)
                         dQuantity = pQuantity;
@@ -347,7 +447,7 @@ namespace LQTrader.ModelViews
                 oReturn.Type = "Limit";
                 oReturn.Price = dPrice;
                 oReturn.Quantity = dQuantity;
-                oReturn.TimeInForce = "FOK";
+                oReturn.TimeInForce = timeInForce;
                 oReturn.Iceberg = false;
 
                 //--------------- Status section

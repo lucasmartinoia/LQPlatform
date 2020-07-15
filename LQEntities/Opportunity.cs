@@ -53,13 +53,14 @@ namespace LatamQuants.Entities
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
 
-        public static List<Opportunity> GetList(DateTime? pDateTime = null)
+        public static List<Opportunity> GetList(DateTime? pDateTime = null, int pLastOpportunityID = 0)
         {
             List<Opportunity> colReturn = null;
 
             using (var db = new DBContext())
             {
-                colReturn = db.Opportunities.Where(x => (pDateTime == null || x.DateTime >= pDateTime)).OrderByDescending(x=>x.OpportunityID).ToList();
+                colReturn = db.Opportunities.Where(x => (pLastOpportunityID>0 && x.OpportunityID>pLastOpportunityID) || 
+                    (pLastOpportunityID==0 && (pDateTime == null || x.DateTime >= pDateTime))).OrderByDescending(x=>x.OpportunityID).ToList();
             }
 
             return colReturn;
