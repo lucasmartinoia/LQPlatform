@@ -9,7 +9,7 @@ namespace LQTrader.ModelViews
     public class ViewAcceptedOpportunity
     {
         public int AcceptedOpportunityID { get; set; }
-        public DateTime AcceptedDateTime { get; set; }
+        public string AcceptedDateTime { get; set; }
         public int OpportunityID { get; set; }
         public string Status { get; set; }
         public string OrderID1 { get; set; }
@@ -17,7 +17,7 @@ namespace LQTrader.ModelViews
         public string OrderID3 { get; set; }
         public bool AutoTrade { get; set; }
         public decimal CashReserved { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public string LastUpdate { get; set; }
         public string ErrorDescription { get; set; }
         public bool Simulation { get; set; }
         public bool EntriesChecked { get; set; }
@@ -36,7 +36,7 @@ namespace LQTrader.ModelViews
         {
             List<ViewAcceptedOpportunity> colReturn = new List<ViewAcceptedOpportunity>();
 
-            List<LatamQuants.Entities.AcceptedOpportunity> colAcceptedOpps = LatamQuants.Entities.AcceptedOpportunity.GetList(0,pDate, null, pLastID);
+            List<LatamQuants.Entities.AcceptedOpportunity> colAcceptedOpps = LatamQuants.Entities.AcceptedOpportunity.GetList(0,pDate, "", pLastID);
 
             foreach (LatamQuants.Entities.AcceptedOpportunity op in colAcceptedOpps)
             {

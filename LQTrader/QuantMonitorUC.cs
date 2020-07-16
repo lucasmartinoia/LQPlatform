@@ -16,8 +16,6 @@ namespace LQTrader
     {
         private List<ModelViews.ViewOpportunity> _opportunities;
         private List<ModelViews.ViewAcceptedOpportunity> _acceptedOpportunities;
-        private int _lastOpportunityID = 0;
-        private int _lastAcceptedOpportunityID = 0;
 
         private List<Strategy> _strategies;
         public static bool bStrategiesRefreshing = true; // Avoid cell changed events.
@@ -35,15 +33,7 @@ namespace LQTrader
         {
             // Initialize variables.
             _opportunities = ModelViews.ViewOpportunity.GetList(System.DateTime.Now.Date);
-
-            if (_opportunities.Count > 0)
-                _lastOpportunityID = _opportunities.Last().OpportunityID;
-
             _acceptedOpportunities = ModelViews.ViewAcceptedOpportunity.GetList(0, System.DateTime.Now.Date);
-
-            if (_acceptedOpportunities.Count > 0)
-                _lastAcceptedOpportunityID = _acceptedOpportunities.Last().AcceptedOpportunityID;
-
             _strategies = Strategy.GetList();
 
             // Load strategies.
@@ -66,13 +56,10 @@ namespace LQTrader
 
         private void LoadOpportunities()
         {
-            gridOpportunities.DataSource = null;
+            _opportunities = ModelViews.ViewOpportunity.GetList(System.DateTime.Now.Date);
 
-            IEnumerable<ModelViews.ViewOpportunity> colUpdates = ModelViews.ViewOpportunity.GetList(System.DateTime.Now.Date, _lastOpportunityID);
-
-            if (colUpdates.Count() > 0)
+            if (_opportunities.Count() > 0)
             {
-                _opportunities.AddRange(colUpdates);
                 gridOpportunities.DataSource = _opportunities;
                 gridOpportunities.Update();
                 gridvOpportunities.RefreshData();
@@ -81,13 +68,10 @@ namespace LQTrader
 
         private void LoadAcceptedOpportunities()
         {
-            gridAcceptedOpportunities.DataSource = null;
+            _acceptedOpportunities = ModelViews.ViewAcceptedOpportunity.GetList(0,System.DateTime.Now.Date);
 
-            IEnumerable<ModelViews.ViewAcceptedOpportunity> colUpdates = ModelViews.ViewAcceptedOpportunity.GetList(0,System.DateTime.Now.Date, _lastAcceptedOpportunityID);
-
-            if (colUpdates.Count() > 0)
+            if (_acceptedOpportunities.Count() > 0)
             {
-                _acceptedOpportunities.AddRange(colUpdates);
                 gridAcceptedOpportunities.DataSource = _acceptedOpportunities;
                 gridAcceptedOpportunities.Update();
                 gridvAcceptedOpportunities.RefreshData();

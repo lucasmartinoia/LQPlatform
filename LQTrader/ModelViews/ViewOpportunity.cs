@@ -11,7 +11,7 @@ namespace LQTrader.ModelViews
     {
         public int OpportunityID { get; set; }
         public int StrategyID { get; set; }
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
         public double ProfitRate { get; set; }
         public decimal AmountMin { get; set; }
         public decimal AmountMax { get; set; }

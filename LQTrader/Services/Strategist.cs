@@ -138,8 +138,8 @@ namespace LQTrader.Services
             try
             {
                 // Start listening WS order updates.
-                oWSOrderUpdates = LatamQuants.PrimaryAPI.WebSocketAPI.CreateOrderDataSocket(new[] { Account.CurrentAccount.CustodyAccount });
-                oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
+                //oWSOrderUpdates = LatamQuants.PrimaryAPI.WebSocketAPI.CreateOrderDataSocket(new[] { Account.CurrentAccount.CustodyAccount });
+                //oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
 
                 // Load instruments to monitor.
                 LatamQuants.PrimaryAPI.Models.InstrumentId oInstrumentId = null;
@@ -249,38 +249,6 @@ namespace LQTrader.Services
             catch(Exception ex)
             {
                 string sError = "LQTrader.Services.Strategist.OnMarketReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                LoggingService.Save(EnumLogType.Error, sError);
-            }
-        }
-
-        private void OnOrderUpdateReceived(Object sender, WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedArgs e)
-        {
-            try
-            {
-                LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
-
-                if (oOrderUpdate.Status == "ERROR")
-                {
-                    MessageBox.Show("OnOrderUpdateReceived ERROR: " + oOrderUpdate.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    // Save order update.
-                    string sKey = oOrderUpdate.OrderReport.ClientOrderId.ToString();
-
-                    if (OrderUpdateMatrix.ContainsKey(sKey) == true)
-                    {
-                        OrderUpdateMatrix[sKey] = oOrderUpdate.OrderReport;
-                    }
-                    else
-                    {
-                        OrderUpdateMatrix.Add(sKey, oOrderUpdate.OrderReport);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string sError = "LQTrader.Services.Strategist.OnOrderUpdateReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
                 LoggingService.Save(EnumLogType.Error, sError);
             }
         }

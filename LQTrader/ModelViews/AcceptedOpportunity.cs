@@ -38,97 +38,19 @@ namespace LQTrader.ModelViews
             Data.Simulation = Strategy.Simulation;
             Data.Save();
 
+            // Log opportunity.
+            string sInfo = System.Environment.NewLine + "[Strategy]" + System.Environment.NewLine + pStrategy.ToString();
+            sInfo = sInfo + System.Environment.NewLine + "[Opportunity]" + System.Environment.NewLine + pOpp.ToString();
+            sInfo = sInfo + System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
+            LoggingService.Save(sInfo, "==NEW ACCEPTED OPPORTUNITY==");
+
             // Start listening order updates.
-            Services.Strategist.oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
+            //Services.Strategist.oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
             
             // Receive opportunity
             Task t1 = new Task(() => this.Receive());
             t1.Start();
 
-            // Log opportunity.
-            string sInfo = System.Environment.NewLine + "[Strategy]" + System.Environment.NewLine + pStrategy.ToString();
-            sInfo = sInfo + System.Environment.NewLine + "[Opportunity]" + System.Environment.NewLine + pOpp.ToString();
-            sInfo = sInfo + System.Environment.NewLine + "[AcceptedOpportunity]"+ System.Environment.NewLine + Data.ToString();
-            LoggingService.Save(sInfo, "==NEW ACCEPTED OPPORTUNITY==");
-        }
-
-        private void OnOrderUpdateReceived(Object sender, WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedArgs e)
-        {
-            try
-            {
-                LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
-
-                if (oOrderUpdate.Status != "ERROR")
-                {
-                    if (Strategy.StrategyID == 1)
-                    {
-                        ProcessOrderUpdateStrategy1(oOrderUpdate.OrderReport);
-                    }
-                }
-                else
-                {
-                    // Log error.
-                    string sError = "LQTrader.ModelViews.AcceptedOpportunity.OnOrderUpdateReceived()" + System.Environment.NewLine + "ERROR" + System.Environment.NewLine + oOrderUpdate.Description;
-
-                    if (oOrderUpdate.OrderReport != null)
-                    {
-                        sError = sError + System.Environment.NewLine + "[OrderStatus]" + System.Environment.NewLine + oOrderUpdate.OrderReport.ToString();
-                    }
-
-                    LoggingService.Save(EnumLogType.Error, sError);
-
-                    // TODO: Maybe could be proactive to ask API the status of the orders and update accepted opportunity status.
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log error.
-                string sError = "LQTrader.ModelViews.AcceptedOpportunity.OnOrderUpdateReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                LoggingService.Save(EnumLogType.Error, sError);
-            }
-        }
-
-        private void ProcessOrderUpdateStrategy1(LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus oOrderUpdate)
-        {
-            double feeIntradayEquities = 0.00296; // per trade
-            double feeIntradayBonds = 0.00255; // per trade
-
-            try
-            {
-                string sInfo = System.Environment.NewLine + "[ACCEPTED OPPORTUNITY]" + System.Environment.NewLine + this.ToString();
-                sInfo = sInfo + System.Environment.NewLine + "[ORDER UPDATED]" + System.Environment.NewLine + oOrderUpdate.ToString();
-                LoggingService.Save(EnumLogType.Information, "==ORDER UPDATED RECEIVE FOR ACCEPTED OPPORTUNITY==" + sInfo);
-
-                string sClientOrderID = oOrderUpdate.ClientOrderId.ToString();
-
-                Order oOrder = colOrders.Where(x => x.ClientOrderID == sClientOrderID).FirstOrDefault();
-
-                if (oOrder != null)
-                {
-                    Order oUpdatedOrder = new Order();
-                    Service.mapper.Map<LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus, ModelViews.Order>(oOrderUpdate, oUpdatedOrder);
-                    colOrders[colOrders.IndexOf(oOrder)] = oUpdatedOrder;
-
-                    // Get order status.
-                    string sStatus = Order.GetBlotterStatus(oUpdatedOrder);
-
-                    // First order.
-                    if (colOrders.IndexOf(oOrder) == 0)
-                    {
-                        OrderManagementStrategy1(1);
-                    }
-                    // Second order.
-                    else
-                    {
-                        OrderManagementStrategy1(2);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string sError = "LQTrader.ModelViews.AcceptedOpportunity.ProcessOrderUpdateStrategy1()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                LoggingService.Save(EnumLogType.Error, sError);
-            }
         }
 
         public void Receive()
@@ -161,11 +83,12 @@ namespace LQTrader.ModelViews
                             // Update order 1.
                             colOrders[0] = oOrder;
 
-                            // Update accepted opportunity.
-                            Data.Status = "In Progress";
-                            Data.LastUpdate = DateTime.Now;
-                            Data.OrderID1 = oOrder.ClientOrderID;
-                            Data.Update();
+                            // Ask broker for order.
+                            Thread.Sleep(100);
+                            Order oOrderUpdated = oOrder.Clone();
+                            oOrderUpdated.Update(null, oOrder.ClientOrderID, null);
+                            colOrders[0] = oOrderUpdated;
+                            OrderManagementStrategy1(1);
                         }
                     }
                     else
@@ -192,15 +115,14 @@ namespace LQTrader.ModelViews
                         if (Data.Status == "In Progress")
                         {
                             // Check expiration time.
-                            if (Strategy.Executable() == false || dtStartAt.AddMinutes(EXPIRATION_MINUTES) >= DateTime.Now)
+                            if (dtStartAt.AddMinutes(EXPIRATION_MINUTES) >= DateTime.Now)
                             {
                                 if (colOrders.Count > 1)
                                 {
                                     // Update second order.
-                                    ModelViews.Order oOrder2 = colOrders[1].Clone();
+                                    Order oOrder2 = colOrders[1].Clone();
                                     oOrder2.Update(null, oOrder2.ClientOrderID, null);
                                     colOrders[1] = oOrder2;
-
                                     OrderManagementStrategy1(2, true);
                                 }
                             }
@@ -236,6 +158,12 @@ namespace LQTrader.ModelViews
             {
                 if (sStatus == "FILLED")
                 {
+                    // Update accepted opportunity.
+                    Data.Status = "In Progress";
+                    Data.LastUpdate = DateTime.Now;
+                    Data.OrderID1 = colOrders[pOrderNo - 1].ClientOrderID;
+                    Data.Update();
+
                     // Order 2
                     Order oOrder2 = CreateOrderStrategy1(2, colOrders[pOrderNo - 1].Quantity);
                     colOrders.Add(oOrder2);
@@ -250,17 +178,12 @@ namespace LQTrader.ModelViews
 
                         if (bResult == true)
                         {
-                            // Update order 2.
-                            colOrders[1] = oOrder2;
-
-                            // Update accepted opportunity.
-                            Data.LastUpdate = DateTime.Now;
-                            Data.OrderID2 = oOrder2.ClientOrderID;
-                            Data.Update();
-
-                            // Log
-                            string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                            LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                            // Ask broker for order.
+                            Thread.Sleep(100);
+                            Order oOrderUpdated = oOrder2.Clone();
+                            oOrderUpdated.Update(null, oOrder2.ClientOrderID, null);
+                            colOrders[1] = oOrderUpdated;
+                            OrderManagementStrategy1(2);
                         }
                     }
                     catch (Exception ex)
@@ -288,6 +211,7 @@ namespace LQTrader.ModelViews
                 {
                     // Update accepted opportunity.
                     Data.LastUpdate = DateTime.Now;
+                    Data.OrderID1 = colOrders[pOrderNo - 1].ClientOrderID;
                     Data.ErrorDescription = colOrders[pOrderNo - 1].Text;
                     Data.Status = "Error";
                     Data.Update();
@@ -306,6 +230,7 @@ namespace LQTrader.ModelViews
                     {
                         // Update accepted opportunity.
                         Data.LastUpdate = DateTime.Now;
+                        Data.OrderID2 = colOrders[pOrderNo - 1].ClientOrderID;
                         Data.Status = "Thanks";
                         Data.Update();
 
@@ -317,6 +242,7 @@ namespace LQTrader.ModelViews
                     {
                         // Update accepted opportunity.
                         Data.LastUpdate = DateTime.Now;
+                        Data.OrderID2 = colOrders[pOrderNo - 1].ClientOrderID;
                         Data.ErrorDescription = colOrders[pOrderNo - 1].Text;
                         Data.Status = "Error";
                         Data.Update();
