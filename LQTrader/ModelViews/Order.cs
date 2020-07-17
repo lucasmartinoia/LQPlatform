@@ -153,7 +153,7 @@ namespace LQTrader.ModelViews
                 throw new Exception("Please select a Type");
             else if(this.Type=="LIMIT" && this.Price<=0)
                 throw new Exception("Price cannot be 0 for a LIMIT order");
-            else if(this.Quantity<=0)
+            else if (this.Quantity <= 0)
                 throw new Exception("Quantity cannot be 0");
             else if(String.IsNullOrEmpty(this.TimeInForce)==true)
                 throw new Exception("Please select a TimeInForce option");

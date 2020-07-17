@@ -72,11 +72,17 @@ namespace LatamQuants.Entities
             bool bReturn = this.AutoTrade;
 
             // Check quantity of max orders at day
-            if(bReturn==true && this.OrdersOfDay<this.MaxOrdersPerDay)
+            if (bReturn == true && this.OrdersOfDay < this.MaxOrdersPerDay)
             {
-                // Check time.
-                bReturn = (DateTime.Now >= _startTime && DateTime.Now <= _endTime);
+                bReturn = InTime();
             }
+
+            return bReturn;
+        }
+
+        public bool InTime()
+        {
+            bool bReturn = (DateTime.Now >= _startTime && DateTime.Now <= _endTime);
 
             return bReturn;
         }

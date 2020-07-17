@@ -41,6 +41,8 @@ namespace LQTrader.Services
         public static List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket> colWSMarketData;
         public static LatamQuants.PrimaryAPI.WebSocket.OrderDataWebSocket oWSOrderUpdates;
 
+        public bool Strategy1Checking = false;
+
         public class OnOpportunityReceivedArgs : EventArgs
         {
             public object opportunity;
@@ -75,6 +77,8 @@ namespace LQTrader.Services
                 }
                 else
                 {
+                    CashAvailable = 50000;
+                    CashAvailable -= AccountMarginAmount;
                     MessageBox.Show("There is not possible to get the account amount", "Market is closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -332,6 +336,9 @@ namespace LQTrader.Services
 
             try
             {
+                if (oStrategy.InTime() == false)
+                    return;
+
                 // Check instrument type
                 ModelViews.InstrumentDetail oInstrument = ModelViews.InstrumentDetail.colInstrumentDetails.Where(x => x.MarketID == pMarketData.Instrument.marketId && x.Symbol == pMarketData.Instrument.symbol).FirstOrDefault();
 
@@ -386,6 +393,14 @@ namespace LQTrader.Services
                                     oOpportunity.Save();
 
                                     //OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
+                                    if(Strategy1Checking==true)
+                                    {
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        Strategy1Checking = true;
+                                    }
 
                                     // Check for Auto Trade option.
                                     if (Currencies.Contains(oOpportunity.Currency) == true)
@@ -451,6 +466,8 @@ namespace LQTrader.Services
                                             }
                                         }
                                     }
+
+                                    Strategy1Checking = false;
                                 }
                             }
                         }
