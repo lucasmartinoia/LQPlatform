@@ -245,8 +245,9 @@ namespace LQTrader
                 .ForMember(dest => dest.OrderID2, opt => opt.MapFrom(o => o.OrderID2))
                 .ForMember(dest => dest.OrderID3, opt => opt.MapFrom(o => o.OrderID3))
                 .ForMember(dest => dest.Simulation, opt => opt.MapFrom(o => o.Simulation))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(o => o.Status));
-
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(o => o.Status))
+                .ForMember(dest => dest.Symbol1, opt => opt.MapFrom(o => o.Opportunity.Symbol1))
+                .ForMember(dest => dest.Symbol2, opt => opt.MapFrom(o => o.Opportunity.Symbol2));
         }
     }
 }

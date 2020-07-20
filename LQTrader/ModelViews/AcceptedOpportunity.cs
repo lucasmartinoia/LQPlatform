@@ -36,7 +36,8 @@ namespace LQTrader.ModelViews
             Data.OrderID3 = ""; // Client Order ID 3
             Data.CashReserved = Convert.ToDecimal(pAmount);
             Data.Simulation = Strategy.Simulation;
-            Data.Save();
+            Task t1 = new Task(() => Data.Save());
+            t1.Start();
 
             // Log opportunity.
             string sInfo = System.Environment.NewLine + "[Strategy]" + System.Environment.NewLine + pStrategy.ToString();
@@ -48,8 +49,8 @@ namespace LQTrader.ModelViews
             //Services.Strategist.oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
             
             // Receive opportunity
-            Task t1 = new Task(() => this.Receive());
-            t1.Start();
+            Task t2 = new Task(() => this.Receive());
+            t2.Start();
 
         }
 
@@ -70,25 +71,62 @@ namespace LQTrader.ModelViews
                     colOrders.Add(oOrder);
 
                     // Log order.
-                    LoggingService.Save(EnumLogType.Information, "==SEND ORDER 1==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder.ToString());
+                    LoggingService.Save(EnumLogType.Information, "==SEND ORDER 1==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder.ToString() + System.Environment.NewLine);
 
                     // Send Order 1
                     if (Strategy.Simulation == false)
                     {
                         // LIVE TRADING
-                        bResult = oOrder.Send();
 
-                        if (bResult == true)
+                        // Create order 2.
+                        Order oOrder2 = CreateOrderStrategy1(2, oOrder.Quantity);
+                        colOrders.Add(oOrder2);
+
+                        var tasks = new Task<bool>[2];
+
+                        tasks[0] = Task.Run(async () => oOrder.Send());
+                        tasks[1] = Task.Run(async () => oOrder2.Send());
+
+                        // Wait until 2 orders being sent.
+                        var continuation = Task.WhenAll(tasks);
+
+                        LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString() + System.Environment.NewLine);
+
+                        try
                         {
-                            // Update order 1.
-                            colOrders[0] = oOrder;
+                            continuation.Wait();
+                        }
+                        catch (AggregateException)
+                        { }
 
-                            // Ask broker for order.
-                            Thread.Sleep(100);
-                            Order oOrderUpdated = oOrder.Clone();
-                            oOrderUpdated.Update(null, oOrder.ClientOrderID, null);
-                            colOrders[0] = oOrderUpdated;
-                            OrderManagementStrategy1(1);
+                        // Check send task results.
+
+                        if (continuation.Status == TaskStatus.RanToCompletion)
+                        {
+                            if (continuation.Result[0] == true)
+                            {
+                                // Update order 1.
+                                colOrders[0] = oOrder;
+
+                                // Ask broker for order.
+                                Thread.Sleep(100);
+                                Order oOrderUpdated = oOrder.Clone();
+                                oOrderUpdated.Update(null, oOrder.ClientOrderID, null);
+                                colOrders[0] = oOrderUpdated;
+                            }
+
+                            if (continuation.Result[1] == true)
+                            {
+                                // Update order 1.
+                                colOrders[1] = oOrder2;
+
+                                // Ask broker for order.
+                                Thread.Sleep(100);
+                                Order oOrderUpdated = oOrder2.Clone();
+                                oOrderUpdated.Update(null, oOrder2.ClientOrderID, null);
+                                colOrders[1] = oOrderUpdated;
+                                OrderManagementStrategy1(2);
+                            }
                         }
                     }
                     else
@@ -329,6 +367,8 @@ namespace LQTrader.ModelViews
 
             try
             {
+                oInstrument = InstrumentDetail.colInstrumentDetails.Where(x => x.Symbol == sSymbol).FirstOrDefault();
+
                 //--------------- Identification section
                 oReturn.AccountID = Account.CurrentAccount.CustodyAccount;
                 oReturn.OrderID = "";
@@ -350,7 +390,7 @@ namespace LQTrader.ModelViews
                     if (pQuantity > 0)
                         dQuantity = pQuantity;
                     else
-                        dQuantity = (Convert.ToDouble(this.Data.CashReserved) * (1 - feeIntradayEquities)) / dPrice;
+                        dQuantity = (Convert.ToDouble(this.Data.CashReserved) * (1 - feeIntradayEquities)) / dPrice / oInstrument.PriceConvertionFactor;
                 }
                 else if (pOrderNo == 2)
                 {
@@ -365,7 +405,6 @@ namespace LQTrader.ModelViews
                         dQuantity = colOrders[0].Quantity;
                 }
 
-                oInstrument = InstrumentDetail.colInstrumentDetails.Where(x => x.Symbol == sSymbol).FirstOrDefault();
                 oReturn.MarketID = oInstrument.MarketID;
                 oReturn.Symbol = oInstrument.Symbol;
 

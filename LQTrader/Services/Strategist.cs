@@ -371,8 +371,8 @@ namespace LQTrader.Services
                                     oOpportunity.Size2 = colMDs[t].Data.Bids.FirstOrDefault().size;
                                     oOpportunity.Timestamp2 = colMDs[t].Timestamp;
                                     oOpportunity.Checked = oStrategy.CheckOpportunity;
-                                    oOpportunity.AmountMax = (decimal)(Math.Min(oOpportunity.Size1, oOpportunity.Size2) * oOpportunity.BuyPrice1);
-                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1);
+                                    oOpportunity.AmountMax = (decimal)(Math.Min(oOpportunity.Size1, oOpportunity.Size2) * oOpportunity.BuyPrice1 * oInstrument.PriceConvertionFactor);
+                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1 * oInstrument.PriceConvertionFactor);
                                     oOpportunity.Currency = oInstrument.Currency;
                                     oOpportunity.DateTime = DateTime.Now;
                                     oOpportunity.MarketID = oInstrument.MarketID;
@@ -380,20 +380,11 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
+                                    Task t1 = new Task(() => oOpportunity.Save());
+                                    t1.Start();
 
-                                    //// Check prices and sizes
-                                    //if (oOpportunity.Checked==true)
-                                    //{
-                                    //    string sErrorDesc = "";
-                                    //    bool bResult = CheckOpportunityStrategy1(oOpportunity, out sErrorDesc);
-                                    //    oOpportunity.CheckPassed = bResult;
-                                    //    oOpportunity.CheckError = sErrorDesc;
-                                    //}
-
-                                    oOpportunity.Save();
-
-                                    //OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
-                                    if(Strategy1Checking==true)
+                                    // Stop multiple entries when an opportunity is being evaluated.
+                                    if (Strategy1Checking==true)
                                     {
                                         return;
                                     }

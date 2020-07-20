@@ -9,14 +9,16 @@ namespace LQTrader.ModelViews
     public class ViewAcceptedOpportunity
     {
         public int AcceptedOpportunityID { get; set; }
-        public string AcceptedDateTime { get; set; }
         public int OpportunityID { get; set; }
+        public string AcceptedDateTime { get; set; }
+        public string Symbol1 { get; set; }
+        public string Symbol2 { get; set; }
+        public decimal CashReserved { get; set; }
         public string Status { get; set; }
         public string OrderID1 { get; set; }
         public string OrderID2 { get; set; }
         public string OrderID3 { get; set; }
         public bool AutoTrade { get; set; }
-        public decimal CashReserved { get; set; }
         public string LastUpdate { get; set; }
         public string ErrorDescription { get; set; }
         public bool Simulation { get; set; }
