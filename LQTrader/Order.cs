@@ -175,12 +175,11 @@ namespace LQTrader
                 if (this.m_Mode == eMode.New)
                 {
                     oOrder = PopulateOrderFromScreen();
+
                     bResult = oOrder.Send();
 
                     if (bResult == true)
                     {
-                        // Ask broker for order.
-                        Thread.Sleep(100);
                         ModelViews.Order oOrder2 = oOrder.Clone();
                         oOrder2.Update(null, oOrder.ClientOrderID, null);
                         this.OrderUpdated.Add(oOrder2);

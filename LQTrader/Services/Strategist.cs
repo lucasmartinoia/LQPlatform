@@ -232,9 +232,7 @@ namespace LQTrader.Services
                 else
                 {
                     // TODO: Should I consider also market data without bids or without offers ??
-                    if (oNewMarketData != null && oNewMarketData.Data != null &&
-                        oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
-                        oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
+                    if (oNewMarketData != null && oNewMarketData.Data != null)
                     {
                         // Update data market matrix
                         Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
@@ -380,8 +378,7 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
-                                    Task t1 = new Task(() => oOpportunity.Save());
-                                    t1.Start();
+                                    oOpportunity.Save();
 
                                     // Stop multiple entries when an opportunity is being evaluated.
                                     if (Strategy1Checking==true)
@@ -477,12 +474,21 @@ namespace LQTrader.Services
             double dReturn = 0;
             double dCom1 = 0.005;
             double dCom2 = 0.00131;
+            double dPrice1 = 0;
+            double dPrice2 = 0;
 
             // Get prices
-            double dPrice1 = pMD1.Data.Offers.First().price; // Buy price
-            double dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+            if (pMD1.Data.Offers != null && pMD1.Data.Offers.Count() > 0)
+            {
+                dPrice1 = pMD1.Data.Offers.First().price; // Buy price
+            }
 
-            if (dPrice1<dPrice2)
+            if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 0)
+            {
+                dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+            }
+
+            if (dPrice1>0 && dPrice2>0 && dPrice1<dPrice2)
             {
                 // Apply function
                 dReturn = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
@@ -534,10 +540,13 @@ namespace LQTrader.Services
         {
             try
             {
-                if (pMarketData != null && pMarketData.Data != null &&
-                    pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 0 &&
-                    pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 0)
+                if (pMarketData != null && pMarketData.Data != null)
                 {
+                    string sOfferPrice = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0");
+                    string sOfferSize = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0");
+                    string sBidPrice = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0");
+                    string sBidSize = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0");
+
                     // Update MD
                     string sql1 = "INSERT INTO[dbo].[MarketDatas] " +
                               "([Timestamp]" +
@@ -555,10 +564,10 @@ namespace LQTrader.Services
                               ",[TradeEffectiveVolume]" +
                               ",[DateTime]) " +
                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" + pMarketData.Instrument.symbol + "'" +
-                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0") +
-                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0") +
-                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0") +
-                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0") +
+                              "," + sOfferPrice +
+                              "," + sOfferSize +
+                              "," + sBidPrice +
+                              "," + sBidSize +
                               "," + (pMarketData.Data.NominalVolume == null ? "0" : pMarketData.Data.NominalVolume.ToString()) +
                               "," + (pMarketData.Data.Volume == null ? "0" : pMarketData.Data.Volume.ToString()) +
                               "," + (pMarketData.Data.IndexValue == null ? "0" : pMarketData.Data.IndexValue.ToString()) +
