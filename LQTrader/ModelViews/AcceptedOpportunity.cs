@@ -386,6 +386,8 @@ namespace LQTrader.ModelViews
             string timeInForce = "";
             double dPriceConversionFactor = 0;
             string sMarketID = "";
+            double dProfitRate = 0;
+            double dRefPrice = 0;
 
             try
             {
@@ -424,12 +426,27 @@ namespace LQTrader.ModelViews
                     dPriceConversionFactor = oInstrument.PriceConvertionFactor;
                     dPrice = Opportunity.SellPrice2;
                     sSide = "Sell";
-                    timeInForce = "FOK";
+                    timeInForce = "Day";
 
                     if (pQuantity > 0)
                         dQuantity = pQuantity;
                     else
                         dQuantity = colOrders[0].Quantity;
+
+                    if(dQuantity>0)
+                    {
+                        // Check reference price for the quantity.
+                        LatamQuants.PrimaryAPI.Models.MarketData oMD1 = Services.Strategist.MarketDataMatrix[this.Opportunity.MarketID + "|" + this.Opportunity.Symbol1];
+                        LatamQuants.PrimaryAPI.Models.MarketData oMD2 = Services.Strategist.MarketDataMatrix[this.Opportunity.MarketID + "|" + this.Opportunity.Symbol2];
+                        dProfitRate = Services.Strategist.Instance.StrategyArbEquitiesProfit(oMD1, oMD2, out dRefPrice, dQuantity);
+
+                        // If reference price is set => this price could reduce risk of not found enough liquidity for first sell price, 
+                        // else use the original price and cross the fingers.
+                        if(dRefPrice>0)
+                        {
+                            dPrice = dRefPrice;
+                        }
+                    }
                 }
 
                 oReturn.MarketID = sMarketID;

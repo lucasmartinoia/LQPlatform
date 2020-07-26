@@ -331,6 +331,7 @@ namespace LQTrader.Services
             double feeIntradayEquities = 0.00296; // per trade
             double feeIntradayBonds = 0.00255; // per trade
             Strategy oStrategy = colStrategies[STRATEGY_ID-1];
+            double dRefPrice = 0;
 
             try
             {
@@ -356,7 +357,7 @@ namespace LQTrader.Services
                         {
                             for (int t = i + 1; t < colMDs.Count; t++)
                             {
-                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t]);
+                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t],out dRefPrice);
 
                                 if (dProfit > 0)
                                 {
@@ -469,7 +470,15 @@ namespace LQTrader.Services
             }
         }
 
-        private double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2)
+        /// <summary>
+        /// Calculate profit rate for L1 offer size considerating liquidity or the same but for a specific Size, in this case returns the dRefPrice.
+        /// </summary>
+        /// <param name="pMD1">Symbol 1 Market Price</param>
+        /// <param name="pMD2">Symbol 2 Market Price</param>
+        /// <param name="dRefPrice">Reference price when pSize>0</param>
+        /// <param name="pSize">Estimate liquidity for this size</param>
+        /// <returns>Profit rate</returns>
+        public double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2, out double dRefPrice, double pSize = 0)
         {
             double dReturn = 0;
             double dCom1 = 0.005;
@@ -478,6 +487,11 @@ namespace LQTrader.Services
             double dPrice2 = 0;
             double dSize2 = 0;
             double dSize2Remain = 0;
+            double dPrice2Second = 0;
+            double dProfitRate1 = 0;
+            double dProfitRate2 = 0;
+
+            dRefPrice = 0;
 
             // Get prices
             if (pMD1.Data.Offers != null && pMD1.Data.Offers.Count() > 0)
@@ -488,28 +502,56 @@ namespace LQTrader.Services
             if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 1) 
             {
                 dPrice2 = pMD2.Data.Bids.First().price; // Sell price
-                dSize2 = pMD2.Data.Bids.ToArray()[0].size;
+
+                if (pSize == 0)
+                {
+                    dSize2 = pMD2.Data.Bids.ToArray()[0].size;
+                    dSize2Remain = 0;
+                }
+                else
+                {
+                    dSize2 = pSize;
+                    dSize2Remain = pMD2.Data.Bids.ToArray()[0].size - dSize2;
+                }
 
                 // Get remain size.
                 int i = 1;
 
-                do
+                while (i < pMD2.Data.Bids.Count() && dSize2Remain < dSize2) 
                 {
                     dSize2Remain = dSize2Remain + pMD2.Data.Bids.ToArray()[i].size;
                     i++;
                 } 
-                while (i < pMD2.Data.Bids.Count());
-
 
                 // Almost 2 deep levels to ensure liquidity, and only accept opportunity if there is enough liquity.
                 if (dSize2 > dSize2Remain)
+                {
                     dPrice2 = 0;
+                }
+                else if(pSize>0)
+                {
+                    // There is liquidity but what is the price?
+                    dPrice2Second = pMD2.Data.Bids.ToArray()[i - 1].price;
+                }
             }
 
             if (dPrice1>0 && dPrice2>0 && dPrice1<dPrice2)
             {
                 // Apply function
-                dReturn = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
+                dProfitRate1 = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
+
+                if(pSize>0)
+                {
+                    // Then consider if second profit rate is > 0.
+                    dProfitRate2 = (dPrice2Second - dPrice1) - (dCom1 * dPrice2Second + dCom2 * dPrice1);
+
+                    if(dProfitRate2>0)
+                    {
+                        dRefPrice = dPrice2Second;
+                    }
+                }
+
+                dReturn = dProfitRate1;
             }
 
             return dReturn;
