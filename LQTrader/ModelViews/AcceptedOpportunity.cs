@@ -77,20 +77,36 @@ namespace LQTrader.ModelViews
                     if (Strategy.Simulation == false)
                     {
                         // LIVE TRADING
+                        bResult = oOrder.Send();
 
                         // Create order 2.
                         Order oOrder2 = CreateOrderStrategy1(2, oOrder.Quantity);
                         colOrders.Add(oOrder2);
 
-                        bResult = oOrder.Send();
-
                         if (bResult == true)
                         {
-                            Thread.Sleep(100);
+                            Thread.Sleep(200);
 
-                            bResult2 = oOrder2.Send();
+                            // Recheck sell price and size for 2nd order.
+                            double dblPrice = GetCurrentMarketPrice(oOrder2.MarketID, oOrder2.Symbol, oOrder2.Quantity, false);
 
-                            LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString() + System.Environment.NewLine);
+                            if (dblPrice > 0 && dblPrice!=oOrder2.Price)
+                            {
+                                oOrder2.Price = dblPrice;
+                                bResult2 = oOrder2.Send();
+                                LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2 (PRICE CHANGED)==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString() + System.Environment.NewLine);
+                            }
+                            else if(dblPrice>0 && dblPrice==oOrder2.Price)
+                            {
+                                bResult2 = oOrder2.Send();
+                                LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2 (SAME PRICE)==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString() + System.Environment.NewLine);
+                            }
+                            else
+                            {
+                                // Without liquidity in the market.
+                                bResult2 = oOrder2.Send();
+                                LoggingService.Save(EnumLogType.Information, "==SEND ORDER 2 (THERE ISN'T LIQUIDITY)==" + System.Environment.NewLine + "[ORDER]" + System.Environment.NewLine + oOrder2.ToString() + System.Environment.NewLine);
+                            }
                         }
 
                         // Check send task results.
@@ -108,11 +124,11 @@ namespace LQTrader.ModelViews
 
                         if (bResult2 == true)
                         {
-                            // Update order 1.
+                            // Update order 2.
                             colOrders[1] = oOrder2;
 
                             // Ask broker for order.
-                            Thread.Sleep(100);
+                            Thread.Sleep(200);
                             Order oOrderUpdated = oOrder2.Clone();
                             oOrderUpdated.Update(null, oOrder2.ClientOrderID, null);
                             colOrders[1] = oOrderUpdated;
@@ -264,7 +280,7 @@ namespace LQTrader.ModelViews
 
                         // Log.
                         string sInfo = System.Environment.NewLine + "[AcceptedOpportunity]" + System.Environment.NewLine + Data.ToString();
-                        LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY==");
+                        LoggingService.Save(sInfo, "==UPDATE ACCEPTED OPPORTUNITY - THANKS !!! ==");
                     }
                     else if (sFailOrderStatus.Contains(sStatus))
                     {
@@ -295,20 +311,7 @@ namespace LQTrader.ModelViews
                     Order oOrder = colOrders[pOrderNo - 1].Clone();
 
                     // Get current price for quantity.
-                    LatamQuants.PrimaryAPI.Models.MarketData oMD = Services.Strategist.MarketDataMatrix[oOrder.MarketID + "|" + oOrder.Symbol];
-                    double dblPrice = 0;
-
-                    if (oMD.Data.Bids != null && oMD.Data.Bids.Count() > 0)
-                    {
-                        foreach (LatamQuants.PrimaryAPI.Models.Trade oBid in oMD.Data.Bids)
-                        {
-                            if (oBid.size >= oOrder.Quantity)
-                            {
-                                dblPrice = (double)oOrder.Price;
-                                break;
-                            }
-                        }
-                    }
+                    double dblPrice = GetCurrentMarketPrice(oOrder.MarketID,oOrder.Symbol,oOrder.Quantity,false);
 
                     if (dblPrice > 0)
                     {
@@ -341,6 +344,33 @@ namespace LQTrader.ModelViews
                     }
                 }
             }
+        }
+
+        private double GetCurrentMarketPrice(string sMarketID, string sSymbol, double dSize, bool bBuy)
+        {
+            double dReturn = 0;
+            IEnumerable<LatamQuants.PrimaryAPI.Models.Trade> colTrades = null;
+
+            LatamQuants.PrimaryAPI.Models.MarketData oMD = Services.Strategist.MarketDataMatrix[sMarketID + "|" + sSymbol];
+
+            if (bBuy == true)
+                colTrades = oMD.Data.Offers;
+            else
+                colTrades = oMD.Data.Bids;
+                
+            if (colTrades != null && colTrades.Count() > 0)
+            {
+                foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in colTrades)
+                {
+                    if (oTrade.size >=dSize)
+                    {
+                        dReturn = oTrade.price;
+                        break;
+                    }
+                }
+            }
+
+            return dReturn;
         }
 
         private Order CreateOrderStrategy1(int pOrderNo, double pQuantity=0)
@@ -394,7 +424,7 @@ namespace LQTrader.ModelViews
                     dPriceConversionFactor = oInstrument.PriceConvertionFactor;
                     dPrice = Opportunity.SellPrice2;
                     sSide = "Sell";
-                    timeInForce = "Day";
+                    timeInForce = "FOK";
 
                     if (pQuantity > 0)
                         dQuantity = pQuantity;

@@ -136,7 +136,7 @@ namespace LQTrader.Services
         private async Task Execute(CancellationTokenSource tokenSource)
         {
             const int INSTRUMENT_LOT = 600;
-            const int DEPTH = 2;
+            const int DEPTH = 3;
             const int FREQUENCY = 1;
 
             try
@@ -476,6 +476,8 @@ namespace LQTrader.Services
             double dCom2 = 0.00131;
             double dPrice1 = 0;
             double dPrice2 = 0;
+            double dSize2 = 0;
+            double dSize2Remain = 0;
 
             // Get prices
             if (pMD1.Data.Offers != null && pMD1.Data.Offers.Count() > 0)
@@ -483,9 +485,25 @@ namespace LQTrader.Services
                 dPrice1 = pMD1.Data.Offers.First().price; // Buy price
             }
 
-            if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 0)
+            if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 1) 
             {
                 dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+                dSize2 = pMD2.Data.Bids.ToArray()[0].size;
+
+                // Get remain size.
+                int i = 1;
+
+                do
+                {
+                    dSize2Remain = dSize2Remain + pMD2.Data.Bids.ToArray()[i].size;
+                    i++;
+                } 
+                while (i < pMD2.Data.Bids.Count());
+
+
+                // Almost 2 deep levels to ensure liquidity, and only accept opportunity if there is enough liquity.
+                if (dSize2 > dSize2Remain)
+                    dPrice2 = 0;
             }
 
             if (dPrice1>0 && dPrice2>0 && dPrice1<dPrice2)
