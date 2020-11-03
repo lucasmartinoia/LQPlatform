@@ -7,7 +7,7 @@ namespace LatamQuants.PrimaryAPI.Models
     class EndPoint
     {
         public const string baseURLDemo = "http://api.remarkets.primary.com.ar";
-        public const string baseURLProduction = "https://api.primary.com.ar/";
+        public const string baseURLProduction = "https://api.primary.com.ar";
         public const string getToken = "/auth/getToken"; 
         public const string removeToken = "/auth/removeToken"; 
         public const string getSegments = "/rest/segment/all"; 

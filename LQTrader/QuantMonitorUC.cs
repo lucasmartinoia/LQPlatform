@@ -88,35 +88,35 @@ namespace LQTrader
 
         public void OnOpportunityReceived(Object sender, Services.Strategist.OnOpportunityReceivedArgs e)
         {
-            if (e.accepted == true)
-            {
-                // Update Accepted Opportunities grid.
-                AcceptedOpportunity oAOpportunity = (AcceptedOpportunity)e.opportunity;
-                AcceptedOpportunity gAOpportunity = _acceptedOpportunities.Where(x => x.AcceptedOpportunityID == oAOpportunity.AcceptedOpportunityID).FirstOrDefault();
+            //if (e.accepted == true)
+            //{
+            //    // Update Accepted Opportunities grid.
+            //    AcceptedOpportunity oAOpportunity = (AcceptedOpportunity)e.opportunity;
+            //    AcceptedOpportunity gAOpportunity = _acceptedOpportunities.Where(x => x.AcceptedOpportunityID == oAOpportunity.AcceptedOpportunityID).FirstOrDefault();
 
-                if (gAOpportunity != null)
-                {
-                    _acceptedOpportunities.Remove(gAOpportunity);
-                }
+            //    if (gAOpportunity != null)
+            //    {
+            //        _acceptedOpportunities.Remove(gAOpportunity);
+            //    }
 
-                _acceptedOpportunities.Add(oAOpportunity);
-                _refreshOpportunities = true;
-            }
-            else
-            {
+            //    _acceptedOpportunities.Add(oAOpportunity);
+            //    _refreshOpportunities = true;
+            //}
+            //else
+            //{
 
-               // Update Opportunities grid.
-                Opportunity oOpportunity = (Opportunity)e.opportunity;
-                Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
+            //   // Update Opportunities grid.
+            //    Opportunity oOpportunity = (Opportunity)e.opportunity;
+            //    Opportunity gOpportunity = _opportunities.Where(x => x.Symbol1 == oOpportunity.Symbol1 && x.Symbol2 == oOpportunity.Symbol2).FirstOrDefault();
 
-                if (gOpportunity != null)
-                {
-                    _opportunities.Remove(gOpportunity);
-                }
+            //    if (gOpportunity != null)
+            //    {
+            //        _opportunities.Remove(gOpportunity);
+            //    }
 
-                _opportunities.Add(oOpportunity);
-                _refreshAcceptedOpportunities = true;
-            }
+            //    _opportunities.Add(oOpportunity);
+            //    _refreshAcceptedOpportunities = true;
+            //}
         }
 
         private void gridvStrategies_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
