@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LatamQuants.Support;
+using System.Threading;
 
 namespace LQTrader
 {
@@ -174,11 +175,15 @@ namespace LQTrader
                 if (this.m_Mode == eMode.New)
                 {
                     oOrder = PopulateOrderFromScreen();
+
                     bResult = oOrder.Send();
 
                     if (bResult == true)
                     {
-                        this.OrderUpdated.Add(oOrder);
+                        ModelViews.Order oOrder2 = oOrder.Clone();
+                        oOrder2.Update(null, oOrder.ClientOrderID, null);
+                        this.OrderUpdated.Add(oOrder2);
+
                         MessageBox.Show("Order sent successfully to the market", "Send Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

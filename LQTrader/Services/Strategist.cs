@@ -16,7 +16,7 @@ namespace LQTrader.Services
     {
         private static Task task;
         private static CancellationTokenSource cts;
-        private static Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData> MarketDataMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData>();
+        public static Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData> MarketDataMatrix = new Dictionary<string, LatamQuants.PrimaryAPI.Models.MarketData>();
 
         public static Strategist Instance = new Strategist();
 
@@ -40,6 +40,8 @@ namespace LQTrader.Services
         // Websocket connections.
         public static List<LatamQuants.PrimaryAPI.WebSocket.MarketDataWebSocket> colWSMarketData;
         public static LatamQuants.PrimaryAPI.WebSocket.OrderDataWebSocket oWSOrderUpdates;
+
+        public bool Strategy1Checking = false;
 
         public class OnOpportunityReceivedArgs : EventArgs
         {
@@ -75,6 +77,8 @@ namespace LQTrader.Services
                 }
                 else
                 {
+                    CashAvailable = 50000;
+                    CashAvailable -= AccountMarginAmount;
                     MessageBox.Show("There is not possible to get the account amount", "Market is closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -132,14 +136,14 @@ namespace LQTrader.Services
         private async Task Execute(CancellationTokenSource tokenSource)
         {
             const int INSTRUMENT_LOT = 600;
-            const int DEPTH = 2;
+            const int DEPTH = 3;
             const int FREQUENCY = 1;
 
             try
             {
                 // Start listening WS order updates.
-                oWSOrderUpdates = LatamQuants.PrimaryAPI.WebSocketAPI.CreateOrderDataSocket(new[] { Account.CurrentAccount.CustodyAccount });
-                oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
+                //oWSOrderUpdates = LatamQuants.PrimaryAPI.WebSocketAPI.CreateOrderDataSocket(new[] { Account.CurrentAccount.CustodyAccount });
+                //oWSOrderUpdates.OnDataReceived += new WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedEventHandler(OnOrderUpdateReceived);
 
                 // Load instruments to monitor.
                 LatamQuants.PrimaryAPI.Models.InstrumentId oInstrumentId = null;
@@ -228,9 +232,7 @@ namespace LQTrader.Services
                 else
                 {
                     // TODO: Should I consider also market data without bids or without offers ??
-                    if (oNewMarketData != null && oNewMarketData.Data != null &&
-                        oNewMarketData.Data.Bids != null && oNewMarketData.Data.Bids.Count() > 0 &&
-                        oNewMarketData.Data.Offers != null && oNewMarketData.Data.Offers.Count() > 0)
+                    if (oNewMarketData != null && oNewMarketData.Data != null)
                     {
                         // Update data market matrix
                         Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
@@ -249,38 +251,6 @@ namespace LQTrader.Services
             catch(Exception ex)
             {
                 string sError = "LQTrader.Services.Strategist.OnMarketReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                LoggingService.Save(EnumLogType.Error, sError);
-            }
-        }
-
-        private void OnOrderUpdateReceived(Object sender, WebSocket<LatamQuants.PrimaryAPI.WebSocket.Request, LatamQuants.PrimaryAPI.WebSocket.Response>.OnDataReceivedArgs e)
-        {
-            try
-            {
-                LatamQuants.PrimaryAPI.WebSocket.Response oOrderUpdate = (LatamQuants.PrimaryAPI.WebSocket.Response)e.oResponse;
-
-                if (oOrderUpdate.Status == "ERROR")
-                {
-                    MessageBox.Show("OnOrderUpdateReceived ERROR: " + oOrderUpdate.Description, "WS ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    // Save order update.
-                    string sKey = oOrderUpdate.OrderReport.ClientOrderId.ToString();
-
-                    if (OrderUpdateMatrix.ContainsKey(sKey) == true)
-                    {
-                        OrderUpdateMatrix[sKey] = oOrderUpdate.OrderReport;
-                    }
-                    else
-                    {
-                        OrderUpdateMatrix.Add(sKey, oOrderUpdate.OrderReport);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string sError = "LQTrader.Services.Strategist.OnOrderUpdateReceived()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
                 LoggingService.Save(EnumLogType.Error, sError);
             }
         }
@@ -318,7 +288,7 @@ namespace LQTrader.Services
             }
             else
             {
-                pErrorDesc = "MD not found for " + pOpp.Symbol1 + System.Environment.NewLine; ;
+                pErrorDesc = "MD not found for " + pOpp.Symbol1 + System.Environment.NewLine;
             }
 
             // Sell order.
@@ -337,7 +307,7 @@ namespace LQTrader.Services
             }
             else
             {
-                pErrorDesc = pErrorDesc + "MD not found for " + pOpp.Symbol2 + System.Environment.NewLine; ;
+                pErrorDesc = pErrorDesc + "MD not found for " + pOpp.Symbol2 + System.Environment.NewLine;
             }
 
             if (pErrorDesc != "")
@@ -361,9 +331,13 @@ namespace LQTrader.Services
             double feeIntradayEquities = 0.00296; // per trade
             double feeIntradayBonds = 0.00255; // per trade
             Strategy oStrategy = colStrategies[STRATEGY_ID-1];
+            double dRefPrice = 0;
 
             try
             {
+                if (oStrategy.InTime() == false)
+                    return;
+
                 // Check instrument type
                 ModelViews.InstrumentDetail oInstrument = ModelViews.InstrumentDetail.colInstrumentDetails.Where(x => x.MarketID == pMarketData.Instrument.marketId && x.Symbol == pMarketData.Instrument.symbol).FirstOrDefault();
 
@@ -383,7 +357,7 @@ namespace LQTrader.Services
                         {
                             for (int t = i + 1; t < colMDs.Count; t++)
                             {
-                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t]);
+                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t],out dRefPrice);
 
                                 if (dProfit > 0)
                                 {
@@ -396,8 +370,8 @@ namespace LQTrader.Services
                                     oOpportunity.Size2 = colMDs[t].Data.Bids.FirstOrDefault().size;
                                     oOpportunity.Timestamp2 = colMDs[t].Timestamp;
                                     oOpportunity.Checked = oStrategy.CheckOpportunity;
-                                    oOpportunity.AmountMax = (decimal)(Math.Min(oOpportunity.Size1, oOpportunity.Size2) * oOpportunity.BuyPrice1);
-                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1);
+                                    oOpportunity.AmountMax = (decimal)(Math.Min(oOpportunity.Size1, oOpportunity.Size2) * oOpportunity.BuyPrice1 * oInstrument.PriceConvertionFactor);
+                                    oOpportunity.AmountMin = (decimal)(oInstrument.MinTradeVol * oOpportunity.BuyPrice1 * oInstrument.PriceConvertionFactor);
                                     oOpportunity.Currency = oInstrument.Currency;
                                     oOpportunity.DateTime = DateTime.Now;
                                     oOpportunity.MarketID = oInstrument.MarketID;
@@ -405,19 +379,17 @@ namespace LQTrader.Services
                                     oOpportunity.Symbol1 = colMDs[i].Instrument.symbol;
                                     oOpportunity.Symbol2 = colMDs[t].Instrument.symbol;
                                     oOpportunity.StrategyID = STRATEGY_ID;
-
-                                    // Check prices and sizes
-                                    if (oOpportunity.Checked==true)
-                                    {
-                                        string sErrorDesc = "";
-                                        bool bResult = CheckOpportunityStrategy1(oOpportunity, out sErrorDesc);
-                                        oOpportunity.CheckPassed = bResult;
-                                        oOpportunity.CheckError = sErrorDesc;
-                                    }
-
                                     oOpportunity.Save();
 
-                                    OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oOpportunity, false));
+                                    // Stop multiple entries when an opportunity is being evaluated.
+                                    if (Strategy1Checking==true)
+                                    {
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        Strategy1Checking = true;
+                                    }
 
                                     // Check for Auto Trade option.
                                     if (Currencies.Contains(oOpportunity.Currency) == true)
@@ -478,10 +450,13 @@ namespace LQTrader.Services
                                                     CashReserved += Convert.ToDecimal(cash4Opportunity);
                                                     ModelViews.AcceptedOpportunity oAccepted = new ModelViews.AcceptedOpportunity(oStrategy, oOpportunity, cash4Opportunity,true);
                                                     colAcceptedOpportunities.Add(oAccepted);
+                                                    //OnOpportunityReceived(this, new OnOpportunityReceivedArgs(oAccepted, true));
                                                 }
                                             }
                                         }
                                     }
+
+                                    Strategy1Checking = false;
                                 }
                             }
                         }
@@ -495,20 +470,88 @@ namespace LQTrader.Services
             }
         }
 
-        private double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2)
+        /// <summary>
+        /// Calculate profit rate for L1 offer size considerating liquidity or the same but for a specific Size, in this case returns the dRefPrice.
+        /// </summary>
+        /// <param name="pMD1">Symbol 1 Market Price</param>
+        /// <param name="pMD2">Symbol 2 Market Price</param>
+        /// <param name="dRefPrice">Reference price when pSize>0</param>
+        /// <param name="pSize">Estimate liquidity for this size</param>
+        /// <returns>Profit rate</returns>
+        public double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2, out double dRefPrice, double pSize = 0)
         {
             double dReturn = 0;
             double dCom1 = 0.005;
             double dCom2 = 0.00131;
+            double dPrice1 = 0;
+            double dPrice2 = 0;
+            double dSize2 = 0;
+            double dSize2Remain = 0;
+            double dPrice2Second = 0;
+            double dProfitRate1 = 0;
+            double dProfitRate2 = 0;
+
+            dRefPrice = 0;
 
             // Get prices
-            double dPrice1 = pMD1.Data.Offers.First().price; // Buy price
-            double dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+            if (pMD1.Data.Offers != null && pMD1.Data.Offers.Count() > 0)
+            {
+                dPrice1 = pMD1.Data.Offers.First().price; // Buy price
+            }
 
-            if (dPrice1<dPrice2)
+            if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 1) 
+            {
+                dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+
+                if (pSize == 0)
+                {
+                    dSize2 = pMD2.Data.Bids.ToArray()[0].size;
+                    dSize2Remain = 0;
+                }
+                else
+                {
+                    dSize2 = pSize;
+                    dSize2Remain = pMD2.Data.Bids.ToArray()[0].size - dSize2;
+                }
+
+                // Get remain size.
+                int i = 1;
+
+                while (i < pMD2.Data.Bids.Count() && dSize2Remain < dSize2) 
+                {
+                    dSize2Remain = dSize2Remain + pMD2.Data.Bids.ToArray()[i].size;
+                    i++;
+                } 
+
+                // Almost 2 deep levels to ensure liquidity, and only accept opportunity if there is enough liquity.
+                if (dSize2 > dSize2Remain)
+                {
+                    dPrice2 = 0;
+                }
+                else if(pSize>0)
+                {
+                    // There is liquidity but what is the price?
+                    dPrice2Second = pMD2.Data.Bids.ToArray()[i - 1].price;
+                }
+            }
+
+            if (dPrice1>0 && dPrice2>0 && dPrice1<dPrice2)
             {
                 // Apply function
-                dReturn = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
+                dProfitRate1 = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
+
+                if(pSize>0)
+                {
+                    // Then consider if second profit rate is > 0.
+                    dProfitRate2 = (dPrice2Second - dPrice1) - (dCom1 * dPrice2Second + dCom2 * dPrice1);
+
+                    if(dProfitRate2>0)
+                    {
+                        dRefPrice = dPrice2Second;
+                    }
+                }
+
+                dReturn = dProfitRate1;
             }
 
             return dReturn;
@@ -557,10 +600,13 @@ namespace LQTrader.Services
         {
             try
             {
-                if (pMarketData != null && pMarketData.Data != null &&
-                    pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 0 &&
-                    pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 0)
+                if (pMarketData != null && pMarketData.Data != null)
                 {
+                    string sOfferPrice = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0");
+                    string sOfferSize = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0");
+                    string sBidPrice = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0");
+                    string sBidSize = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0");
+
                     // Update MD
                     string sql1 = "INSERT INTO[dbo].[MarketDatas] " +
                               "([Timestamp]" +
@@ -578,10 +624,10 @@ namespace LQTrader.Services
                               ",[TradeEffectiveVolume]" +
                               ",[DateTime]) " +
                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" + pMarketData.Instrument.symbol + "'" +
-                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0") +
-                              "," + (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0") +
-                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0") +
-                              "," + (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0") +
+                              "," + sOfferPrice +
+                              "," + sOfferSize +
+                              "," + sBidPrice +
+                              "," + sBidSize +
                               "," + (pMarketData.Data.NominalVolume == null ? "0" : pMarketData.Data.NominalVolume.ToString()) +
                               "," + (pMarketData.Data.Volume == null ? "0" : pMarketData.Data.Volume.ToString()) +
                               "," + (pMarketData.Data.IndexValue == null ? "0" : pMarketData.Data.IndexValue.ToString()) +

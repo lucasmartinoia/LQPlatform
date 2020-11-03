@@ -127,6 +127,8 @@
     </Compile>
     <Compile Include="ModelViews\AccountReport.cs" />
     <Compile Include="ModelViews\AcceptedOpportunity.cs" />
+    <Compile Include="ModelViews\ViewAcceptedOpportunity.cs" />
+    <Compile Include="ModelViews\ViewOpportunity.cs" />
     <Compile Include="ModelViews\PositionDetailMain.cs" />
     <Compile Include="ModelViews\Position.cs" />
     <Compile Include="ModelViews\MarketDataHistoric.cs" />

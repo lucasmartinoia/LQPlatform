@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using LatamQuants.PrimaryAPI.Models;
 using System.Reflection;
+using LatamQuants.Support;
 
 namespace LatamQuants.PrimaryAPI
 {
@@ -584,11 +585,13 @@ namespace LatamQuants.PrimaryAPI
 
                     if (oReturn.status == "ERROR")
                     {
+                        LoggingService.Save(EnumLogType.Error, "SEND ORDER ERROR: " + oReturn.description);
                         throw new Exception(oReturn.description);
                     }
                 }
                 else
                 {
+                    LoggingService.Save(EnumLogType.Error, "SEND ORDER ERROR: " + response.ErrorMessage);
                     throw new Exception(response.ErrorMessage);
                 }
             }
