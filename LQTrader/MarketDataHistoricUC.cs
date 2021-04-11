@@ -72,5 +72,11 @@ namespace LQTrader
             if (String.IsNullOrEmpty(txtSymbol.Text) == true)
                 throw new Exception("Please select an instrument");
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            string path = txtExportPath.Text;
+            this.grdInfo.ExportToXlsx(path);
+        }
     }
 }

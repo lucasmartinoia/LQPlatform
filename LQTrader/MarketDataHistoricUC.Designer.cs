@@ -44,6 +44,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.grdInfo = new DevExpress.XtraGrid.GridControl();
             this.grdvInfo = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.txtExportPath = new System.Windows.Forms.TextBox();
+            this.btnExport = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdvInfo)).BeginInit();
@@ -51,6 +53,8 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.btnExport);
+            this.pnlTop.Controls.Add(this.txtExportPath);
             this.pnlTop.Controls.Add(this.chkExternal);
             this.pnlTop.Controls.Add(this.txtEnvironment);
             this.pnlTop.Controls.Add(this.label5);
@@ -67,7 +71,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(423, 100);
+            this.pnlTop.Size = new System.Drawing.Size(834, 100);
             this.pnlTop.TabIndex = 1;
             // 
             // chkExternal
@@ -194,7 +198,7 @@
             this.grdInfo.Location = new System.Drawing.Point(0, 100);
             this.grdInfo.MainView = this.grdvInfo;
             this.grdInfo.Name = "grdInfo";
-            this.grdInfo.Size = new System.Drawing.Size(423, 295);
+            this.grdInfo.Size = new System.Drawing.Size(834, 295);
             this.grdInfo.TabIndex = 2;
             this.grdInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdvInfo});
@@ -210,6 +214,23 @@
             this.grdvInfo.OptionsView.ColumnAutoWidth = false;
             this.grdvInfo.OptionsView.ShowGroupPanel = false;
             // 
+            // txtExportPath
+            // 
+            this.txtExportPath.Location = new System.Drawing.Point(475, 8);
+            this.txtExportPath.Name = "txtExportPath";
+            this.txtExportPath.Size = new System.Drawing.Size(336, 20);
+            this.txtExportPath.TabIndex = 14;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(391, 5);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(78, 23);
+            this.btnExport.TabIndex = 15;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // MarketDataHistoricUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,7 +238,7 @@
             this.Controls.Add(this.grdInfo);
             this.Controls.Add(this.pnlTop);
             this.Name = "MarketDataHistoricUC";
-            this.Size = new System.Drawing.Size(423, 395);
+            this.Size = new System.Drawing.Size(834, 395);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdInfo)).EndInit();
@@ -244,5 +265,7 @@
         private System.Windows.Forms.CheckBox chkExternal;
         private DevExpress.XtraGrid.GridControl grdInfo;
         private DevExpress.XtraGrid.Views.Grid.GridView grdvInfo;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.TextBox txtExportPath;
     }
 }
