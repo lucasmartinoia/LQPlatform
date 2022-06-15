@@ -12,7 +12,7 @@ namespace Testing
         [TestMethod]
         public void Init()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>",1);
 
             Assert.IsTrue(bResult);
 
@@ -24,7 +24,7 @@ namespace Testing
         [TestMethod]
         public void getSegments()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -36,7 +36,7 @@ namespace Testing
         [TestMethod]
         public void getInstruments()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -48,7 +48,7 @@ namespace Testing
         [TestMethod]
         public void getInstrumentsDetails()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -60,7 +60,7 @@ namespace Testing
         [TestMethod]
         public void getOneInstrumentDetails()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -72,7 +72,7 @@ namespace Testing
         [TestMethod]
         public void getInstrumentsByCFICode()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -84,7 +84,7 @@ namespace Testing
         [TestMethod]
         public void getInstrumentsBySegment()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -96,7 +96,7 @@ namespace Testing
         [TestMethod]
         public void getCurrencies()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -108,7 +108,7 @@ namespace Testing
         [TestMethod]
         public void getAccountReport()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -120,7 +120,7 @@ namespace Testing
         [TestMethod]
         public void GetMarketDataInstrumentHistoric()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -132,7 +132,7 @@ namespace Testing
         [TestMethod]
         public void GetMarketDataInstrumentRealTime()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -144,7 +144,7 @@ namespace Testing
         [TestMethod]
         public void GetAccountPositions()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
@@ -156,7 +156,7 @@ namespace Testing
         [TestMethod]
         public void GetAccountPositionsDetails()
         {
-            bool bResult = RestAPI.Login("lucasmartinoia1545", "erwonZ2+", "REM1545");
+            bool bResult = RestAPI.Login("<USER>", "<PASSWORD>", "<ACCOUNT>", 1);
 
             Assert.IsTrue(bResult);
 
