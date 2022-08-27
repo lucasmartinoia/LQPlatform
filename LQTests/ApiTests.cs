@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using LatamQuants.PrimaryAPI;
 
 namespace Primary.Tests
 {

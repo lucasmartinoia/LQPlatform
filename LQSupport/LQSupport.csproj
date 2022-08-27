@@ -1,33 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
   </PropertyGroup>
-  
   <ItemGroup>
     <Compile Remove="Resource\**" />
     <EmbeddedResource Remove="Resource\**" />
     <None Remove="Resource\**" />
   </ItemGroup>
-
   <ItemGroup>
+    <Compile Remove="Common.cs" />
     <Compile Remove="HostedService.cs" />
     <Compile Remove="Rabbit.cs" />
   </ItemGroup>
- <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-
-
- <ItemGroup>
-   <Folder Include="Properties\" />
- </ItemGroup>
-
-
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

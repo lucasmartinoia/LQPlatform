@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LatamQuants.Entities;
 using LatamQuants.PrimaryAPI.WebSocket.Net;
-using System.Threading;
 using LatamQuants.Support;
 
 namespace LQTrader.ModelViews
