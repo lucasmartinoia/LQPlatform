@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using LatamQuants.Support;
 
 namespace LatamQuants.Entities
 {
@@ -19,10 +21,9 @@ namespace LatamQuants.Entities
         public DbSet<AcceptedOpportunity> AcceptedOpportunities { get; set; }
         public DbSet<InstrumentOption> InstrumentOptions { get; set; }
 
-        public DBContext() : base("LQConnectionString")
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DBContext, Migrations.Configuration>(useSuppliedContext: true));
-            Database.SetInitializer(new DBInitializer());
+            optionsBuilder.UseSqlServer(AppSettings.Instance.ConnectionStrings.LQConnectionString);            
         }
     }
 }

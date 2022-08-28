@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using LatamQuants.PrimaryAPI.WebSocket.Net;
 using System.Windows.Forms;
 using LatamQuants.Support;
+using LQTrader.ModelViews;
 
 namespace LQTrader.Services
 {
@@ -231,7 +232,7 @@ namespace LQTrader.Services
                 }
                 else
                 {
-                    // TODO: Should I consider also market data without bids or without offers ??
+                    // TODO: Should I consider also market data without bids or offers ??
                     if (oNewMarketData != null && oNewMarketData.Data != null)
                     {
                         // Update data market matrix

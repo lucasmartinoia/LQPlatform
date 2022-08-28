@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace LatamQuants.Entities.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    public sealed class Configuration : DbMigrationsConfiguration<DBContext>
+    partial class Configuration : ModelSnapshot
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "LatamQuants.Entities.DBContext";
-        }
-
-        protected override void Seed(DBContext context)
-        {
-        }
-    }
+		protected override void BuildModel(ModelBuilder modelBuilder)
+		{
+#pragma warning disable 612, 618
+			modelBuilder
+				.HasAnnotation("ProductVersion", "6.0.8")
+				.HasAnnotation("Relational:MaxIdentifierLength", 128);
+#pragma warning restore 612, 618
+		}
+	}
 }

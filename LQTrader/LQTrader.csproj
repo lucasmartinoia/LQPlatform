@@ -7,41 +7,25 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.PivotGrid.v21.2.Core, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v21.2.Core, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Data.Desktop.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Xpo.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraBars.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraEditors.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraGrid.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPivotGrid.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPrinting.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraVerticalGrid.v21.2, Version=21.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="AccountReportUC.cs">
+    <Compile Update="Views\AccountReportUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="BlotterUC.cs">
+    <Compile Update="Views\BlotterUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="InstrumentsUC.cs">
+    <Compile Update="Views\InstrumentsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="MarketDataHistoricUC.cs">
+    <Compile Update="Views\MarketDataHistoricUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="MarketDataUC.cs">
+    <Compile Update="Views\MarketDataUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="QuantMonitorUC.cs">
+    <Compile Update="Views\QuantMonitorUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="PositionsUC.cs">
+    <Compile Update="Views\PositionsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -61,8 +45,11 @@
     <PackageReference Include="DevExpress.Utils" Version="21.2.8" />
     <PackageReference Include="DevExpress.Win" Version="21.2.8" />
     <PackageReference Include="DevExpress.Xpo" Version="21.2.8" />
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">

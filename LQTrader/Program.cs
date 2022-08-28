@@ -5,19 +5,45 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
 using LatamQuants.Entities;
-using System.Data.Entity.Migrations;
+using Microsoft.Extensions.Configuration;
+using LatamQuants.Support;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using LQTrader.ModelViews;
 
 namespace LQTrader
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // Auto Mapper Configurations
+            autoMapperConfigurations();
+            loadConfiguration();
+            setApplication();
+            var log =configureLog();
+            var services = configureServices();
+            startApplication(services);
+        }
+
+        private static void startApplication(ServiceCollection services)
+        {
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                var frm = serviceProvider.GetRequiredService<TraderView>();
+                Application.Run(frm);
+            }
+        }
+
+        private static void setApplication()
+        {
+            Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.SetCompatibleTextRenderingDefault(false);
+        }
+
+        private static void autoMapperConfigurations()
+        {
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new DomainProfile());
@@ -26,34 +52,31 @@ namespace LQTrader
             mappingConfig.AssertConfigurationIsValid();
             IMapper mapper = mappingConfig.CreateMapper();
             Service.mapper = mapper;
-            //---
-
-            // Update database if it necessary
-            using (var db = new DBContext())
-            {
-                RunUpdate(db.Database.Connection.ConnectionString);
-                db.SaveChanges();
-                RunUpdate(db.Database.Connection.ConnectionString); // We call it again to force executing the seeds everytime
-            }
-
-            Application.EnableVisualStyles();
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TraderView());
         }
 
-        private static void RunUpdate(string pConnString)
+        private static void loadConfiguration()
         {
-            var configuration = new LatamQuants.Entities.Migrations.Configuration();
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+            config.GetSection("AppSettings").Bind(AppSettings.Instance);
+        }
 
-            //could use connectionName or connectionString and Provider
-            configuration.TargetDatabase =
-                new System.Data.Entity.Infrastructure.DbConnectionInfo(pConnString, "System.Data.SqlClient");
+        private static ILogger configureLog()
+        {
+            using var log = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+            return log;
+        }
 
-            var migrator = new DbMigrator(configuration);
-            //just for debugginf purposes
-            var pendings = migrator.GetPendingMigrations();
-            migrator.Update();
+        private static ServiceCollection configureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<AppSettings>();
+            services.AddScoped<DBContext>();
+            services.AddScoped<TraderView>();
+            return services;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 
-namespace LQTrader
+namespace LQTrader.ModelViews
 {
     public static class Service
     {

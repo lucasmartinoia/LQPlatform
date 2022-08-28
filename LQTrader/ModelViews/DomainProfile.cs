@@ -2,18 +2,18 @@
 using LatamQuants.PrimaryAPI.Models;
 using System;
 
-namespace LQTrader
+namespace LQTrader.ModelViews
 {
     public class DomainProfile : Profile
     {
         public DomainProfile()
         {
-            CreateMap<LatamQuants.PrimaryAPI.Models.Instrument, ModelViews.Instrument>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.Instrument, Instrument>()
                .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.cficode))
                .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.instrumentId.marketId))
                .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.instrumentId.symbol));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.InstrumentDetails, ModelViews.InstrumentDetail>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.InstrumentDetails, InstrumentDetail>()
                 .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.cficode))
                 .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.contractMultiplier))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.currency))
@@ -22,7 +22,7 @@ namespace LQTrader
                 .ForMember(dest => dest.InstrumentSizePrecision, opt => opt.MapFrom(o => o.instrumentSizePrecision))
                 .ForMember(dest => dest.LowLimitPrice, opt => opt.MapFrom(o => o.lowLimitPrice))
                 .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.instrumentId.marketId))
-                .ForMember(dest => dest.MaturityDate, opt => opt.MapFrom(o => DateTime.ParseExact(o.maturityDate,"yyyyMMdd",null)))
+                .ForMember(dest => dest.MaturityDate, opt => opt.MapFrom(o => DateTime.ParseExact(o.maturityDate, "yyyyMMdd", null)))
                 .ForMember(dest => dest.MaxTradeVol, opt => opt.MapFrom(o => o.maxTradeVol))
                 .ForMember(dest => dest.MinPriceIncrement, opt => opt.MapFrom(o => o.minPriceIncrement))
                 .ForMember(dest => dest.MinTradeVol, opt => opt.MapFrom(o => o.minTradeVol))
@@ -36,7 +36,7 @@ namespace LQTrader
                 .ForMember(dest => dest.TickSize, opt => opt.MapFrom(o => o.tickSize))
                 .ForMember(dest => dest.TimesInForce, opt => opt.MapFrom(o => o.timesInForce));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.Order, ModelViews.Order>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.Order, Order>()
                .ForMember(dest => dest.AccountID, opt => opt.MapFrom(o => o.accountId.id))
                .ForMember(dest => dest.AveragePrice, opt => opt.MapFrom(o => o.avgPx))
                .ForMember(dest => dest.ClientOrderID, opt => opt.MapFrom(o => o.clOrdId))
@@ -64,7 +64,7 @@ namespace LQTrader
                .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore())
                .ForMember(dest => dest.OriginalClientOrderID, opt => opt.MapFrom(o => o.origClOrdId));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus, ModelViews.Order>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.Websocket.OrderStatus, Order>()
                .ForMember(dest => dest.AccountID, opt => opt.MapFrom(o => o.Account.Id))
                .ForMember(dest => dest.AveragePrice, opt => opt.MapFrom(o => o.AveragePrice))
                .ForMember(dest => dest.ClientOrderID, opt => opt.MapFrom(o => o.ClientOrderId))
@@ -92,7 +92,7 @@ namespace LQTrader
                .ForMember(dest => dest.ReplaceClientOrderID, opt => opt.Ignore())
                .ForMember(dest => dest.OriginalClientOrderID, opt => opt.Ignore());
 
-            CreateMap<ModelViews.Order, LatamQuants.PrimaryAPI.Models.newSingleOrderRequest>()
+            CreateMap<Order, newSingleOrderRequest>()
                 .ForMember(dest => dest.account, opt => opt.MapFrom(o => o.AccountID))
                 .ForMember(dest => dest.cancelPrevious, opt => opt.Ignore())
                 .ForMember(dest => dest.displayQty, opt => opt.MapFrom(o => o.DisplayQuantity))
@@ -106,19 +106,19 @@ namespace LQTrader
                 .ForPath(dest => dest.instrumentId.marketId, opt => opt.MapFrom(o => o.MarketID))
                 .ForPath(dest => dest.instrumentId.symbol, opt => opt.MapFrom(o => o.Symbol));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.MarketDataRT, ModelViews.MarketDataRT.MarketDataItem>()
+            CreateMap<LatamQuants.PrimaryAPI.Models.MarketDataRT, MarketDataRT.MarketDataItem>()
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(o => o.price))
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size))
-                .ForMember(dest => dest.Date, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.date) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.date)).ToString()))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(o => string.IsNullOrEmpty(o.date) ? "" : new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(Convert.ToDouble(o.date)).ToString()))
                 .ForMember(dest => dest.Name, opt => opt.Ignore());
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.Trade, ModelViews.MarketDataHistoric>()
+            CreateMap<Trade, MarketDataHistoric>()
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.symbol))
                 //.ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.servertime))))
                 .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.datetime))
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsResponse.Position, ModelViews.Position>()
+            CreateMap<getAccountPositionsResponse.Position, Position>()
                 .ForMember(dest => dest.BuyPrice, opt => opt.MapFrom(o => o.buyPrice))
                 .ForMember(dest => dest.BuySize, opt => opt.MapFrom(o => o.buySize))
                 .ForMember(dest => dest.OriginalBuyPrice, opt => opt.MapFrom(o => o.originalBuyPrice))
@@ -130,13 +130,13 @@ namespace LQTrader
                 .ForMember(dest => dest.TotalDailyDiff, opt => opt.MapFrom(o => o.totalDailyDiff))
                 .ForMember(dest => dest.TotalDiff, opt => opt.MapFrom(o => o.totalDiff));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.DetailedPosition, ModelViews.PositionDetailMain.DetailedPosition>()
+            CreateMap<getAccountPositionsDetailsResponse.DetailedPosition, PositionDetailMain.DetailedPosition>()
                 .ForMember(dest => dest.Account, opt => opt.MapFrom(o => o.account))
-                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.lastCalculation) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()))
+                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => string.IsNullOrEmpty(o.lastCalculation) ? "" : new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()))
                 .ForMember(dest => dest.TotalDailyDiffPlain, opt => opt.MapFrom(o => o.totalDailyDiffPlain))
                 .ForMember(dest => dest.TotalMarketValue, opt => opt.MapFrom(o => o.totalMarketValue));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position, ModelViews.PositionDetailMain.Position>()
+            CreateMap<getAccountPositionsDetailsResponse.Position, PositionDetailMain.Position>()
                 .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.contractMultiplier))
                 .ForMember(dest => dest.ContractSize, opt => opt.MapFrom(o => o.contractSize))
                 .ForMember(dest => dest.ContractType, opt => opt.MapFrom(o => o.contractType))
@@ -149,7 +149,7 @@ namespace LQTrader
                 .ForMember(dest => dest.PriceConversionFactor, opt => opt.MapFrom(o => o.priceConversionFactor))
                 .ForMember(dest => dest.SymbolReference, opt => opt.MapFrom(o => o.symbolReference));
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.PositionDetails, ModelViews.PositionDetailMain.PositionDetail>()
+            CreateMap<getAccountPositionsDetailsResponse.PositionDetails, PositionDetailMain.PositionDetail>()
                 .ForMember(dest => dest.BuyCurrentSize, opt => opt.MapFrom(o => o.buyCurrentSize))
                 .ForMember(dest => dest.BuyFilledPrice, opt => opt.MapFrom(o => o.buyFilledPrice))
                 .ForMember(dest => dest.BuyFilledSize, opt => opt.MapFrom(o => o.buyFilledSize))
@@ -166,7 +166,7 @@ namespace LQTrader
                 .ForMember(dest => dest.TotalInitialSize, opt => opt.MapFrom(o => o.totalInitialSize))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
-            CreateMap<LatamQuants.PrimaryAPI.Models.getAccountReportResponse.AccountData, ModelViews.AccountReport.MainInfo>()
+            CreateMap<getAccountReportResponse.AccountData, AccountReport.MainInfo>()
                 .ForMember(dest => dest.Account, opt => opt.MapFrom(o => o.accountName))
                 .ForMember(dest => dest.Cash, opt => opt.MapFrom(o => o.currentCash))
                 .ForMember(dest => dest.Collateral, opt => opt.MapFrom(o => o.collateral))
@@ -178,9 +178,9 @@ namespace LQTrader
                 .ForMember(dest => dest.MarketMember, opt => opt.MapFrom(o => o.marketMember))
                 .ForMember(dest => dest.MarketMemberIdentity, opt => opt.MapFrom(o => o.marketMemberIdentity))
                 .ForMember(dest => dest.Portfolio, opt => opt.MapFrom(o => o.portfolio))
-                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => String.IsNullOrEmpty(o.lastCalculation) ? "" : (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()));
+                .ForMember(dest => dest.LastCalculation, opt => opt.MapFrom(o => string.IsNullOrEmpty(o.lastCalculation) ? "" : new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(Convert.ToDouble(o.lastCalculation)).ToString()));
 
-            CreateMap<ModelViews.InstrumentDetail, LatamQuants.Entities.Instrument>()
+            CreateMap<InstrumentDetail, LatamQuants.Entities.Instrument>()
                 .ForMember(dest => dest.CFICode, opt => opt.MapFrom(o => o.CFICode))
                 .ForMember(dest => dest.ContractMultiplier, opt => opt.MapFrom(o => o.ContractMultiplier))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(o => o.Currency))
@@ -207,11 +207,11 @@ namespace LQTrader
                 .ForMember(dest => dest.SetupDate, opt => opt.Ignore())
                 .ForMember(dest => dest.LastUpdate, opt => opt.Ignore());
 
-            CreateMap<LatamQuants.Entities.Instrument, LatamQuants.PrimaryAPI.Models.InstrumentId>()
+            CreateMap<LatamQuants.Entities.Instrument, InstrumentId>()
                 .ForMember(dest => dest.marketId, opt => opt.MapFrom(o => o.MarketID))
                 .ForMember(dest => dest.symbol, opt => opt.MapFrom(o => o.Symbol));
 
-            CreateMap<LatamQuants.Entities.Opportunity, ModelViews.ViewOpportunity>()
+            CreateMap<LatamQuants.Entities.Opportunity, ViewOpportunity>()
                 .ForMember(dest => dest.AmountMax, opt => opt.MapFrom(o => o.AmountMax))
                 .ForMember(dest => dest.AmountMin, opt => opt.MapFrom(o => o.AmountMin))
                 .ForMember(dest => dest.BuyPrice1, opt => opt.MapFrom(o => o.BuyPrice1))
@@ -222,7 +222,7 @@ namespace LQTrader
                 .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.DateTime.ToString(@"HH\:mm\:ss\:fff")))
                 .ForMember(dest => dest.MarketID, opt => opt.MapFrom(o => o.MarketID))
                 .ForMember(dest => dest.OpportunityID, opt => opt.MapFrom(o => o.OpportunityID))
-                .ForMember(dest => dest.ProfitRate, opt => opt.MapFrom(o => Math.Round(o.ProfitRate,2)))
+                .ForMember(dest => dest.ProfitRate, opt => opt.MapFrom(o => Math.Round(o.ProfitRate, 2)))
                 .ForMember(dest => dest.SellPrice2, opt => opt.MapFrom(o => o.SellPrice2))
                 .ForMember(dest => dest.Size1, opt => opt.MapFrom(o => o.Size1))
                 .ForMember(dest => dest.Size2, opt => opt.MapFrom(o => o.Size2))
@@ -232,7 +232,7 @@ namespace LQTrader
                 .ForMember(dest => dest.Timestamp1, opt => opt.MapFrom(o => o.Timestamp1))
                 .ForMember(dest => dest.Timestamp2, opt => opt.MapFrom(o => o.Timestamp2));
 
-            CreateMap<LatamQuants.Entities.AcceptedOpportunity, ModelViews.ViewAcceptedOpportunity>()
+            CreateMap<LatamQuants.Entities.AcceptedOpportunity, ViewAcceptedOpportunity>()
                 .ForMember(dest => dest.AcceptedDateTime, opt => opt.MapFrom(o => o.AcceptedDateTime.ToString(@"HH\:mm\:ss\:fff")))
                 .ForMember(dest => dest.AcceptedOpportunityID, opt => opt.MapFrom(o => o.AcceptedOpportunityID))
                 .ForMember(dest => dest.AutoTrade, opt => opt.MapFrom(o => o.AutoTrade))

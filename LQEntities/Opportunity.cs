@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace LatamQuants.Entities
 {
@@ -43,7 +44,7 @@ namespace LatamQuants.Entities
             using (var db = new DBContext())
             {
                 db.Opportunities.Attach(this);
-                db.Entry(this).State = System.Data.Entity.EntityState.Added;
+                db.Entry(this).State = EntityState.Added;
                 db.SaveChanges();
             }
         }
