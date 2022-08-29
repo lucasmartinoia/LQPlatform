@@ -73,8 +73,7 @@ namespace LQTrader
         private static ServiceCollection configureServices()
         {
             var services = new ServiceCollection();
-            services.AddSingleton<AppSettings>();
-            services.AddScoped<DBContext>();
+            //TODO: Implement LQPrimaryAPI future repository interfaces for Dependency Injection.
             services.AddScoped<TraderView>();
             return services;
         }

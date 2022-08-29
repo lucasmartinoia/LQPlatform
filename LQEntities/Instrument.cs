@@ -99,13 +99,9 @@ namespace LatamQuants.Entities
                         oDbInstrument.LastUpdate = DateTime.Now;
                         oDbInstrument.MaturityDate = pInstrument.MaturityDate;
                     }
-                    else if(pInstrument.MaturityDate != null && pInstrument.MaturityDate < DateTime.Now.Date)
-                    {
-                        // Instrument with invalid Maturity Date.
-                    }
                     else
-                    { 
-                        // Instrument to analyze
+                    {
+                        // Instrument with invalid Maturity Date is discarded.
                     }
                 }
 

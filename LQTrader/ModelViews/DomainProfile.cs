@@ -114,7 +114,6 @@ namespace LQTrader.ModelViews
 
             CreateMap<Trade, MarketDataHistoric>()
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(o => o.symbol))
-                //.ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => (new System.DateTime(1970, 1, 1, 0, 0, 0, 0)).AddMilliseconds(Convert.ToDouble(o.servertime))))
                 .ForMember(dest => dest.DateTime, opt => opt.MapFrom(o => o.datetime))
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(o => o.size));
 

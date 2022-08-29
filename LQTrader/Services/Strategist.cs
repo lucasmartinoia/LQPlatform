@@ -239,10 +239,6 @@ namespace LQTrader.Services
                         Task t1 = new Task(() => this.UpdateMatrix(oNewMarketData));
                         t1.Start();
 
-                        // Save md in db
-                        Task t3 = new Task(() => this.SaveMarketData(oNewMarketData));
-                        t3.Start();
-
                         // Check for opportunities
                         Task t2 = new Task(() => this.CheckOpportunities(oNewMarketData));
                         t2.Start();
@@ -358,7 +354,7 @@ namespace LQTrader.Services
                         {
                             for (int t = i + 1; t < colMDs.Count; t++)
                             {
-                                dProfit = StrategyArbEquitiesProfit(colMDs[i], colMDs[t],out dRefPrice);
+                                dProfit = calculateProfitRateForArbitrage(colMDs[i], colMDs[t],out dRefPrice);
 
                                 if (dProfit > 0)
                                 {
@@ -471,15 +467,7 @@ namespace LQTrader.Services
             }
         }
 
-        /// <summary>
-        /// Calculate profit rate for L1 offer size considerating liquidity or the same but for a specific Size, in this case returns the dRefPrice.
-        /// </summary>
-        /// <param name="pMD1">Symbol 1 Market Price</param>
-        /// <param name="pMD2">Symbol 2 Market Price</param>
-        /// <param name="dRefPrice">Reference price when pSize>0</param>
-        /// <param name="pSize">Estimate liquidity for this size</param>
-        /// <returns>Profit rate</returns>
-        public double StrategyArbEquitiesProfit(LatamQuants.PrimaryAPI.Models.MarketData pMD1, LatamQuants.PrimaryAPI.Models.MarketData pMD2, out double dRefPrice, double pSize = 0)
+        public double calculateProfitRateForArbitrage(LatamQuants.PrimaryAPI.Models.MarketData symbol1MarketPrice, LatamQuants.PrimaryAPI.Models.MarketData symbol2MarketPrice, out double referencePrice, double size = 0)
         {
             double dReturn = 0;
             double dCom1 = 0.005;
@@ -492,35 +480,35 @@ namespace LQTrader.Services
             double dProfitRate1 = 0;
             double dProfitRate2 = 0;
 
-            dRefPrice = 0;
+            referencePrice = 0;
 
             // Get prices
-            if (pMD1.Data.Offers != null && pMD1.Data.Offers.Count() > 0)
+            if (symbol1MarketPrice.Data.Offers != null && symbol1MarketPrice.Data.Offers.Count() > 0)
             {
-                dPrice1 = pMD1.Data.Offers.First().price; // Buy price
+                dPrice1 = symbol1MarketPrice.Data.Offers.First().price; // Buy price
             }
 
-            if (dPrice1 > 0 && pMD2.Data.Bids != null && pMD2.Data.Bids.Count() > 1) 
+            if (dPrice1 > 0 && symbol2MarketPrice.Data.Bids != null && symbol2MarketPrice.Data.Bids.Count() > 1) 
             {
-                dPrice2 = pMD2.Data.Bids.First().price; // Sell price
+                dPrice2 = symbol2MarketPrice.Data.Bids.First().price; // Sell price
 
-                if (pSize == 0)
+                if (size == 0)
                 {
-                    dSize2 = pMD2.Data.Bids.ToArray()[0].size;
+                    dSize2 = symbol2MarketPrice.Data.Bids.ToArray()[0].size;
                     dSize2Remain = 0;
                 }
                 else
                 {
-                    dSize2 = pSize;
-                    dSize2Remain = pMD2.Data.Bids.ToArray()[0].size - dSize2;
+                    dSize2 = size;
+                    dSize2Remain = symbol2MarketPrice.Data.Bids.ToArray()[0].size - dSize2;
                 }
 
                 // Get remain size.
                 int i = 1;
 
-                while (i < pMD2.Data.Bids.Count() && dSize2Remain < dSize2) 
+                while (i < symbol2MarketPrice.Data.Bids.Count() && dSize2Remain < dSize2) 
                 {
-                    dSize2Remain = dSize2Remain + pMD2.Data.Bids.ToArray()[i].size;
+                    dSize2Remain = dSize2Remain + symbol2MarketPrice.Data.Bids.ToArray()[i].size;
                     i++;
                 } 
 
@@ -529,10 +517,10 @@ namespace LQTrader.Services
                 {
                     dPrice2 = 0;
                 }
-                else if(pSize>0)
+                else if(size>0)
                 {
                     // There is liquidity but what is the price?
-                    dPrice2Second = pMD2.Data.Bids.ToArray()[i - 1].price;
+                    dPrice2Second = symbol2MarketPrice.Data.Bids.ToArray()[i - 1].price;
                 }
             }
 
@@ -541,14 +529,14 @@ namespace LQTrader.Services
                 // Apply function
                 dProfitRate1 = (dPrice2 - dPrice1) - (dCom1 * dPrice2 + dCom2 * dPrice1);
 
-                if(pSize>0)
+                if(size>0)
                 {
                     // Then consider if second profit rate is > 0.
                     dProfitRate2 = (dPrice2Second - dPrice1) - (dCom1 * dPrice2Second + dCom2 * dPrice1);
 
                     if(dProfitRate2>0)
                     {
-                        dRefPrice = dPrice2Second;
+                        referencePrice = dPrice2Second;
                     }
                 }
 
@@ -595,85 +583,6 @@ namespace LQTrader.Services
             }
 
             return colReturn;
-        }
-
-        private void SaveMarketData(LatamQuants.PrimaryAPI.Models.MarketData pMarketData)
-        {
-            try
-            {
-                if (pMarketData != null && pMarketData.Data != null)
-                {
-                    string sOfferPrice = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().price.ToString() : "0");
-                    string sOfferSize = (pMarketData.Data.Offers?.Count() > 0 ? pMarketData.Data.Offers.First().size.ToString() : "0");
-                    string sBidPrice = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().price.ToString() : "0");
-                    string sBidSize = (pMarketData.Data.Bids?.Count() > 0 ? pMarketData.Data.Bids.First().size.ToString() : "0");
-
-                    // Update MD
-                    string sql1 = "INSERT INTO[dbo].[MarketDatas] " +
-                              "([Timestamp]" +
-                              ",[MarketID]" +
-                              ",[Symbol]" +
-                              ",[OfferPrice]" +
-                              ",[OfferSize]" +
-                              ",[BidPrice]" +
-                              ",[BidSize]" +
-                              ",[NominalVolume]" +
-                              ",[TradeVolume]" +
-                              ",[IndexValue]" +
-                              ",[OpenInterestSize]" +
-                              ",[OpenInterestDate]" +
-                              ",[TradeEffectiveVolume]" +
-                              ",[DateTime]) " +
-                        "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" + pMarketData.Instrument.symbol + "'" +
-                              "," + sOfferPrice +
-                              "," + sOfferSize +
-                              "," + sBidPrice +
-                              "," + sBidSize +
-                              "," + (pMarketData.Data.NominalVolume == null ? "0" : pMarketData.Data.NominalVolume.ToString()) +
-                              "," + (pMarketData.Data.Volume == null ? "0" : pMarketData.Data.Volume.ToString()) +
-                              "," + (pMarketData.Data.IndexValue == null ? "0" : pMarketData.Data.IndexValue.ToString()) +
-                              "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.size.ToString()) +
-                              "," + (pMarketData.Data.OpenInterest == null ? "0" : pMarketData.Data.OpenInterest.datetime ?? "0") +
-                              "," + (pMarketData.Data.EffectiveVolume == null ? "0" : pMarketData.Data.EffectiveVolume.ToString()) +
-                              ", GETDATE());";
-
-                    // Update Depths
-                    if (pMarketData.Data.Bids != null && pMarketData.Data.Bids.Count() > 1)
-                    {
-                        foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Bids)
-                        {
-                            sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
-                                            "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
-                                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
-                                               pMarketData.Instrument.symbol + "',1," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
-                        }
-                    }
-
-                    if (pMarketData.Data.Offers != null && pMarketData.Data.Offers.Count() > 1)
-                    {
-                        foreach (LatamQuants.PrimaryAPI.Models.Trade oTrade in pMarketData.Data.Offers)
-                        {
-                            sql1 += " INSERT INTO [dbo].[MarketDataDepths] " +
-                                            "([Timestamp],[MarketID],[Symbol],[Bid],[Price],[Volume]) " +
-                                         "VALUES (" + pMarketData.Timestamp + ",'" + pMarketData.Instrument.marketId + "','" +
-                                               pMarketData.Instrument.symbol + "',0," + (oTrade.price.ToString() ?? "0") + "," + (oTrade.size.ToString() ?? "0") + "); ";
-                        }
-                    }
-
-                    // Impact database.
-                    string sql = "BEGIN TRANSACTION " + sql1 + " COMMIT TRANSACTION;";
-
-                    using (var ctx = new DBContext())
-                    {
-                        int iResult = ctx.Database.ExecuteSqlCommand(sql);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string sError = "LQTrader.Services.Strategist.SaveMarketData()" + System.Environment.NewLine + ex.Message + System.Environment.NewLine + ex.StackTrace;
-                LoggingService.Save(EnumLogType.Error, sError);
-            }
         }
     }
 }

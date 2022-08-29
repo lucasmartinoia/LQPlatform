@@ -16,9 +16,9 @@ namespace PrimaryAPI.Tests
         [OneTimeSetUp]
         public async Task Login()
         {
-            string Username = "77590";
-            string Password = "Lucas20+";
-            string Account = "77590";
+            string Username = "<user name>";
+            string Password = "<password>";
+            string Account = "<account no>";
 
             RestAPI.Login(Username, Password, Account,0);
         }

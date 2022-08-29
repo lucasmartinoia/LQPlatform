@@ -90,7 +90,6 @@ namespace LQTrader.ModelViews
             oReturn.PositionDetailDailyDifferences = new List<PositionDetailDailyDifference>();
             Position ovPosition = null;
             PositionDetail ovPositionDetail = null;
-            PositionDetailDailyDifference ovPositionDetailDD = null;
             int iCounter = 1;
 
             foreach(LatamQuants.PrimaryAPI.Models.getAccountPositionsDetailsResponse.Position oPosition in oPositionDetails.colPositions)

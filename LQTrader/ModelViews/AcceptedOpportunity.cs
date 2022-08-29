@@ -437,7 +437,7 @@ namespace LQTrader.ModelViews
                         // Check reference price for the quantity.
                         LatamQuants.PrimaryAPI.Models.MarketData oMD1 = Services.Strategist.MarketDataMatrix[this.Opportunity.MarketID + "|" + this.Opportunity.Symbol1];
                         LatamQuants.PrimaryAPI.Models.MarketData oMD2 = Services.Strategist.MarketDataMatrix[this.Opportunity.MarketID + "|" + this.Opportunity.Symbol2];
-                        dProfitRate = Services.Strategist.Instance.StrategyArbEquitiesProfit(oMD1, oMD2, out dRefPrice, dQuantity);
+                        dProfitRate = Services.Strategist.Instance.calculateProfitRateForArbitrage(oMD1, oMD2, out dRefPrice, dQuantity);
 
                         // If reference price is set => this price could reduce risk of not found enough liquidity for first sell price, 
                         // else use the original price and cross the fingers.
